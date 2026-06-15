@@ -21,14 +21,6 @@ export default function TimelinePage() {
 // 时间线数据
 const timelineData = [
   {
-      title: t.timeline.events.qwenJoin.title,
-      description: t.timeline.events.qwenJoin.description,
-    date: '2026年6月',
-    type: 'work' as const,
-    organization: 'Alibaba Group · Qwen Foundation Model Team',
-    tags: ['Qwen', 'Foundation Model', 'Agent'],
-  },
-  {
       title: t.timeline.events.cvprFirstAuthor.title,
       description: t.timeline.events.cvprFirstAuthor.description,
     date: '2026年2月18日',

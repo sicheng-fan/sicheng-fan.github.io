@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import { Briefcase, GraduationCap, Code, Award, Star, Filter } from 'lucide-react'
 import { useLanguage } from '@/lib/i18n'
-import { AffiliationLogo } from '@/components/academic/AffiliationLogo'
 
 type EventType = 'work' | 'education' | 'project' | 'achievement' | 'milestone'
 
@@ -16,9 +15,6 @@ interface TimelineEvent {
   location?: string
   tags: string[]
   link?: string
-  logoSrc?: string
-  logoAlt?: string
-  logoClassName?: string
 }
 
 const typeConfig: Record<EventType, { icon: typeof Briefcase; color: string; bg: string }> = {
@@ -30,20 +26,6 @@ const typeConfig: Record<EventType, { icon: typeof Briefcase; color: string; bg:
 }
 
 const timelineEvents: TimelineEvent[] = [
-  {
-    title: { zh: '加入阿里巴巴 Qwen 基础大模型组', en: 'Joined Alibaba Qwen Foundation Model Team' },
-    description: {
-      zh: '于 2026 年 6 月加入阿里巴巴 Qwen 基础大模型组，开展基础大模型与智能体方向研究。',
-      en: 'Joined the Qwen Foundation Model Team at Alibaba Group in June 2026, focusing on foundation models and agent research.',
-    },
-    date: { zh: '2026年6月', en: 'Jun 2026' },
-    type: 'work',
-    organization: '阿里巴巴 · Qwen 基础大模型组 / Alibaba Group · Qwen Foundation Model Team',
-    tags: ['Qwen', 'Foundation Model', 'Agent', 'Research'],
-    logoSrc: '/logos/qwen.png',
-    logoAlt: 'Qwen',
-    logoClassName: 'h-10 w-24 rounded-xl',
-  },
   {
     title: { zh: 'CVPR 2026 一作论文发表（WebChain）', en: 'CVPR 2026 First-Author Paper (WebChain)' },
     description: {
@@ -105,8 +87,6 @@ const timelineEvents: TimelineEvent[] = [
     organization: '复旦大学 / Fudan University',
     location: '上海 / Shanghai',
     tags: ['Master\'s', 'GUI Agent', 'RL'],
-    logoSrc: '/logos/fudan.png',
-    logoAlt: 'Fudan University',
   },
   {
     title: { zh: '复旦大学本科毕业', en: "Bachelor's Graduation from Fudan University" },
@@ -115,8 +95,6 @@ const timelineEvents: TimelineEvent[] = [
     type: 'education',
     organization: '复旦大学 / Fudan University',
     tags: ['B.S.', 'Graduation'],
-    logoSrc: '/logos/fudan.png',
-    logoAlt: 'Fudan University',
   },
   {
     title: { zh: '开始多智能体强化学习研究', en: 'Started Multi-Agent RL Research' },
@@ -147,8 +125,6 @@ const timelineEvents: TimelineEvent[] = [
     organization: '复旦大学 / Fudan University',
     location: '上海 / Shanghai',
     tags: ['Undergraduate', 'CS'],
-    logoSrc: '/logos/fudan.png',
-    logoAlt: 'Fudan University',
   },
 ]
 
@@ -231,21 +207,11 @@ export function AcademicTimelineClient() {
                     </div>
 
                     {(event.organization || event.location) && (
-                      <div className="mb-1 flex items-center gap-2">
-                        {event.logoSrc && (
-                          <AffiliationLogo
-                            src={event.logoSrc}
-                            alt={event.logoAlt || event.organization || 'logo'}
-                            containerClassName={event.logoClassName}
-                            sizes="96px"
-                          />
-                        )}
-                        <p className="text-sm text-slate-500">
-                          {event.organization}
-                          {event.organization && event.location && ' · '}
-                          {event.location}
-                        </p>
-                      </div>
+                      <p className="text-sm text-slate-500 mb-1">
+                        {event.organization}
+                        {event.organization && event.location && ' · '}
+                        {event.location}
+                      </p>
                     )}
 
                     {event.description[language] && (

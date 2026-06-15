@@ -7,7 +7,6 @@ import { Github, Twitter, Linkedin, Mail, ExternalLink, Copy, Check, ChevronDown
 import { useLanguage } from '@/lib/i18n'
 import { publications, generateBibtex } from '@/data/publications'
 import type { PostMeta } from '@/lib/mdx'
-import { AffiliationLogo } from '@/components/academic/AffiliationLogo'
 
 interface AcademicHomeClientProps {
   zhPosts: PostMeta[]
@@ -138,13 +137,12 @@ export function AcademicHomeClient({ zhPosts, enPosts }: AcademicHomeClientProps
   const recentPosts = (language === 'zh' ? zhPosts : enPosts).slice(0, 3)
 
   const bio = {
-    zh: '复旦大学硕士在读，研究方向为 GUI Agent 与强化学习。同时担任 WebAgentLab 社区技术负责人，并于 2026 年 6 月加入阿里巴巴 Qwen 基础大模型组，担任实习研究员。致力于构建能够自主操作图形界面的智能体系统，研究成果发表于 CVPR、ICLR 等顶级会议。',
-    en: "Master's student at Fudan University, researching GUI Agents and Reinforcement Learning. Serving as Technical Lead at WebAgentLab and joining the Qwen Foundation Model Team at Alibaba Group in June 2026 as a research intern. My work focuses on building autonomous agents that can operate graphical interfaces. Publications at CVPR and ICLR.",
+    zh: '复旦大学硕士在读，研究方向为 GUI Agent 与强化学习。同时担任 WebAgentLab 社区技术负责人，iMeanAI 研究员。致力于构建能够自主操作图形界面的智能体系统，研究成果发表于 CVPR、ICLR 等顶级会议。',
+    en: "Master's student at Fudan University, researching GUI Agents and Reinforcement Learning. Serving as Technical Lead at WebAgentLab and researcher at iMeanAI. My work focuses on building autonomous agents that can operate graphical interfaces. Publications at CVPR and ICLR.",
   }
 
   const news = {
     zh: [
-      { date: '2026年6月', content: '加入阿里巴巴 Qwen 基础大模型组，担任实习研究员' },
       { date: '2026年2月', content: '论文《WebChain》被 CVPR 2026 接收（一作）' },
       { date: '2026年1月', content: '论文《WebFactory》被 ICLR 2026 接收（一作）' },
       { date: '2025年12月', content: '搭建个人学术主页' },
@@ -152,25 +150,11 @@ export function AcademicHomeClient({ zhPosts, enPosts }: AcademicHomeClientProps
       { date: '2024年9月', content: '入读复旦大学硕士' },
     ],
     en: [
-      { date: 'Jun 2026', content: 'Joined the Qwen Foundation Model Team at Alibaba Group as a research intern' },
       { date: 'Feb 2026', content: 'Paper "WebChain" accepted at CVPR 2026 (first author)' },
       { date: 'Jan 2026', content: 'Paper "WebFactory" accepted at ICLR 2026 (first author)' },
       { date: 'Dec 2025', content: 'Launched personal academic website' },
       { date: '2025', content: 'Became Technical Lead at WebAgentLab community' },
       { date: 'Sep 2024', content: "Enrolled in Master's program at Fudan University" },
-    ],
-  }
-
-  const organizations = {
-    zh: [
-      { name: '复旦大学', detail: '当前硕士阶段', logoSrc: '/logos/fudan.png', logoAlt: '复旦大学' },
-      { name: 'Qwen 基础大模型组', detail: '阿里巴巴 · 2026年6月加入', logoSrc: '/logos/qwen.png', logoAlt: 'Qwen', logoClassName: 'h-10 w-24 rounded-xl' },
-      { name: '美团 LongCat', detail: '产业模型生态', logoSrc: '/logos/longcat.svg', logoAlt: 'LongCat', logoClassName: 'h-10 w-24 rounded-xl' },
-    ],
-    en: [
-      { name: 'Fudan University', detail: "Current master's program", logoSrc: '/logos/fudan.png', logoAlt: 'Fudan University' },
-      { name: 'Qwen Foundation Model Team', detail: 'Alibaba Group · Joined Jun 2026', logoSrc: '/logos/qwen.png', logoAlt: 'Qwen', logoClassName: 'h-10 w-24 rounded-xl' },
-      { name: 'Meituan LongCat', detail: 'Industry model ecosystem', logoSrc: '/logos/longcat.svg', logoAlt: 'LongCat', logoClassName: 'h-10 w-24 rounded-xl' },
     ],
   }
 
@@ -190,7 +174,7 @@ export function AcademicHomeClient({ zhPosts, enPosts }: AcademicHomeClientProps
             <div className="flex-shrink-0">
               <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden border-2 border-slate-200 flex-shrink-0">
                 <Image
-                  src="/avatar.png"
+                  src="/avatar.jpg"
                   alt="Fan Sicheng"
                   width={128}
                   height={128}
@@ -210,8 +194,8 @@ export function AcademicHomeClient({ zhPosts, enPosts }: AcademicHomeClientProps
               </p>
               <p className="text-slate-500 text-sm mb-4">
                 {language === 'zh'
-                  ? 'WebAgentLab 技术负责人 · Qwen 基础大模型组实习研究员'
-                  : 'Technical Lead @ WebAgentLab · Research Intern @ Qwen'}
+                  ? 'WebAgentLab 技术负责人 · iMeanAI 研究员'
+                  : 'Technical Lead @ WebAgentLab · Researcher @ iMeanAI'}
               </p>
               <p className="text-slate-700 leading-relaxed mb-5 max-w-2xl text-sm sm:text-base">
                 {bio[language]}
@@ -249,9 +233,12 @@ export function AcademicHomeClient({ zhPosts, enPosts }: AcademicHomeClientProps
 
             {/* Publications */}
             <section>
-              <h2 className="text-xl font-semibold text-slate-900 mb-5 pb-2 border-b border-slate-200">
+              <h2 className="text-xl font-semibold text-slate-900 mb-1 pb-2 border-b border-slate-200">
                 {language === 'zh' ? '发表论文' : 'Publications'}
               </h2>
+              <p className="text-sm text-slate-500 mb-5">
+                {language === 'zh' ? '* 表示同等贡献' : '* indicates equal contribution'}
+              </p>
               <div className="space-y-4">
                 {publications.map((pub) => (
                   <PublicationCard key={pub.id} pub={pub} language={language} />
@@ -317,28 +304,6 @@ export function AcademicHomeClient({ zhPosts, enPosts }: AcademicHomeClientProps
                     className="px-2.5 py-1 bg-blue-50 text-blue-700 rounded text-sm border border-blue-100">
                     {interest}
                   </span>
-                ))}
-              </div>
-            </section>
-
-            <section>
-              <h2 className="text-lg font-semibold text-slate-900 mb-4 pb-2 border-b border-slate-200">
-                {language === 'zh' ? '相关机构' : 'Organizations'}
-              </h2>
-              <div className="space-y-3">
-                {organizations[language].map((org) => (
-                  <div key={org.name} className="flex items-center gap-3 rounded-xl border border-slate-200 px-3 py-2.5">
-                    <AffiliationLogo
-                      src={org.logoSrc}
-                      alt={org.logoAlt}
-                      containerClassName={org.logoClassName}
-                      sizes="96px"
-                    />
-                    <div className="min-w-0">
-                      <p className="text-sm font-medium text-slate-900">{org.name}</p>
-                      <p className="text-xs text-slate-500">{org.detail}</p>
-                    </div>
-                  </div>
                 ))}
               </div>
             </section>

@@ -81,7 +81,7 @@ const translations = {
     about: {
       title: 'ABOUT ME',
       subtitle: '了解更多关于我的信息、技能和背景。',
-      bio: `你好！我是一名热爱技术的AI Engineer，专注于GUI Agent以及强化学习相关领域，目前复旦大学硕士在读，同时担任 WebAgentLab 社区技术负责人，并于 2026 年 6 月加入阿里巴巴 Qwen 基础大模型组。
+      bio: `你好！我是一名热爱技术的AI Engineer，专注于GUI Agent以及强化学习相关领域，目前复旦大学硕士在读，同时担任WebAgentLab社区的技术负责人。
 
 我相信技术的力量可以改变世界，而开源是推动这一变革的重要方式。我积极参与开源社区，分享知识和经验，与全球开发者一起成长。
 
@@ -147,10 +147,6 @@ const translations = {
         description: '这个时间线将持续更新。每一天都是新的开始，每一行代码都是新的故事。',
       },
       events: {
-        qwenJoin: {
-          title: '加入阿里巴巴 Qwen 基础大模型组',
-          description: '于 2026 年 6 月加入阿里巴巴 Qwen 基础大模型组，开展基础大模型与智能体方向研究。',
-        },
         iclrFirstAuthor: {
           title: 'ICLR 一作论文发表（WebFactory）',
           description: 'WebFactory 于 2026 年 1 月 5 日完成发表，聚焦自动化 GUI Agent 强化学习训练工厂。',
@@ -325,7 +321,7 @@ const translations = {
     about: {
       title: 'ABOUT ME',
       subtitle: 'Learn more about me, my skills, and background.',
-      bio: `Hello! I'm an AI Engineer passionate about technology, focusing on GUI Agents and Reinforcement Learning. I'm currently pursuing my Master's degree at Fudan University, serving as the technical lead of WebAgentLab, and joined the Qwen Foundation Model Team at Alibaba Group in June 2026.
+      bio: `Hello! I'm an AI Engineer passionate about technology, focusing on GUI Agents and Reinforcement Learning. I'm currently pursuing my Master's degree at Fudan University and serving as the technical lead of the WebAgentLab community.
 
 I believe in the power of technology to change the world, and open source is an important way to drive this change. I actively participate in open source communities, sharing knowledge and experience, growing together with developers worldwide.
 
@@ -391,10 +387,6 @@ In this blog, I'll share articles about technology and beyond, project experienc
         description: 'This timeline will keep updating. Every day is a new beginning, every line of code is a new story.',
       },
       events: {
-        qwenJoin: {
-          title: 'Joined Alibaba Qwen Foundation Model Team',
-          description: 'Joined the Qwen Foundation Model Team at Alibaba Group in June 2026, focusing on foundation model and agent research.',
-        },
         iclrFirstAuthor: {
           title: 'ICLR First-Author Paper Published (WebFactory)',
           description: 'WebFactory was published on January 5, 2026 as first-author work, focusing on automated RL training pipelines for GUI agents.',
