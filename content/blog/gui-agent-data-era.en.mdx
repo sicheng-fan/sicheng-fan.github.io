@@ -1,0 +1,52 @@
+---
+title: "The Inflection Point of GUI Agent: From Model Worship to the Era of Data and Systems"
+excerpt: "We will open source the largest real human trajectory dataset for web agents."
+date: "2025-12-14"
+tags: ["GUI Agent", "Data", "WebChain", "Reinforcement Learning", "Open Source"]
+featured: false
+author: "Fan Sicheng"
+---
+
+Over the past two years, GUI Agent (whether Web, Desktop, or Mobile) has experienced an astonishing rapid surge in both academia and industry. From GPT-4V, Qwen-VL to SeeAct, CogAgent, and the recent UI-TARS, model capabilities seem to be advancing by leaps and bounds, with impressive demos frequently going viral.
+
+However, when we strip away the filters and calmly look back from the perspectives of **reproducibility, scalability, and real-world applicability**, we find an embarrassing reality: although models are getting stronger, Agent usability in real complex environments hasn't improved proportionally. Behind this lies a structural problem that is becoming the "ceiling" of the entire field—**Data**.
+
+## I. From "Seeing" to "Doing Right": The Underestimated Gap
+
+The current technical route of GUI Agent is already very clear: obtaining interface information through visual perception (Vision), understanding structure with language models (Language) and DOM/AX Tree, and finally outputting atomic actions like clicks or inputs (Action). This Vision-Language-Action (VLA) paradigm has almost become consensus.
+
+But we must face a not-so-optimistic fact: **A VLM that can perfectly describe UI doesn't mean it can stably and reproducibly operate UI.**
+
+The real-world web environment is far worse than the ideal training data environment. High-density ads and popups, dynamic changes from A/B testing, and inconsistencies between visual position and DOM hierarchy directly lead to severe **spatial hallucination**. Models often "think" they clicked correctly, but at the pixel-level coordinates or actual behavioral feedback, they're wrong.
+
+More critically, the data sources are fragmented. Academia has long been oscillating between two extremes: on one end are **synthetic environments or sandbox websites** like MiniWoB++ and WebArena, which are controllable but lack diversity; on the other end is **semi-real offline data** like Mind2Web, which comes from real websites but is often static snapshots. And the truly scalable proprietary data from big companies is a black box that outsiders cannot touch.
+
+To date, we lack a public dataset that can simultaneously meet the three conditions of "real websites," "complete human trajectories," and "sufficient scale." This is not accidental, because **collecting real web interaction data is itself an extremely high-cost systems engineering problem.**
+
+## II. Why "Real Human Trajectories" Cannot Be Replaced by Synthetic Data?
+
+In recent years, many works have attempted to use Agents to automatically collect trajectories or expand data through reverse task synthesis. But this hits a "hard wall" in web scenarios: anti-crawler mechanisms, complex login verification, payment processes, and personalized permissions. **And these scenarios that are difficult to synthesize correspond precisely to the most valuable user tasks like e-commerce ordering and flight booking.** If training data always avoids these "hard nuts," Agents will never learn truly useful capabilities.
+
+Additionally, due to misunderstandings about "human trajectories," many equate them with simple Behavior Cloning. In fact, in GUI Agent training, human data provides far more than just operation steps—it provides three key **implicit priors**:
+
+1. **Attention prior**: In complex pages, humans know which areas are worth focusing on and which are just noise;
+2. **Structural prior**: Humans naturally know how to decompose a grand goal into logical sub-steps;
+3. **Error correction patterns**: When page responses aren't as expected, the fallback, retry, and adjustment strategies humans demonstrate are difficult for pure reward-driven reinforcement learning to explore from scratch.
+
+## III. WebChain: Not Just a Dataset, But Infrastructure
+
+It's against this backdrop that we decided to build and **fully open source WebChain**. This is not a byproduct of chasing SOTA, but an engineering decision with clear value orientation.
+
+WebChain's core is no longer about purely accumulating quantity, but pursuing **Triple Alignment**. We ensure that every piece of data is strictly aligned in **visual** (pixel-level screenshots), **structural** (HTML + Accessibility Tree), and **behavioral** (precise coordinates and Selectors) dimensions. This means models don't just "see the page," but understand why this cluster of pixels on the screen corresponds to this specific execution logic.
+
+We insisted on using the highest-cost, lowest-efficiency "all human annotation + real websites" approach. While this might not seem "sexy," it brings irreplaceable benefits: we cover large amounts of high-value logged-in tasks and guarantee the real executability of every Action step.
+
+When the data scale reaches 30,000 real trajectories and 300,000+ atomic interactions, for the first time in the GUI Agent field, we observed a Scaling Law phenomenon similar to language models—quantitative changes in data scale begin to cause qualitative changes in long-chain task success rates. This marks GUI Agent's transition from "a collection of Prompt Engineering tricks" to "a systematically optimizable learning problem."
+
+## IV. Why Must We Open Source?
+
+We are very clear that proprietary data is easier for benchmarking, and closed-source pipelines are easier for maintaining academic advantages. But if the GUI Agent direction continues to be built on non-reproducible, non-comparable data, it will only repeat the early chaos of NLP: conclusions cannot be verified, methods cannot be horizontally compared, and the community cannot form real consensus.
+
+We chose to open source WebChain in hopes of enabling all researchers to **discuss problems on the same real-world complexity baseline**. Whether it's system design, data engineering, or algorithm optimization, everything needs to be decomposed, reused, and compared—only then can we truly push GUI Agent from fragile demos to reliable systems.
+
+The road to truly general Agents should not be blocked on islands of closed-source data. To solve the infinite complexity of the real world, the only solution is to make large-scale real data become the public infrastructure of the community—breaking down walls, sharing reality, this is the greatest significance of the open source community's existence.

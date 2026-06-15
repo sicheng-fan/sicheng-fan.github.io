@@ -1,0 +1,142 @@
+---
+title: "Distributed Task Scheduler"
+description: "高可用分布式任务调度系统，支持定时任务、依赖管理和失败重试。"
+tags: ["Go", "Redis", "PostgreSQL", "gRPC", "Distributed"]
+github: "https://github.com/yourusername/task-scheduler"
+demo: ""
+stars: 567
+forks: 89
+status: "active"
+category: "Backend"
+---
+
+# Distributed Task Scheduler
+
+一个高性能、高可用的分布式任务调度系统，专为大规模任务处理场景设计。
+
+## 项目背景
+
+在微服务架构中，任务调度是一个常见需求。现有的解决方案要么过于复杂，要么缺乏高可用性。这个项目旨在提供一个简单易用但功能强大的调度系统。
+
+## 核心特性
+
+### 🚀 高性能
+- 每秒可调度 10,000+ 任务
+- 分布式架构，支持水平扩展
+- 基于 Go 实现，低资源消耗
+
+### 🔄 灵活调度
+- Cron 表达式支持
+- 一次性任务
+- 延迟任务
+- 周期性任务
+
+### 🛡️ 高可用
+- 主从切换
+- 任务持久化
+- 失败重试机制
+- 死信队列
+
+### 📊 可观测性
+- Prometheus 指标
+- 分布式追踪
+- 结构化日志
+- 健康检查
+
+## 技术架构
+
+```
+┌─────────────┐     ┌─────────────┐     ┌─────────────┐
+│   Client    │────▶│   Gateway   │────▶│  Scheduler  │
+└─────────────┘     └─────────────┘     └─────────────┘
+                                               │
+                    ┌─────────────┐             │
+                    │   Worker    │◀────────────┤
+                    │   Pool      │             │
+                    └─────────────┘             │
+                                               ▼
+                    ┌─────────────┐     ┌─────────────┐
+                    │  PostgreSQL │◀───▶│    Redis    │
+                    └─────────────┘     └─────────────┘
+```
+
+## 快速开始
+
+### 安装
+
+```bash
+go install github.com/yourusername/task-scheduler@latest
+```
+
+### 配置
+
+```yaml
+# config.yaml
+server:
+  port: 8080
+  workers: 10
+
+storage:
+  postgres:
+    host: localhost
+    port: 5432
+    database: scheduler
+  redis:
+    host: localhost
+    port: 6379
+```
+
+### 创建任务
+
+```go
+import "github.com/yourusername/task-scheduler/client"
+
+func main() {
+    c := client.New("localhost:8080")
+    
+    // 创建定时任务
+    task := &client.Task{
+        Name:    "daily-report",
+        Cron:    "0 9 * * *",
+        Handler: "reports/daily",
+        Payload: map[string]any{
+            "recipients": []string{"team@example.com"},
+        },
+    }
+    
+    err := c.CreateTask(task)
+}
+```
+
+## API 文档
+
+### REST API
+
+| 方法 | 路径 | 描述 |
+|------|------|------|
+| POST | /api/tasks | 创建任务 |
+| GET | /api/tasks | 获取任务列表 |
+| GET | /api/tasks/:id | 获取任务详情 |
+| DELETE | /api/tasks/:id | 删除任务 |
+| POST | /api/tasks/:id/trigger | 手动触发任务 |
+
+### gRPC
+
+详见 `proto/scheduler.proto`
+
+## 性能测试
+
+在 4 核 8G 机器上的测试结果：
+
+- 任务创建: 15,000 ops/s
+- 任务调度: 12,000 ops/s
+- 任务执行: 取决于 worker 数量
+
+## 贡献指南
+
+欢迎提交 PR 和 Issue！请阅读 [CONTRIBUTING.md](./CONTRIBUTING.md) 了解详情。
+
+## License
+
+MIT License
+

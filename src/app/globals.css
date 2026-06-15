@@ -1,0 +1,118 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+  }
+
+  ::selection {
+    background-color: rgba(0, 255, 159, 0.2);
+    color: #00ff9f;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #0a0a0a;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(0, 255, 159, 0.3);
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 255, 159, 0.5);
+  }
+}
+
+@layer components {
+  .cyber-card {
+    @apply rounded-2xl border border-cyber-green/20 bg-cyber-dark/70 p-6 shadow-terminal backdrop-blur-sm transition-all duration-300;
+  }
+
+  .cyber-card:hover {
+    @apply border-cyber-green/40;
+  }
+
+  .cyber-button {
+    @apply inline-flex items-center gap-2 rounded-xl border border-cyber-green/50 bg-cyber-green/10 px-6 py-3 font-mono text-sm text-cyber-green transition-all duration-300;
+  }
+
+  .cyber-button:hover {
+    @apply border-cyber-green bg-cyber-green/15;
+  }
+
+  .cyber-tag {
+    @apply inline-flex items-center rounded-full border border-cyber-cyan/20 bg-cyber-cyan/10 px-3 py-1 font-mono text-xs text-cyber-cyan;
+  }
+
+  .cyber-input {
+    @apply w-full rounded-xl border border-cyber-green/20 bg-cyber-dark/70 px-4 py-3 text-cyber-white placeholder:text-cyber-gray focus:border-cyber-green focus:outline-none focus:ring-2 focus:ring-cyber-green/10;
+  }
+
+  .terminal-window {
+    @apply overflow-hidden rounded-2xl border border-cyber-green/25 bg-cyber-darker/90 shadow-terminal;
+  }
+
+  .terminal-header {
+    @apply flex items-center gap-2 border-b border-cyber-green/15 bg-cyber-dark px-4 py-3;
+  }
+
+  .terminal-dot {
+    @apply h-3 w-3 rounded-full;
+  }
+
+  .terminal-dot.red {
+    background: #ff5f56;
+  }
+
+  .terminal-dot.yellow {
+    background: #ffbd2e;
+  }
+
+  .terminal-dot.green {
+    background: #27c93f;
+  }
+}
+
+@layer utilities {
+  .grid-bg {
+    background-image:
+      linear-gradient(rgba(0, 255, 159, 0.05) 1px, transparent 0),
+      linear-gradient(90deg, rgba(0, 255, 159, 0.05) 1px, transparent 0);
+    background-size: 42px 42px;
+  }
+
+  .circuit-bg {
+    background-image:
+      radial-gradient(circle at 20% 20%, rgba(0, 212, 255, 0.08), transparent 30%),
+      radial-gradient(circle at 80% 0%, rgba(0, 255, 159, 0.06), transparent 25%);
+  }
+
+  .scanlines {
+    background-image: linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.05) 50%,
+      transparent 100%
+    );
+    background-size: 100% 4px;
+  }
+
+  .neon-glow-subtle {
+    text-shadow: 0 0 12px rgba(0, 255, 159, 0.25);
+  }
+
+  .glitch-text {
+    position: relative;
+  }
+}

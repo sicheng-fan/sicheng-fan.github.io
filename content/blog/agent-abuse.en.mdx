@@ -1,0 +1,69 @@
+---
+title: "Semantic Inflation: 2025 May Not Be the Year of Agent, But the Year of 'Agent' Abuse"
+excerpt: "We need to strip away the semantic bubble of capital markets and return to the original proposition defined by reinforcement learning: how to achieve true Markov Decision Processes in uncertain environments."
+date: "2025-10-11"
+tags: ["AI Agent", "Reinforcement Learning", "Industry Observation"]
+featured: false
+author: "Fan Sicheng"
+---
+Open any tech media headline or VC report in 2025, and you'll see "Year of Agent" everywhere. It seems that overnight, all SaaS software and chatbots have transformed themselves, labeled with "Agentic AI."
+
+I remember back in 2023, as a newcomer researching Multi-Agent Reinforcement Learning, the word "Agent" only existed in specific academic contexts: it referred to an entity that obtains rewards through actions in an environment and updates its policy.
+
+Today, this term has been diluted to the point of carrying almost no information. As some recent papers warn: **The generalization of "Agent" is leading to the loss of its utility.**
+
+**2025 may not be the year of Agent technology, but the year when the concept of "Agent" has been thoroughly commodified, marketed, and even abused.**
+
+## I. From MDP to API: The Dimensional Reduction of Definition
+
+In the classical reinforcement learning definition, the core of an Agent lies in its ability to handle **Markov Decision Processes**. It must perceive state $S_t$, make decision $A_t$, receive feedback $R_t$, and transition to $S_{t+1}$. The key to this closed loop is **environmental uncertainty** and **decision autonomy**.
+
+However, what are 90% of products currently called "Agent" essentially?
+* They are **Prompt Engineering + Tool Use**.
+* They are **LLM-driven While loops**.
+* Or even **workflow automation with a new skin**.
+
+If a program just calls APIs in a preset DAG (Directed Acyclic Graph) order, with LLM only doing parameter extraction in between, it shouldn't be called an Agent—it's just a **more expensive script**. This practice of forcibly elevating "Automation" to "Autonomy" is the root of current semantic inflation.
+
+## II. The Spectrum of Autonomy: Copilot Is Not Agent
+
+To clarify the current situation, we need to establish a strict **Agency Spectrum**. Discussions on StackExchange and Reddit are valuable, and we can distill them into three levels:
+
+### Level 1: Enhanced Tools (The "Copilot" Trap)
+This is the current status of most products. The system requires humans to initiate commands and even needs human supervision throughout. It has no "world model" and maintains no long-term state. It only executes, not "being responsible." **This is called a Tool, not an Agent.**
+
+### Level 2: Chain Automation (The "Chain" Illusion)
+This is the early form of frameworks like LangChain. Although there appear to be multiple steps, the paths are often hardcoded or highly linear. It cannot cope with dynamic environmental changes—for example, when webpage structure changes, or an API returns an unexpected error code, the entire chain collapses. **This is called a Script, not an Agent.**
+
+### Level 3: True Autonomous Agent
+This is the Holy Grail we pursue. It has:
+1. Dynamic perception-reasoning-execution loop: Not blind execution, but constantly adjusting strategy based on environmental feedback (ReAct/Reflexion).
+2. Long-term memory and state management: Its decisions are based on cross-session history and continuous tracking of world state.
+3. Goal-oriented generalization ability: Given a vague goal (like "help me plan a trip"), it can decompose it into specific action sequences and handle unexpected situations during execution.
+
+## III. Why Is "Agent Washing" Happening?
+
+Gartner's report points out that **over 40% of so-called Agentic AI projects will fail by 2027**. Why does the industry continue to hype this concept despite knowing the technology is not yet mature?
+
+Behind this is the **dual resonance of capital anxiety and model bottlenecks**:
+1. Diminishing marginal returns of Scaling Law: The pure parameter race of large models has exhausted investors, and they urgently need a new story to explain how AI lands and monetizes. The "productivity replacement" represented by Agent is currently the most perfect story template.
+2. Stock game of SaaS: If traditional software vendors don't claim to be Agent, they appear outdated. So, all RPA (Robotic Process Automation) vendors overnight renamed themselves as Agent vendors.
+
+This "greenwashing" behavior not only misleads the market but also harms genuine Agent research. It raises public expectations for Agent too high, and when users find that the so-called "intelligent agent" can't even handle a simple refund process, the credibility of the technology will face collapse.
+
+## IV. Return to Technical Origins: What Kind of Agent Do We Need?
+
+If we strip away the marketing jargon, the real technical challenges in 2025 are still focused on those hard problems commonly encountered in GUI Agent research:
+
+### 1. Robust "Environment Interaction Protocol"
+Current Agents are too fragile. True Agents need to have the ability to survive in **noisy environments** like organisms. In GUI scenarios, this means when UI undergoes minor changes, the Agent can still complete tasks through visual semantic understanding, rather than relying on hardcoded DOM Selectors.
+
+### 2. Most Importantly: System 2 Thinking
+Current LLMs are mainly doing System 1 (intuition, fast thinking). But Agents need planning, reflection, and backtracking. This is not just a Prompt issue, but a model architecture issue. We need models to have **Test-time Compute** capabilities, that is, the ability to perform multi-step reasoning internally before outputting actions (MCTS-style search), evaluating potential risks.
+
+### 3. Safety Boundaries and Permission Models
+As discussed before regarding GUI Agent, an Agent without permission boundaries is dangerous. What we need is not an Agent that can do everything, but an Agent that **"knows what it cannot do."**
+
+## V. Finding Signal in Noise
+
+The current prosperity is largely semantic prosperity. The real Agent revolution will not happen in media headlines, but in solving specific engineering and algorithmic challenges like **Long-horizon Planning**, **Environment Grounding**, and **Self-correction**.
