@@ -37,7 +37,6 @@ export function Terminal({
     const delay = currentLine.delay || 50
 
     if (currentLine.type === 'command') {
-      // 打字效果
       setIsTyping(true)
       let charIndex = 0
 
@@ -56,7 +55,6 @@ export function Terminal({
 
       return () => clearInterval(typeInterval)
     } else {
-      // 直接显示输出
       const timeout = setTimeout(() => {
         setVisibleLines((prev) => [...prev, currentLine])
         setCurrentLineIndex((prev) => prev + 1)
@@ -66,7 +64,6 @@ export function Terminal({
     }
   }, [currentLineIndex, lines, autoPlay])
 
-  // 自动滚动到底部
   useEffect(() => {
     if (terminalRef.current) {
       terminalRef.current.scrollTop = terminalRef.current.scrollHeight
@@ -76,13 +73,13 @@ export function Terminal({
   const getLinePrefix = (type: string) => {
     switch (type) {
       case 'command':
-        return <span className="text-cyber-green">❯</span>
+        return <span className="text-cyber-cyan">❯</span>
       case 'error':
         return <span className="text-cyber-red">[ERROR]</span>
       case 'success':
-        return <span className="text-cyber-green">[SUCCESS]</span>
+        return <span className="text-cyber-green">[OK]</span>
       case 'info':
-        return <span className="text-cyber-cyan">[INFO]</span>
+        return <span className="text-cyber-pink">[INFO]</span>
       default:
         return null
     }
@@ -97,7 +94,7 @@ export function Terminal({
       case 'success':
         return 'text-cyber-green'
       case 'info':
-        return 'text-cyber-cyan'
+        return 'text-cyber-pink'
       default:
         return 'text-cyber-gray'
     }
@@ -115,7 +112,6 @@ export function Terminal({
         ref={terminalRef}
         className="terminal-body max-h-[400px] overflow-y-auto"
       >
-        {/* 已显示的行 */}
         {visibleLines.map((line, index) => (
           <motion.div
             key={index}
@@ -128,25 +124,22 @@ export function Terminal({
             <span className="whitespace-pre-wrap">{line.content}</span>
           </motion.div>
         ))}
-        
-        {/* 当前正在输入的行 */}
+
         {isTyping && (
           <div className="flex gap-2 text-cyber-white">
-            <span className="text-cyber-green">❯</span>
+            <span className="text-cyber-cyan">❯</span>
             <span>{currentText}</span>
-            {showCursor && <span className="typing-cursor" />}
+            {showCursor && <span className="inline-block w-2 h-5 bg-cyber-cyan animate-blink" />}
           </div>
         )}
-        
-        {/* 等待输入的光标 */}
+
         {!isTyping && currentLineIndex >= lines.length && showCursor && (
           <div className="flex gap-2 text-cyber-white">
-            <span className="text-cyber-green">❯</span>
-            <span className="typing-cursor" />
+            <span className="text-cyber-cyan">❯</span>
+            <span className="inline-block w-2 h-5 bg-cyber-cyan animate-blink" />
           </div>
         )}
       </div>
     </div>
   )
 }
-

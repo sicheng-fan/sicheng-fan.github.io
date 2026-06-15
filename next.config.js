@@ -11,10 +11,9 @@ const nextConfig = {
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
   images: {
     domains: ['localhost', 'fansicheng.online'],
-    unoptimized: false,
+    unoptimized: true,
   },
   output: 'standalone',
 }
 
 module.exports = withMDX(nextConfig)
-

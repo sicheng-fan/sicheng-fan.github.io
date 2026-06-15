@@ -32,8 +32,6 @@ yarn-error.log*
 # Local
 *.local
 website.tar.gz
-个人照片.PNG
-codex-skills/
 
 # Vercel
 .vercel

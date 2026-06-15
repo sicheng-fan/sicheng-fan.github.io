@@ -81,11 +81,11 @@ const translations = {
     about: {
       title: 'ABOUT ME',
       subtitle: '了解更多关于我的信息、技能和背景。',
-      bio: `你好！我是一名热爱技术的AI Engineer，专注于GUI Agent以及强化学习相关领域，目前复旦大学硕士在读，同时担任WebAgentLab社区的技术负责人。
+      bio: `你好！我是范思诚，复旦大学硕士在读，研究方向为 GUI Agent/Computer-Use Agent 与强化学习。担任 WebAgentLab 社区技术负责人，现任美团 LongCat 基座大模型组 AI Research Intern。
 
-我相信技术的力量可以改变世界，而开源是推动这一变革的重要方式。我积极参与开源社区，分享知识和经验，与全球开发者一起成长。
+我的研究聚焦于构建能够自主操作图形用户界面的智能体系统，利用视觉语言模型实现跨平台的通用任务自动化。近期工作包括 WebChain（CVPR 2026）和 WebFactory（ICLR 2026）。
 
-在这个博客中，我会分享包括但不限于技术的一些文章、项目经验和个人思考。希望能为你带来一些启发。`,
+参与开源社区，致力于通过分享研究成果和工具推动 GUI Agent 领域发展。欢迎合作与交流！`,
       location: '中国',
       research: {
         title: 'RESEARCH FOCUS',
@@ -104,8 +104,8 @@ const translations = {
             description: '研究大规模语言模型的预训练、指令微调与对齐技术。',
           },
           {
-            title: 'World Model',
-            description: '探索基于世界模型的环境理解与预测，为智能体提供更好的规划能力。',
+            title: 'Computer-Use Agent',
+            description: '构建下一代 Computer-Use Agent，实现通用桌面和网页自动化。',
           },
         ],
       },
@@ -147,6 +147,10 @@ const translations = {
         description: '这个时间线将持续更新。每一天都是新的开始，每一行代码都是新的故事。',
       },
       events: {
+        meituanJoin: {
+          title: '加入美团 LongCat 基座大模型组',
+          description: '担任 AI Research Intern，负责 Computer-Use Agent 方向研究。',
+        },
         iclrFirstAuthor: {
           title: 'ICLR 一作论文发表（WebFactory）',
           description: 'WebFactory 于 2026 年 1 月 5 日完成发表，聚焦自动化 GUI Agent 强化学习训练工厂。',
@@ -321,11 +325,11 @@ const translations = {
     about: {
       title: 'ABOUT ME',
       subtitle: 'Learn more about me, my skills, and background.',
-      bio: `Hello! I'm an AI Engineer passionate about technology, focusing on GUI Agents and Reinforcement Learning. I'm currently pursuing my Master's degree at Fudan University and serving as the technical lead of the WebAgentLab community.
+      bio: `Hi! I'm Sicheng Fan, a Master's student at Fudan University, working on GUI Agents/Computer-Use Agents and Reinforcement Learning. I serve as the Technical Lead at WebAgentLab community and as an AI Research Intern at LongCat Group, Meituan.
 
-I believe in the power of technology to change the world, and open source is an important way to drive this change. I actively participate in open source communities, sharing knowledge and experience, growing together with developers worldwide.
+My research focuses on building Computer-Use Agents, utilizing Vision-Language Models for cross-platform task automation. Recent work includes WebChain (CVPR 2026) and WebFactory (ICLR 2026).
 
-In this blog, I'll share articles about technology and beyond, project experiences, and personal reflections. I hope to bring you some inspiration.`,
+I actively contribute to open source and aim to advance the GUI agent field through shared research and tools. Feel free to reach out for collaboration!`,
       location: 'China',
       research: {
         title: 'RESEARCH FOCUS',
@@ -344,8 +348,8 @@ In this blog, I'll share articles about technology and beyond, project experienc
             description: 'Researching pre-training, instruction tuning, and alignment techniques for large language models.',
           },
           {
-            title: 'World Model',
-            description: 'Exploring world model-based environment understanding and prediction for better agent planning.',
+            title: 'Computer-Use Agent',
+            description: 'Building next-generation Computer-Use Agents for general desktop and web automation.',
           },
         ],
       },
@@ -387,6 +391,10 @@ In this blog, I'll share articles about technology and beyond, project experienc
         description: 'This timeline will keep updating. Every day is a new beginning, every line of code is a new story.',
       },
       events: {
+        meituanJoin: {
+          title: 'Joined Meituan LongCat Group',
+          description: 'Serving as AI Research Intern, focusing on Computer-Use Agent research.',
+        },
         iclrFirstAuthor: {
           title: 'ICLR First-Author Paper Published (WebFactory)',
           description: 'WebFactory was published on January 5, 2026 as first-author work, focusing on automated RL training pipelines for GUI agents.',

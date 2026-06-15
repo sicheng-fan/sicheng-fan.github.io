@@ -2,8 +2,20 @@
 
 import { useEffect, useRef } from 'react'
 
+interface Particle {
+  x: number
+  y: number
+  vx: number
+  vy: number
+  size: number
+  color: string
+  alpha: number
+}
+
 export function MatrixRain() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const mouseRef = useRef({ x: -1000, y: -1000 })
+  const particlesRef = useRef<Particle[]>([])
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -12,94 +24,127 @@ export function MatrixRain() {
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
-    // 设置画布大小
+    let animId: number
+
     const resizeCanvas = () => {
       canvas.width = window.innerWidth
       canvas.height = window.innerHeight
-    }
-    resizeCanvas()
-    window.addEventListener('resize', resizeCanvas)
-
-    // 字符集 - 使用各种符号和数字
-    const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEF<>{}[]|/\\+=_-*&^%$#@!?'
-    const charArray = chars.split('')
-
-    // 列设置
-    const fontSize = 14
-    const columns = Math.floor(canvas.width / fontSize)
-    
-    // 每列的 y 坐标
-    const drops: number[] = []
-    for (let i = 0; i < columns; i++) {
-      drops[i] = Math.random() * -100
+      initParticles()
     }
 
-    // 每列的速度（不同列速度不同，更有层次感）
-    const speeds: number[] = []
-    for (let i = 0; i < columns; i++) {
-      speeds[i] = 0.5 + Math.random() * 1
-    }
+    const colors = [
+      'rgba(0, 240, 255,',   // cyan
+      'rgba(255, 45, 117,',  // pink
+      'rgba(57, 255, 20,',   // green
+    ]
 
-    // 每列的颜色强度
-    const intensities: number[] = []
-    for (let i = 0; i < columns; i++) {
-      intensities[i] = 0.3 + Math.random() * 0.7
-    }
-
-    // 绘制函数
-    function draw() {
-      // 半透明黑色覆盖，产生尾迹效果
-      ctx!.fillStyle = 'rgba(10, 10, 10, 0.05)'
-      ctx!.fillRect(0, 0, canvas!.width, canvas!.height)
-
-      ctx!.font = `${fontSize}px 'JetBrains Mono', monospace`
-
-      for (let i = 0; i < drops.length; i++) {
-        // 随机选择字符
-        const char = charArray[Math.floor(Math.random() * charArray.length)]
-        
-        // 计算颜色 - 头部更亮
-        const y = drops[i] * fontSize
-        const intensity = intensities[i]
-        
-        // 头部字符（白色）
-        if (Math.random() > 0.98) {
-          ctx!.fillStyle = `rgba(255, 255, 255, ${intensity})`
-        } else {
-          // 主体字符（绿色，带变化）
-          const green = Math.floor(200 + Math.random() * 55)
-          ctx!.fillStyle = `rgba(0, ${green}, ${Math.floor(green * 0.6)}, ${intensity * 0.8})`
-        }
-        
-        // 绘制字符
-        ctx!.fillText(char, i * fontSize, y)
-
-        // 重置到顶部
-        if (y > canvas!.height && Math.random() > 0.975) {
-          drops[i] = 0
-          intensities[i] = 0.3 + Math.random() * 0.7
-        }
-
-        // 向下移动
-        drops[i] += speeds[i]
+    function initParticles() {
+      const count = Math.min(Math.floor((canvas!.width * canvas!.height) / 15000), 120)
+      particlesRef.current = []
+      for (let i = 0; i < count; i++) {
+        particlesRef.current.push({
+          x: Math.random() * canvas!.width,
+          y: Math.random() * canvas!.height,
+          vx: (Math.random() - 0.5) * 0.4,
+          vy: (Math.random() - 0.5) * 0.4,
+          size: Math.random() * 2 + 1,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          alpha: Math.random() * 0.5 + 0.2,
+        })
       }
     }
 
-    // 动画循环
-    const interval = setInterval(draw, 50)
+    function draw() {
+      ctx!.fillStyle = 'rgba(5, 10, 21, 0.15)'
+      ctx!.fillRect(0, 0, canvas!.width, canvas!.height)
+
+      const particles = particlesRef.current
+      const mouse = mouseRef.current
+      const connectionDist = 150
+
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i]
+
+        // Mouse interaction
+        const dx = mouse.x - p.x
+        const dy = mouse.y - p.y
+        const dist = Math.sqrt(dx * dx + dy * dy)
+        if (dist < 200) {
+          const force = (200 - dist) / 200 * 0.02
+          p.vx -= dx * force
+          p.vy -= dy * force
+        }
+
+        // Update position
+        p.x += p.vx
+        p.y += p.vy
+
+        // Damping
+        p.vx *= 0.99
+        p.vy *= 0.99
+
+        // Wrap around edges
+        if (p.x < 0) p.x = canvas!.width
+        if (p.x > canvas!.width) p.x = 0
+        if (p.y < 0) p.y = canvas!.height
+        if (p.y > canvas!.height) p.y = 0
+
+        // Draw particle
+        ctx!.beginPath()
+        ctx!.arc(p.x, p.y, p.size, 0, Math.PI * 2)
+        ctx!.fillStyle = `${p.color} ${p.alpha})`
+        ctx!.fill()
+
+        // Draw connections
+        for (let j = i + 1; j < particles.length; j++) {
+          const p2 = particles[j]
+          const cdx = p.x - p2.x
+          const cdy = p.y - p2.y
+          const cdist = Math.sqrt(cdx * cdx + cdy * cdy)
+
+          if (cdist < connectionDist) {
+            const lineAlpha = (1 - cdist / connectionDist) * 0.15
+            ctx!.beginPath()
+            ctx!.moveTo(p.x, p.y)
+            ctx!.lineTo(p2.x, p2.y)
+            ctx!.strokeStyle = `rgba(0, 240, 255, ${lineAlpha})`
+            ctx!.lineWidth = 0.5
+            ctx!.stroke()
+          }
+        }
+      }
+
+      animId = requestAnimationFrame(draw)
+    }
+
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseRef.current = { x: e.clientX, y: e.clientY }
+    }
+
+    const handleMouseLeave = () => {
+      mouseRef.current = { x: -1000, y: -1000 }
+    }
+
+    resizeCanvas()
+    draw()
+
+    window.addEventListener('resize', resizeCanvas)
+    window.addEventListener('mousemove', handleMouseMove)
+    window.addEventListener('mouseleave', handleMouseLeave)
 
     return () => {
-      clearInterval(interval)
+      cancelAnimationFrame(animId)
       window.removeEventListener('resize', resizeCanvas)
+      window.removeEventListener('mousemove', handleMouseMove)
+      window.removeEventListener('mouseleave', handleMouseLeave)
     }
   }, [])
 
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 opacity-20"
-      style={{ filter: 'blur(0.5px)' }}
+      className="absolute inset-0"
+      style={{ opacity: 0.6 }}
     />
   )
 }
-

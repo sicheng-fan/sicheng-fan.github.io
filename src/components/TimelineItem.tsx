@@ -20,7 +20,7 @@ interface TimelineItemProps {
 const typeConfig = {
   work: {
     icon: Briefcase,
-    color: 'cyber-green',
+    color: 'cyber-cyan',
     label: 'WORK',
   },
   education: {
@@ -40,7 +40,7 @@ const typeConfig = {
   },
   milestone: {
     icon: Star,
-    color: 'cyber-green',
+    color: 'cyber-pink',
     label: 'MILESTONE',
   },
 }
@@ -69,7 +69,7 @@ export function TimelineItem({
     >
       {/* 连接线 */}
       {!isLast && (
-        <div className="absolute left-[11px] top-8 bottom-0 w-0.5 bg-gradient-to-b from-cyber-green/50 to-transparent" />
+        <div className="absolute left-[11px] top-8 bottom-0 w-0.5 bg-gradient-to-b from-cyber-cyan/40 to-transparent" />
       )}
 
       {/* 时间点图标 */}
@@ -91,7 +91,7 @@ export function TimelineItem({
         </div>
 
         {/* 标题 */}
-        <h3 className="font-display text-xl font-bold text-cyber-white mb-2 group-hover:text-cyber-green transition-colors">
+        <h3 className="font-display text-xl font-bold text-cyber-white mb-2 group-hover:text-cyber-cyan transition-colors">
           {link ? (
             <a href={link} target="_blank" rel="noopener noreferrer" className="hover:underline">
               {title}

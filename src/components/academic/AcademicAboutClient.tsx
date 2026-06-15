@@ -15,9 +15,9 @@ export function AcademicAboutClient({ blogCount }: AcademicAboutClientProps) {
     zh: {
       title: '关于我',
       bio: [
-        '我是范思诚，复旦大学计算机科学与技术硕士在读，研究方向为 GUI Agent 与强化学习。同时担任 WebAgentLab 社区技术负责人，以及 iMeanAI 研究员。',
-        '我的研究聚焦于构建能够自主操作图形用户界面的智能体系统，利用视觉语言模型（VLM）实现跨平台的通用任务自动化。近期工作包括 WebChain（CVPR 2026，迄今最大规模网页交互轨迹数据集）和 WebFactory（ICLR 2026，自动化 GUI Agent 强化学习训练框架）。',
-        '我积极参与开源社区，致力于通过分享研究成果和工具推动 GUI Agent 领域发展。欢迎合作与交流！',
+        '我是范思诚，复旦大学硕士在读，研究方向为 GUI Agent/Computer-Use Agent与强化学习。担任 WebAgentLab 社区技术负责人, 现任美团 LongCat 基座大模型组 AI Research Intern，曾担任 iMeanAI 研究员。',
+        '我的研究聚焦于构建能够自主操作图形用户界面的智能体系统，利用视觉语言模型（VLM）实现跨平台的通用任务自动化，实现下一代Computer-Use Agent。近期工作包括 WebChain（CVPR 2026，迄今最大规模网页交互轨迹数据集）和 WebFactory（ICLR 2026，自动化 GUI Agent 强化学习训练框架）。',
+        '参与开源社区，致力于通过分享研究成果和工具推动 GUI Agent 领域发展。欢迎合作与交流！',
       ],
       education: '教育经历',
       experience: '工作经历',
@@ -28,8 +28,8 @@ export function AcademicAboutClient({ blogCount }: AcademicAboutClientProps) {
     en: {
       title: 'About Me',
       bio: [
-        "I'm Sicheng Fan, a Master's student in Computer Science at Fudan University, working on GUI Agents and Reinforcement Learning. I also serve as the Technical Lead at WebAgentLab community and as a researcher at iMeanAI.",
-        'My research focuses on building autonomous agents capable of operating graphical user interfaces using Vision-Language Models (VLMs) for cross-platform task automation. Recent work includes WebChain (CVPR 2026, the largest web interaction trajectory dataset) and WebFactory (ICLR 2026, an automated RL training framework for GUI agents).',
+        "I'm Sicheng Fan, a Master's student at Fudan University, working on GUI Agents/Computer-Use Agents and Reinforcement Learning. I also serve as the Technical Lead at WebAgentLab community and as an AI Research Intern at LongCat Group, Meituan.",
+        'My research focuses on building Computer-Use Agents, utilizing Vision-Language Models (VLMs) for cross-platform task automation, to achieve the next generation of Computer-Use Agents. Recent work includes WebChain (CVPR 2026, the largest web interaction trajectory dataset) and WebFactory (ICLR 2026, an automated RL training framework for GUI agents).',
         'I actively contribute to open source and aim to advance the GUI agent field through shared research and tools. Feel free to reach out for collaboration!',
       ],
       education: 'Education',
@@ -43,30 +43,30 @@ export function AcademicAboutClient({ blogCount }: AcademicAboutClientProps) {
   const education = {
     zh: [
       {
-        degree: '计算机科学与技术 硕士',
+        degree: '硕士研究生',
         school: '复旦大学',
         period: '2024年9月 — 至今',
-        desc: '研究方向：GUI Agent、强化学习',
+        desc: '研究方向：GUI Agent/Computer-Use Agent、强化学习',
       },
       {
-        degree: '计算机科学与技术 学士',
+        degree: '学士学位',
         school: '复旦大学',
         period: '2020年9月 — 2024年6月',
-        desc: '本科毕业',
+        desc: '上海市优秀毕业生、复旦大学望道学者',
       },
     ],
     en: [
       {
-        degree: 'M.S. in Computer Science and Technology',
+        degree: 'Master\'s Student',
         school: 'Fudan University',
         period: 'Sep 2024 — Present',
-        desc: 'Research: GUI Agent, Reinforcement Learning',
+        desc: 'Research: GUI Agent/Computer-Use Agent, Reinforcement Learning',
       },
       {
-        degree: 'B.S. in Computer Science and Technology',
+        degree: 'Bachelor\'s Student',
         school: 'Fudan University',
         period: 'Sep 2020 — Jun 2024',
-        desc: 'Bachelor of Science',
+        desc: 'Outstanding Graduate of Shanghai, Outstanding Student of Fudan University',
       },
     ],
   }
@@ -74,9 +74,15 @@ export function AcademicAboutClient({ blogCount }: AcademicAboutClientProps) {
   const experience = {
     zh: [
       {
+        title: 'AI Research Intern',
+        org: '美团 LongCat 基座大模型组',
+        period: '2026年4月 — 至今',
+        desc: '参与美团 LongCat 基座大模型组 AI Research，负责 Computer-Use Agent 方向研究。',
+      },
+      {
         title: 'GUI Agent 研究员',
         org: 'iMeanAI',
-        period: '2024年6月 — 至今',
+        period: '2024年6月 — 2026年2月',
         desc: '参与前沿 GUI Agent 研究，主导 WebChain 和 WebFactory 项目开发。',
       },
       {
@@ -87,6 +93,12 @@ export function AcademicAboutClient({ blogCount }: AcademicAboutClientProps) {
       },
     ],
     en: [
+      {
+        title: 'AI Research Intern',
+        org: 'LongCat Group, Meituan',
+        period: 'Apr 2026 — Present',
+        desc: 'Participating in AI Research at LongCat Group, focusing on Computer-Use Agent research.',
+      },
       {
         title: 'GUI Agent Researcher',
         org: 'iMeanAI',
@@ -108,12 +120,14 @@ export function AcademicAboutClient({ blogCount }: AcademicAboutClientProps) {
       { name: '强化学习', tags: ['PPO', 'RLHF', 'Reward Modeling', 'Policy Optimization'] },
       { name: '大模型训练与微调', tags: ['SFT', 'DPO', 'Alignment', 'Instruction Tuning'] },
       { name: 'World Model', tags: ['State Prediction', 'Planning', 'Simulation'] },
+      { name: 'Computer-Use Agent', tags: ['Computer Use', 'Web Automation', 'Screen Understanding'] },
     ],
     en: [
       { name: 'GUI Agent', tags: ['VLM', 'Computer Use', 'Web Automation', 'Screen Understanding'] },
       { name: 'Reinforcement Learning', tags: ['PPO', 'RLHF', 'Reward Modeling', 'Policy Optimization'] },
       { name: 'LLM Training & Fine-tuning', tags: ['SFT', 'DPO', 'Alignment', 'Instruction Tuning'] },
       { name: 'World Model', tags: ['State Prediction', 'Planning', 'Simulation'] },
+      { name: 'Computer-Use Agent', tags: ['Computer Use', 'Web Automation', 'Screen Understanding'] },
     ],
   }
 
@@ -267,7 +281,7 @@ export function AcademicAboutClient({ blogCount }: AcademicAboutClientProps) {
               </h2>
               <div className="grid grid-cols-2 gap-3">
                 {[
-                  { label: language === 'zh' ? '论文' : 'Papers', value: '2' },
+                  { label: language === 'zh' ? '论文' : 'Papers', value: '4' },
                   { label: language === 'zh' ? '顶会' : 'Top Venues', value: '2' },
                   { label: language === 'zh' ? '博客' : 'Blog Posts', value: String(blogCount) },
                   { label: language === 'zh' ? '编程年限' : 'Yrs Coding', value: '5+' },

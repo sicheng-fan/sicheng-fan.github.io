@@ -174,7 +174,7 @@ export function AcademicHomeClient({ zhPosts, enPosts }: AcademicHomeClientProps
             <div className="flex-shrink-0">
               <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden border-2 border-slate-200 flex-shrink-0">
                 <Image
-                  src="/avatar.jpg"
+                  src="/avatar.png"
                   alt="Fan Sicheng"
                   width={128}
                   height={128}

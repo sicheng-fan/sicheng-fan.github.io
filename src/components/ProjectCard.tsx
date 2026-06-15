@@ -30,49 +30,53 @@ export function ProjectCard({
   forks,
   status = 'active',
 }: ProjectCardProps) {
-  const statusColors = {
-    active: 'bg-cyber-green text-cyber-black',
-    archived: 'bg-cyber-gray text-cyber-black',
-    wip: 'bg-cyber-orange text-cyber-black',
+  const statusConfig = {
+    active: { label: 'ACTIVE', color: 'text-cyber-green', dot: 'bg-cyber-green', border: 'border-cyber-green/30' },
+    archived: { label: 'ARCHIVED', color: 'text-cyber-gray', dot: 'bg-cyber-gray', border: 'border-cyber-gray/30' },
+    wip: { label: 'WIP', color: 'text-cyber-orange', dot: 'bg-cyber-orange', border: 'border-cyber-orange/30' },
   }
 
-  const statusLabels = {
-    active: 'ACTIVE',
-    archived: 'ARCHIVED',
-    wip: 'IN PROGRESS',
-  }
+  const s = statusConfig[status]
 
   const CardContent = (
     <div className="group relative h-full">
-      <div className="cyber-card h-full flex flex-col overflow-hidden">
-        {/* Project Image or Placeholder */}
-        <div className="relative h-48 bg-cyber-dark overflow-hidden">
+      <div className="relative h-full rounded-xl overflow-hidden transition-all duration-500 group-hover:translate-y-[-4px]"
+        style={{
+          background: 'rgba(10, 22, 40, 0.6)',
+          backdropFilter: 'blur(12px)',
+          border: '1px solid rgba(0, 240, 255, 0.1)',
+        }}
+      >
+        {/* Top edge glow */}
+        <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-cyber-cyan/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+        {/* Image or placeholder */}
+        <div className="relative h-40 overflow-hidden" style={{ background: 'rgba(5, 10, 21, 0.8)' }}>
           {image ? (
             <Image
               src={image}
               alt={title}
               fill
-              className="object-cover transition-transform duration-500 group-hover:scale-110"
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
             />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center">
-              <Code2 className="w-16 h-16 text-cyber-green/30" />
-              {/* Grid pattern */}
-              <div className="absolute inset-0 grid-bg opacity-50" />
+              <Code2 className="w-12 h-12 text-cyber-cyan/20" />
+              <div className="absolute inset-0 grid-bg opacity-30" />
             </div>
           )}
-          
-          {/* Overlay on hover */}
-          <div className="absolute inset-0 bg-cyber-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
+
+          {/* Hover overlay with links */}
+          <div className="absolute inset-0 bg-cyber-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
             {github && (
               <a
                 href={github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 bg-cyber-dark border border-cyber-green/50 rounded hover:bg-cyber-green hover:text-cyber-black transition-all"
+                className="p-2.5 rounded-lg bg-cyber-dark/80 border border-cyber-cyan/30 text-cyber-cyan hover:bg-cyber-cyan hover:text-cyber-black transition-all"
                 onClick={(e) => e.stopPropagation()}
               >
-                <Github className="w-5 h-5" />
+                <Github className="w-4 h-4" />
               </a>
             )}
             {demo && (
@@ -80,27 +84,30 @@ export function ProjectCard({
                 href={demo}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 bg-cyber-dark border border-cyber-cyan/50 rounded hover:bg-cyber-cyan hover:text-cyber-black transition-all"
+                className="p-2.5 rounded-lg bg-cyber-dark/80 border border-cyber-pink/30 text-cyber-pink hover:bg-cyber-pink hover:text-cyber-black transition-all"
                 onClick={(e) => e.stopPropagation()}
               >
-                <ExternalLink className="w-5 h-5" />
+                <ExternalLink className="w-4 h-4" />
               </a>
             )}
           </div>
 
           {/* Status badge */}
-          <div className={`absolute top-3 right-3 px-2 py-1 text-[10px] font-mono font-bold uppercase tracking-wider ${statusColors[status]}`}>
-            {statusLabels[status]}
+          <div className={`absolute top-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-mono font-medium ${s.color} ${s.border} border`}
+            style={{ background: 'rgba(5, 10, 21, 0.8)', backdropFilter: 'blur(4px)' }}
+          >
+            <span className={`w-1.5 h-1.5 rounded-full ${s.dot} ${status === 'active' ? 'animate-pulse' : ''}`} />
+            {s.label}
           </div>
         </div>
 
         {/* Content */}
-        <div className="flex-1 p-5 flex flex-col">
-          <h3 className="font-display text-lg font-bold text-cyber-white group-hover:text-cyber-green transition-colors mb-2">
+        <div className="p-5 flex flex-col flex-1">
+          <h3 className="font-display text-lg font-bold text-cyber-white group-hover:text-cyber-cyan transition-colors duration-300 mb-2">
             {title}
           </h3>
-          
-          <p className="text-cyber-gray text-sm leading-relaxed mb-4 flex-1 line-clamp-3">
+
+          <p className="text-cyber-gray text-sm leading-relaxed mb-4 line-clamp-3 flex-1">
             {description}
           </p>
 
@@ -118,25 +125,22 @@ export function ProjectCard({
 
           {/* Stats */}
           {(stars !== undefined || forks !== undefined) && (
-            <div className="flex items-center gap-4 pt-4 border-t border-cyber-green/10 text-sm font-mono">
+            <div className="flex items-center gap-4 pt-3 border-t border-cyber-cyan/10 text-sm font-mono">
               {stars !== undefined && (
                 <span className="flex items-center gap-1.5 text-cyber-yellow">
-                  <Star className="w-4 h-4" />
+                  <Star className="w-3.5 h-3.5" />
                   {stars}
                 </span>
               )}
               {forks !== undefined && (
                 <span className="flex items-center gap-1.5 text-cyber-cyan">
-                  <GitFork className="w-4 h-4" />
+                  <GitFork className="w-3.5 h-3.5" />
                   {forks}
                 </span>
               )}
             </div>
           )}
         </div>
-
-        {/* Bottom border animation */}
-        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-cyber-green scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
       </div>
     </div>
   )
@@ -165,4 +169,3 @@ export function ProjectCard({
     </motion.div>
   )
 }
-

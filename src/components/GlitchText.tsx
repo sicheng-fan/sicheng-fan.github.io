@@ -11,9 +11,8 @@ interface GlitchTextProps {
 export function GlitchText({ text, className = '', enableHover = true }: GlitchTextProps) {
   const [isGlitching, setIsGlitching] = useState(false)
   const [displayText, setDisplayText] = useState(text)
-  
-  // 随机字符
-  const glitchChars = '!@#$%^&*()_+-=[]{}|;:,.<>?/~`αβγδεζηθικλμνξοπρστυφχψω'
+
+  const glitchChars = '!@#$%^&*()_+-=[]{}|;:,.<>?/~`αβγδεζηθ01'
 
   useEffect(() => {
     if (!isGlitching) {
@@ -29,9 +28,7 @@ export function GlitchText({ text, className = '', enableHover = true }: GlitchT
         text
           .split('')
           .map((char, index) => {
-            if (index < iteration) {
-              return text[index]
-            }
+            if (index < iteration) return text[index]
             if (char === ' ') return ' '
             return glitchChars[Math.floor(Math.random() * glitchChars.length)]
           })
@@ -44,20 +41,20 @@ export function GlitchText({ text, className = '', enableHover = true }: GlitchT
       }
 
       iteration += 1 / 2
-    }, 30)
+    }, 25)
 
     return () => clearInterval(interval)
   }, [isGlitching, text])
 
-  // 自动触发效果
   useEffect(() => {
     const randomGlitch = () => {
-      if (Math.random() > 0.7) {
+      if (Math.random() > 0.6) {
         setIsGlitching(true)
       }
     }
 
-    const interval = setInterval(randomGlitch, 5000)
+    const interval = setInterval(randomGlitch, 4000)
+    setTimeout(() => setIsGlitching(true), 1000)
     return () => clearInterval(interval)
   }, [])
 
@@ -71,4 +68,3 @@ export function GlitchText({ text, className = '', enableHover = true }: GlitchT
     </span>
   )
 }
-

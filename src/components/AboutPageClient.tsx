@@ -100,7 +100,7 @@ const terminalLines = [
                 <div className="relative">
                   <div className="w-24 h-24 rounded-lg border-2 border-cyber-green overflow-hidden">
                     <Image
-                      src="/avatar.jpg"
+                      src="/avatar.png"
                       alt="Fan Sicheng"
                       width={96}
                       height={96}

@@ -27,6 +27,17 @@ const typeConfig: Record<EventType, { icon: typeof Briefcase; color: string; bg:
 
 const timelineEvents: TimelineEvent[] = [
   {
+    title: { zh: '加入美团 LongCat 基座大模型组', en: 'Joined Meituan LongCat Group' },
+    description: {
+      zh: '担任 AI Research Intern，负责 Computer-Use Agent 方向研究。',
+      en: 'Serving as AI Research Intern, focusing on Computer-Use Agent research.',
+    },
+    date: { zh: '2026年4月', en: 'Apr 2026' },
+    type: 'work',
+    organization: '美团 / Meituan',
+    tags: ['AI Research', 'Computer-Use Agent', 'LLM'],
+  },
+  {
     title: { zh: 'CVPR 2026 一作论文发表（WebChain）', en: 'CVPR 2026 First-Author Paper (WebChain)' },
     description: {
       zh: 'WebChain 被 CVPR 2026 接收，迄今最大开源人工标注网页交互轨迹数据集，包含 31,725 条轨迹。',
@@ -73,7 +84,7 @@ const timelineEvents: TimelineEvent[] = [
   },
   {
     title: { zh: '入职 iMeanAI', en: 'Joined iMeanAI' },
-    description: { zh: '正式加入 iMeanAI 团队，参与前沿 GUI Agent 研究与工程工作。', en: 'Joined iMeanAI team, working on cutting-edge GUI agent research and engineering.' },
+    description: { zh: '加入 iMeanAI 团队，参与前沿 GUI Agent 研究，主导 WebChain 和 WebFactory 项目开发。', en: 'Joined iMeanAI team, conducting GUI agent research, leading WebChain and WebFactory projects.' },
     date: { zh: '2024年6月', en: 'Jun 2024' },
     type: 'work',
     organization: 'iMeanAI',

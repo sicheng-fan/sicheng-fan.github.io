@@ -13,7 +13,7 @@ const getLevelStyle = (level: number) => {
     bg: 'bg-cyber-green/20', 
     border: 'border-cyber-green', 
     text: 'text-cyber-green',
-    glow: 'shadow-[0_0_10px_rgba(0,255,136,0.3)]'
+    glow: 'shadow-[0_0_10px_rgba(0,240,255,0.3)]'
   }
   if (level >= 80) return { 
     bg: 'bg-cyber-cyan/20', 
@@ -90,8 +90,8 @@ export function SkillCategory({ title, skills }: SkillCategoryProps) {
       className="cyber-card group"
     >
       {/* 标题栏 - 终端风格 */}
-      <div className="flex items-center gap-3 mb-5 pb-3 border-b border-cyber-green/20">
-        <div className="p-2 rounded-lg bg-cyber-green/10 border border-cyber-green/30 group-hover:border-cyber-green/50 transition-colors">
+      <div className="flex items-center gap-3 mb-5 pb-3 border-b border-cyber-cyan/15">
+        <div className="p-2 rounded-lg bg-cyber-cyan/10 border border-cyber-cyan/30 group-hover:border-cyber-cyan/50 transition-colors">
           <Icon className="w-5 h-5 text-cyber-green" />
         </div>
         <div>

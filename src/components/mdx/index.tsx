@@ -18,7 +18,7 @@ interface ImageProps {
 export function MDXImage({ src, alt, caption, width, height, priority }: ImageProps) {
   return (
     <figure className="my-8">
-      <div className="relative overflow-hidden rounded-lg border border-cyber-green/20">
+      <div className="relative overflow-hidden rounded-lg border border-cyber-cyan/15">
         <Image
           src={src}
           alt={alt}
@@ -49,7 +49,7 @@ export function MDXVideo({ src, youtube, bilibili, title }: VideoProps) {
   if (youtube) {
     return (
       <div className="my-8">
-        <div className="relative pb-[56.25%] overflow-hidden rounded-lg border border-cyber-green/20">
+        <div className="relative pb-[56.25%] overflow-hidden rounded-lg border border-cyber-cyan/15">
           <iframe
             src={`https://www.youtube.com/embed/${youtube}`}
             title={title || 'YouTube video'}
@@ -68,7 +68,7 @@ export function MDXVideo({ src, youtube, bilibili, title }: VideoProps) {
   if (bilibili) {
     return (
       <div className="my-8">
-        <div className="relative pb-[56.25%] overflow-hidden rounded-lg border border-cyber-green/20">
+        <div className="relative pb-[56.25%] overflow-hidden rounded-lg border border-cyber-cyan/15">
           <iframe
             src={`//player.bilibili.com/player.html?bvid=${bilibili}&high_quality=1`}
             title={title || 'Bilibili video'}
@@ -89,7 +89,7 @@ export function MDXVideo({ src, youtube, bilibili, title }: VideoProps) {
         <video
           src={src}
           controls
-          className="w-full rounded-lg border border-cyber-green/20"
+          className="w-full rounded-lg border border-cyber-cyan/15"
         >
           Your browser does not support the video tag.
         </video>
@@ -127,11 +127,11 @@ export function Callout({ type = 'info', title, children }: CalloutProps) {
       titleColor: 'text-cyber-orange',
     },
     success: {
-      bg: 'bg-cyber-green/5',
-      border: 'border-cyber-green/30',
+      bg: 'bg-cyber-cyan/5',
+      border: 'border-cyber-cyan/20',
       icon: CheckCircle,
-      iconColor: 'text-cyber-green',
-      titleColor: 'text-cyber-green',
+      iconColor: 'text-cyber-cyan',
+      titleColor: 'text-cyber-cyan',
     },
     error: {
       bg: 'bg-cyber-red/5',
@@ -170,10 +170,10 @@ interface CodeTitleProps {
 
 export function CodeTitle({ title, language }: CodeTitleProps) {
   return (
-    <div className="flex items-center justify-between px-4 py-2 bg-cyber-dark border border-b-0 border-cyber-green/20 rounded-t-lg">
+    <div className="flex items-center justify-between px-4 py-2 bg-cyber-dark border border-b-0 border-cyber-cyan/15 rounded-t-lg">
       <span className="font-mono text-sm text-cyber-gray">{title}</span>
       {language && (
-        <span className="text-xs font-mono text-cyber-green uppercase">{language}</span>
+        <span className="text-xs font-mono text-cyber-cyan uppercase">{language}</span>
       )}
     </div>
   )
@@ -191,7 +191,7 @@ export function ExtLink({ href, children }: ExternalLinkProps) {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center gap-1 text-cyber-cyan hover:text-cyber-green transition-colors"
+      className="inline-flex items-center gap-1 text-cyber-cyan hover:text-cyber-cyan transition-colors"
     >
       {children}
       <ExternalLink className="w-3 h-3" />
@@ -207,7 +207,7 @@ interface InternalLinkProps {
 
 export function IntLink({ href, children }: InternalLinkProps) {
   return (
-    <Link href={href} className="text-cyber-cyan hover:text-cyber-green transition-colors">
+    <Link href={href} className="text-cyber-cyan hover:text-cyber-cyan transition-colors">
       {children}
     </Link>
   )
@@ -229,7 +229,7 @@ export function DataTable({ headers, rows, caption }: TableProps) {
             {headers.map((header, i) => (
               <th
                 key={i}
-                className="px-4 py-3 text-left font-mono text-sm font-bold text-cyber-green bg-cyber-green/10 border border-cyber-green/20"
+                className="px-4 py-3 text-left font-mono text-sm font-bold text-cyber-cyan bg-cyber-cyan/10 border border-cyber-cyan/15"
               >
                 {header}
               </th>
@@ -238,11 +238,11 @@ export function DataTable({ headers, rows, caption }: TableProps) {
         </thead>
         <tbody>
           {rows.map((row, i) => (
-            <tr key={i} className="hover:bg-cyber-green/5 transition-colors">
+            <tr key={i} className="hover:bg-cyber-cyan/5 transition-colors">
               {row.map((cell, j) => (
                 <td
                   key={j}
-                  className="px-4 py-3 text-sm text-cyber-gray border border-cyber-green/10"
+                  className="px-4 py-3 text-sm text-cyber-gray border border-cyber-cyan/10"
                 >
                   {cell}
                 </td>
@@ -268,7 +268,7 @@ interface StepProps {
 export function Step({ number, title, children }: StepProps) {
   return (
     <div className="flex gap-4 mb-6">
-      <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full bg-cyber-green/10 border-2 border-cyber-green font-display font-bold text-cyber-green">
+      <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full bg-cyber-cyan/10 border-2 border-cyber-green font-display font-bold text-cyber-cyan">
         {number}
       </div>
       <div className="flex-1">
@@ -315,7 +315,7 @@ function FileTreeNode({ item, depth = 0 }: { item: FileTreeItem; depth?: number 
 
 export function FileTree({ items }: FileTreeProps) {
   return (
-    <div className="my-6 p-4 bg-cyber-dark border border-cyber-green/20 rounded-lg">
+    <div className="my-6 p-4 bg-cyber-dark border border-cyber-cyan/15 rounded-lg">
       {items.map((item, i) => (
         <FileTreeNode key={i} item={item} />
       ))}
@@ -340,8 +340,8 @@ export function Compare({ before, after, beforeLabel = 'Before', afterLabel = 'A
         </div>
         <div className="text-cyber-gray text-sm">{before}</div>
       </div>
-      <div className="p-4 bg-cyber-green/5 border border-cyber-green/30 rounded-lg">
-        <div className="font-mono text-xs text-cyber-green uppercase tracking-wider mb-3">
+      <div className="p-4 bg-cyber-cyan/5 border border-cyber-cyan/20 rounded-lg">
+        <div className="font-mono text-xs text-cyber-cyan uppercase tracking-wider mb-3">
           ✅ {afterLabel}
         </div>
         <div className="text-cyber-gray text-sm">{after}</div>

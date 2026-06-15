@@ -141,9 +141,6 @@ export function AcademicProjectsClient({ projects }: AcademicProjectsClientProps
           <h2 className="text-xl font-semibold text-slate-900 mb-1 pb-2 border-b border-slate-200">
             {language === 'zh' ? '发表论文' : 'Publications'}
           </h2>
-          <p className="text-sm text-slate-400 mb-5">
-            {language === 'zh' ? '* 表示同等贡献' : '* indicates equal contribution'}
-          </p>
           <div className="space-y-4">
             {publications.map((pub) => (
               <PubCard key={pub.id} pub={pub} language={language} />

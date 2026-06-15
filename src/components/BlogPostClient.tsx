@@ -174,7 +174,7 @@ export function BlogPostClient({ slug, zhPost, enPost }: BlogPostClientProps) {
         <div>
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 text-cyber-gray hover:text-cyber-green transition-colors font-mono text-sm mb-8"
+            className="inline-flex items-center gap-2 text-cyber-gray hover:text-cyber-cyan transition-colors font-mono text-sm mb-8"
           >
             <ArrowLeft className="w-4 h-4" />
             {texts.backToBlog}
@@ -239,7 +239,7 @@ export function BlogPostClient({ slug, zhPost, enPost }: BlogPostClientProps) {
             />
 
             {/* Share */}
-            <div className="mt-12 pt-8 border-t border-cyber-green/20">
+            <div className="mt-12 pt-8 border-t border-cyber-cyan/20">
               <div className="flex items-center justify-between">
                 <span className="font-mono text-sm text-cyber-gray">{texts.shareThisPost}</span>
                 <div className="flex items-center gap-3">
@@ -266,7 +266,7 @@ export function BlogPostClient({ slug, zhPost, enPost }: BlogPostClientProps) {
             {/* Author Box */}
             <div className="mt-8 cyber-card">
               <div className="flex items-start gap-4">
-                <div className="w-16 h-16 rounded-full bg-cyber-dark border-2 border-cyber-green flex items-center justify-center text-2xl">
+                <div className="w-16 h-16 rounded-full bg-cyber-dark border-2 border-cyber-cyan flex items-center justify-center text-2xl">
                   👨‍💻
                 </div>
                 <div>
@@ -278,7 +278,7 @@ export function BlogPostClient({ slug, zhPost, enPost }: BlogPostClientProps) {
                   </p>
                   <Link
                     href="/about"
-                    className="text-cyber-cyan hover:text-cyber-green transition-colors font-mono text-sm"
+                    className="text-cyber-cyan hover:text-cyber-cyan transition-colors font-mono text-sm"
                   >
                     {texts.viewProfile}
                   </Link>
@@ -322,7 +322,7 @@ export function BlogPostClient({ slug, zhPost, enPost }: BlogPostClientProps) {
                     <Link
                       key={tag}
                       href={`/blog?tag=${tag}`}
-                      className="cyber-tag hover:bg-cyber-green/20"
+                      className="cyber-tag hover:bg-cyber-cyan/20"
                     >
                       {tag}
                     </Link>
@@ -340,14 +340,14 @@ export function BlogPostClient({ slug, zhPost, enPost }: BlogPostClientProps) {
                   <div className="flex gap-2">
                     <span className={`px-3 py-1 text-xs font-mono rounded ${
                       post.lang === 'zh' 
-                        ? 'bg-cyber-green/20 text-cyber-green border border-cyber-green' 
+                        ? 'bg-cyber-cyan/20 text-cyber-cyan border border-cyber-cyan' 
                         : 'bg-cyber-dark text-cyber-gray border border-cyber-gray/30'
                     }`}>
                       中文
                     </span>
                     <span className={`px-3 py-1 text-xs font-mono rounded ${
                       post.lang === 'en' 
-                        ? 'bg-cyber-green/20 text-cyber-green border border-cyber-green' 
+                        ? 'bg-cyber-cyan/20 text-cyber-cyan border border-cyber-cyan' 
                         : 'bg-cyber-dark text-cyber-gray border border-cyber-gray/30'
                     }`}>
                       English

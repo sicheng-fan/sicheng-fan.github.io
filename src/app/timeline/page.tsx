@@ -21,6 +21,14 @@ export default function TimelinePage() {
 // 时间线数据
 const timelineData = [
   {
+      title: t.timeline.events.meituanJoin.title,
+      description: t.timeline.events.meituanJoin.description,
+    date: '2026年4月',
+    type: 'work' as const,
+    organization: '美团 LongCat',
+    tags: ['AI Research', 'Computer-Use Agent', 'LLM'],
+  },
+  {
       title: t.timeline.events.cvprFirstAuthor.title,
       description: t.timeline.events.cvprFirstAuthor.description,
     date: '2026年2月18日',
@@ -153,7 +161,7 @@ const typeFilters = [
             const Icon = type.icon
             return (
               <div key={type.value} className="cyber-card text-center py-4">
-                <Icon className="w-5 h-5 mx-auto mb-2 text-cyber-green" />
+                <Icon className="w-5 h-5 mx-auto mb-2 text-cyber-cyan" />
                 <div className="text-xl font-display font-bold text-cyber-white">{count}</div>
                 <div className="text-xs font-mono text-cyber-gray uppercase">{type.label}</div>
               </div>
@@ -172,8 +180,8 @@ const typeFilters = [
                 onClick={() => setSelectedType(type.value)}
                 className={`flex items-center gap-2 px-4 py-2 font-mono text-sm transition-all rounded ${
                   isSelected
-                    ? 'bg-cyber-green/20 text-cyber-green border border-cyber-green'
-                    : 'bg-cyber-dark text-cyber-gray border border-cyber-gray/30 hover:border-cyber-green/50 hover:text-cyber-white'
+                    ? 'bg-cyber-cyan/15 text-cyber-cyan border border-cyber-cyan'
+                    : 'text-cyber-gray border border-cyber-gray/20 hover:border-cyber-cyan/50 hover:text-cyber-white'
                 }`}
               >
                 <Icon className="w-4 h-4" />
@@ -186,7 +194,7 @@ const typeFilters = [
         {/* Timeline */}
         <div className="relative">
           {/* Timeline line */}
-          <div className="absolute left-[11px] top-0 bottom-0 w-0.5 bg-cyber-green/20" />
+          <div className="absolute left-[11px] top-0 bottom-0 w-0.5 bg-cyber-cyan/20" />
 
           {/* Timeline items */}
           {filteredTimeline.map((item, index) => (
@@ -201,7 +209,7 @@ const typeFilters = [
         {/* Empty state */}
         {filteredTimeline.length === 0 && (
           <div className="text-center py-20">
-            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-cyber-dark border border-cyber-green/30 mb-6">
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-cyber-dark border border-cyber-cyan/20 mb-6">
               <Calendar className="w-8 h-8 text-cyber-gray" />
             </div>
             <h3 className="font-display text-xl text-cyber-white mb-2">{t.timeline.noItems}</h3>

@@ -22,17 +22,18 @@ export function LayoutClient({ children }: { children: React.ReactNode }) {
     )
   }
 
-  // Cyber theme
   return (
     <div className="bg-cyber-black text-cyber-white min-h-screen antialiased">
-      {/* Background effects */}
+      {/* Background layers */}
       <div className="fixed inset-0 z-0">
         <MatrixRain />
-        <div className="absolute inset-0 grid-bg opacity-50" />
-        <div className="absolute inset-0 circuit-bg" />
+        <div className="absolute inset-0 mesh-gradient" />
+        <div className="absolute inset-0 grid-bg opacity-40" />
+        {/* Soft vignette */}
+        <div className="absolute inset-0" style={{
+          background: 'radial-gradient(ellipse at center, transparent 50%, rgba(5,10,21,0.8) 100%)',
+        }} />
       </div>
-      {/* Scan lines */}
-      <div className="fixed inset-0 pointer-events-none z-50 scanlines opacity-30" />
       {/* Content */}
       <div className="relative z-10 flex flex-col min-h-screen">
         <AnalyticsTracker />
