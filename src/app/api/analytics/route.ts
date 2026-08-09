@@ -166,9 +166,8 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const token = searchParams.get('token');
     
-    // 简单的管理员验证（你可以设置环境变量 ANALYTICS_TOKEN）
-    const adminToken = process.env.ANALYTICS_TOKEN || 'admin123';
-    const isAdmin = token === adminToken;
+    const adminToken = process.env.ANALYTICS_TOKEN;
+    const isAdmin = Boolean(adminToken && token && token === adminToken);
     
     const data = readData();
     const today = getTodayString();
