@@ -29,12 +29,12 @@ const translations = {
       systemOnline: 'SYSTEM_ONLINE',
       greeting: "Hello, I'm",
       roles: [
-        'Qwen Foundation Model Research',
+        'Technical Lead @ WebAgentLab',
+        'Researcher @ Qwen, Alibaba',
         'Computer-Use Agent',
-        'GUI Agent Researcher',
         'Reinforcement Learning',
       ],
-      description: '复旦大学硕士在读，现加入阿里巴巴 Qwen 基础大模型组，研究 GUI Agent、Computer-Use Agent 与强化学习。',
+      description: '复旦大学硕士在读，研究方向为 GUI Agent 与强化学习。同时担任 WebAgentLab 社区技术负责人，阿里巴巴 Qwen 基模组研究员。',
       exploreBlog: '探索文章',
       viewProjects: '查看项目',
       scrollDown: 'SCROLL_DOWN',
@@ -81,9 +81,7 @@ const translations = {
     about: {
       title: 'ABOUT ME',
       subtitle: '了解更多关于我的信息、技能和背景。',
-      bio: `你好！我是范思诚，复旦大学硕士在读，研究方向为 GUI Agent、Computer-Use Agent 与强化学习。2026 年 6 月加入阿里巴巴 Qwen 基础大模型组；此前于 2026 年 4 月加入美团 LongCat 基础大模型组。
-
-我的研究聚焦于构建能够自主操作图形用户界面的智能体系统，利用视觉语言模型与强化学习实现跨平台通用任务自动化。近期工作包括 Qwen-CUA、EvoCUA-1.5、WebChain（CVPR 2026）和 WebFactory（ICLR 2026），并参与 Qwen 3.8 的发布。
+      bio: `你好！我是范思诚，复旦大学硕士在读，研究方向为 GUI Agent 与强化学习。同时担任 WebAgentLab 社区技术负责人，阿里巴巴 Qwen 基模组研究员。致力于构建能够自主操作图形界面的智能体系统，研究成果发表于 CVPR、ICLR 等顶级会议。
 
 参与开源社区，致力于通过分享研究成果和工具推动 GUI Agent 领域发展。欢迎合作与交流！`,
       location: '中国',
@@ -160,8 +158,8 @@ const translations = {
           description: '发布面向多轮 Computer-Use Agent 的在线强化学习技术报告 EvoCUA-1.5。',
         },
         qwenJoin: {
-          title: '加入阿里巴巴 Qwen 基础大模型组',
-          description: '参与 Qwen 基础大模型与 Computer-Use Agent 研究。',
+          title: '担任阿里巴巴 Qwen 基础大模型组算法研究员',
+          description: '从事基础大模型与 Computer-Use Agent 方向研究。',
         },
         meituanJoin: {
           title: '加入美团 LongCat 基座大模型组',
@@ -289,12 +287,12 @@ const translations = {
       systemOnline: 'SYSTEM_ONLINE',
       greeting: "Hello, I'm",
       roles: [
-        'Qwen Foundation Model Research',
+        'Technical Lead @ WebAgentLab',
+        'Researcher @ Qwen, Alibaba',
         'Computer-Use Agent',
-        'GUI Agent Researcher',
         'Reinforcement Learning',
       ],
-      description: "Master's student at Fudan University and a member of Alibaba's Qwen foundation model team, researching GUI agents, computer-use agents, and reinforcement learning.",
+      description: "Master's student at Fudan University, researching GUI Agents and Reinforcement Learning. Technical Lead at WebAgentLab and Researcher at Qwen, Alibaba.",
       exploreBlog: 'Explore Blog',
       viewProjects: 'View Projects',
       scrollDown: 'SCROLL_DOWN',
@@ -341,9 +339,7 @@ const translations = {
     about: {
       title: 'ABOUT ME',
       subtitle: 'Learn more about me, my skills, and background.',
-      bio: `Hi! I'm Sicheng Fan, a Master's student at Fudan University, working on GUI agents, computer-use agents, and reinforcement learning. I joined Alibaba's Qwen foundation model team in June 2026, after joining Meituan's LongCat foundation model team in April 2026.
-
-My research focuses on building agents that autonomously operate graphical interfaces using Vision-Language Models and reinforcement learning. Recent work includes Qwen-CUA, EvoCUA-1.5, WebChain (CVPR 2026), and WebFactory (ICLR 2026), as well as the Qwen 3.8 release.
+      bio: `Hi! I'm Sicheng Fan, a Master's student at Fudan University, researching GUI Agents and Reinforcement Learning. I serve as Technical Lead at WebAgentLab and Researcher at Qwen, Alibaba. I am dedicated to building intelligent agent systems capable of autonomously operating graphical interfaces, with research published at top-tier conferences including CVPR and ICLR.
 
 I actively contribute to open source and aim to advance the GUI agent field through shared research and tools. Feel free to reach out for collaboration!`,
       location: 'China',
@@ -420,8 +416,8 @@ I actively contribute to open source and aim to advance the GUI agent field thro
           description: 'Released EvoCUA-1.5, a technical report on online reinforcement learning for multi-turn computer-use agents.',
         },
         qwenJoin: {
-          title: 'Joined Alibaba Qwen Foundation Model Team',
-          description: 'Working on Qwen foundation models and computer-use agent research.',
+          title: 'Algorithm Researcher in the Qwen Foundation Model Team at Alibaba',
+          description: 'Researching foundation models and computer-use agents.',
         },
         meituanJoin: {
           title: 'Joined Meituan LongCat Group',

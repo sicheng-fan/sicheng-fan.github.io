@@ -60,10 +60,10 @@ const timelineEvents: TimelineEvent[] = [
     link: 'https://arxiv.org/abs/2607.09773',
   },
   {
-    title: { zh: '加入阿里巴巴 Qwen 基础大模型组', en: 'Joined Alibaba Qwen Foundation Model Team' },
+    title: { zh: '担任阿里巴巴 Qwen 基础大模型组算法研究员', en: 'Algorithm Researcher in the Qwen Foundation Model Team at Alibaba' },
     description: {
-      zh: '参与 Qwen 基础大模型与 Computer-Use Agent 研究。',
-      en: 'Working on Qwen foundation models and computer-use agent research.',
+      zh: '从事基础大模型与 Computer-Use Agent 方向研究。',
+      en: 'Researching foundation models and computer-use agents.',
     },
     date: { zh: '2026年6月', en: 'Jun 2026' },
     type: 'work',
