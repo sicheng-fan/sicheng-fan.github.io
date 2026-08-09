@@ -6,18 +6,18 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import {
   ArrowRight, Rss, Folder, Clock, User,
-  FileCode, Coffee, GitBranch, Zap, GraduationCap, Briefcase
+  FileCode, Coffee, GitBranch, Zap
 } from 'lucide-react'
 import { Terminal } from '@/components/Terminal'
 import { TypeWriter } from '@/components/TypeWriter'
 import { GlitchText } from '@/components/GlitchText'
+import { BlogCard } from '@/components/BlogCard'
 import { ProjectCard } from '@/components/ProjectCard'
 import { StatsCard } from '@/components/StatsCard'
 import { SectionHeader } from '@/components/SectionHeader'
 import { useLanguage } from '@/lib/i18n'
 import { useGithubStats } from '@/lib/useGithubStats'
 import { projects } from '@/data/projects'
-import { education, experience } from '@/data/profile'
 import type { PostMeta } from '@/lib/mdx'
 
 const featuredProjects = projects.filter((p) => p.featured)
@@ -218,48 +218,34 @@ export function HomePageClient({ zhPosts, enPosts }: HomePageClientProps) {
         </div>
       </section>
 
-      {/* Education & Experience */}
+      {/* Recent Posts */}
       <section className="py-20 px-4">
         <div className="max-w-6xl mx-auto">
-          <SectionHeader
-            title={language === 'zh' ? '教育与工作经历' : 'EDUCATION & EXPERIENCE'}
-            subtitle={language === 'zh' ? '学习与研究经历' : 'Academic and research journey'}
-          />
+          <div className="flex items-center justify-between mb-12">
+            <SectionHeader
+              title={t.home.recentPosts.title}
+              subtitle={t.home.recentPosts.subtitle}
+            />
+            <Link
+              href="/blog"
+              className="hidden md:flex items-center gap-2 text-cyber-cyan hover:text-cyber-pink transition-colors font-mono text-sm"
+            >
+              {t.home.recentPosts.viewAll}
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
 
-          <div className="grid lg:grid-cols-2 gap-8">
-            <div className="cyber-card p-6">
-              <h3 className="font-mono text-cyber-cyan text-lg mb-6 flex items-center gap-2">
-                <GraduationCap className="w-5 h-5" />
-                {language === 'zh' ? '教育经历' : 'EDUCATION'}
-              </h3>
-              <div className="space-y-6">
-                {education[language].map((item) => (
-                  <div key={`${item.organization}-${item.period}`} className="border-l border-cyber-cyan/40 pl-4">
-                    <h4 className="text-cyber-white font-medium">{item.title}</h4>
-                    <p className="text-cyber-cyan text-sm mt-1">{item.organization}</p>
-                    <p className="text-cyber-gray font-mono text-xs mt-1">{item.period}</p>
-                    <p className="text-cyber-gray text-sm mt-2 leading-relaxed">{item.description}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
+          <div className="grid md:grid-cols-2 gap-6">
+            {recentPosts.slice(0, 4).map((post) => (
+              <BlogCard key={post.slug} {...post} />
+            ))}
+          </div>
 
-            <div className="cyber-card p-6">
-              <h3 className="font-mono text-cyber-pink text-lg mb-6 flex items-center gap-2">
-                <Briefcase className="w-5 h-5" />
-                {language === 'zh' ? '工作经历' : 'EXPERIENCE'}
-              </h3>
-              <div className="space-y-6">
-                {experience[language].map((item) => (
-                  <div key={`${item.organization}-${item.period}`} className="border-l border-cyber-pink/40 pl-4">
-                    <h4 className="text-cyber-white font-medium">{item.title}</h4>
-                    <p className="text-cyber-pink text-sm mt-1">{item.organization}</p>
-                    <p className="text-cyber-gray font-mono text-xs mt-1">{item.period}</p>
-                    <p className="text-cyber-gray text-sm mt-2 leading-relaxed">{item.description}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
+          <div className="mt-8 text-center md:hidden">
+            <Link href="/blog" className="cyber-button inline-flex items-center gap-2">
+              {t.home.recentPosts.viewAllPosts}
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </div>
       </section>
