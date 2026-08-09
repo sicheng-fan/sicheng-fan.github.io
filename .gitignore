@@ -31,7 +31,6 @@ yarn-error.log*
 
 # Local
 *.local
-website.tar.gz
 
 # Vercel
 .vercel
