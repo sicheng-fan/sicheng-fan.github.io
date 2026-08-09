@@ -24,14 +24,16 @@ const featuredProjects = projects.filter((p) => p.featured)
 
 const researchFields = {
   zh: [
-    { name: 'GUI Agent', icon: '🖥️', desc: 'Graphical User Interface Agent' },
-    { name: 'Computer-Use Agent', icon: '💻', desc: 'Computer Use' },
+    { name: 'Computer-Use Agent', icon: '💻', desc: 'Desktop & Computer Use' },
+    { name: 'Web Agent', icon: '🌐', desc: 'Browser & Web Automation' },
+    { name: 'GUI Agent', icon: '🖥️', desc: 'Visual Interface Agent' },
     { name: '强化学习', icon: '🎯', desc: 'Reinforcement Learning' },
     { name: '大模型训练与微调', icon: '🧠', desc: 'LLM Training & Fine-tuning' },
   ],
   en: [
-    { name: 'GUI Agent', icon: '🖥️', desc: 'Graphical User Interface Agent' },
-    { name: 'Computer-Use Agent', icon: '💻', desc: 'Computer Use' },
+    { name: 'Computer-Use Agent', icon: '💻', desc: 'Desktop & Computer Use' },
+    { name: 'Web Agent', icon: '🌐', desc: 'Browser & Web Automation' },
+    { name: 'GUI Agent', icon: '🖥️', desc: 'Visual Interface Agent' },
     { name: 'Reinforcement Learning', icon: '🎯', desc: 'RL' },
     { name: 'LLM Training & Fine-tuning', icon: '🧠', desc: 'Alignment & Instruction Tuning' },
   ],
@@ -57,7 +59,7 @@ export function HomePageClient({ zhPosts, enPosts }: HomePageClientProps) {
     { type: 'command' as const, content: 'whoami', delay: 80 },
     { type: 'output' as const, content: 'Fan Sicheng - AI Researcher / Engineer' },
     { type: 'command' as const, content: 'cat /var/interests.txt', delay: 60 },
-    { type: 'output' as const, content: '• GUI Agent & Computer-Use Agent\n• Reinforcement Learning\n• LLM Training & Fine-tuning\n• Full-stack Development' },
+    { type: 'output' as const, content: '• Computer-Use Agent & GUI Agent\n• Web Agent\n• Reinforcement Learning\n• LLM Training & Fine-tuning' },
     { type: 'command' as const, content: 'echo $CURRENT_STATUS', delay: 70 },
     { type: 'success' as const, content: 'Building the future of AI agents.' },
   ]
@@ -332,7 +334,7 @@ export function HomePageClient({ zhPosts, enPosts }: HomePageClientProps) {
           {/* Research */}
           <div>
             <h3 className="font-mono text-cyber-pink text-sm mb-6 text-center">{t.home.tech.research}</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
               {researchFields[language].map((field, index) => (
                 <motion.div
                   key={field.name}

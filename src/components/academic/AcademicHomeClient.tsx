@@ -173,8 +173,8 @@ export function AcademicHomeClient({ zhPosts, enPosts }: AcademicHomeClientProps
   }
 
   const interests = {
-    zh: ['GUI Agent', '强化学习', '大模型训练', '大模型微调', 'World Model', '计算机视觉'],
-    en: ['GUI Agent', 'Reinforcement Learning', 'LLM Training', 'LLM Fine-tuning', 'World Model', 'Computer Vision'],
+    zh: ['Computer-Use Agent', 'Web Agent', 'GUI Agent', '强化学习', '大模型训练', '大模型微调'],
+    en: ['Computer-Use Agent', 'Web Agent', 'GUI Agent', 'Reinforcement Learning', 'LLM Training', 'LLM Fine-tuning'],
   }
 
   return (

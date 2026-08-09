@@ -1,6 +1,6 @@
 'use client'
 
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react'
+import React, { createContext, useContext, useState, useCallback } from 'react'
 
 export type Language = 'zh' | 'en'
 
@@ -90,20 +90,24 @@ const translations = {
         subtitle: '当前研究方向与探索领域。',
         areas: [
           {
+            title: 'Computer-Use Agent',
+            description: '构建能够通过视觉理解、键盘与鼠标自主完成长程桌面任务的通用智能体。',
+          },
+          {
+            title: 'Web Agent',
+            description: '研究网页环境中的自主导航、交互决策、任务执行与可验证评测。',
+          },
+          {
             title: 'GUI Agent',
-            description: '研究基于视觉语言模型的自主界面操作智能体，实现跨平台的通用任务自动化。',
+            description: '研究基于视觉语言模型的界面感知、视觉定位与动作生成。',
           },
           {
             title: '强化学习',
-            description: '探索强化学习在智能体决策中的应用，包括策略优化、奖励建模等问题。',
+            description: '探索强化学习在 Computer-Use Agent 决策中的应用，包括策略优化、奖励建模与在线学习。',
           },
           {
             title: '大模型训练与微调',
             description: '研究大规模语言模型的预训练、指令微调与对齐技术。',
-          },
-          {
-            title: 'Computer-Use Agent',
-            description: '构建下一代 Computer-Use Agent，实现通用桌面和网页自动化。',
           },
         ],
       },
@@ -348,20 +352,24 @@ I actively contribute to open source and aim to advance the GUI agent field thro
         subtitle: 'Current research directions and exploration areas.',
         areas: [
           {
+            title: 'Computer-Use Agent',
+            description: 'Building general agents that use visual understanding, keyboards, and mice to complete long-horizon desktop tasks.',
+          },
+          {
+            title: 'Web Agent',
+            description: 'Researching autonomous web navigation, interactive decision-making, task execution, and verifiable evaluation.',
+          },
+          {
             title: 'GUI Agent',
-            description: 'Researching autonomous interface agents based on vision-language models for cross-platform general task automation.',
+            description: 'Researching interface perception, visual grounding, and action generation with vision-language models.',
           },
           {
             title: 'Reinforcement Learning',
-            description: 'Exploring applications of RL in agent decision-making, including policy optimization and reward modeling.',
+            description: 'Exploring reinforcement learning for computer-use agent decision-making, including policy optimization, reward modeling, and online learning.',
           },
           {
             title: 'LLM Training & Fine-tuning',
             description: 'Researching pre-training, instruction tuning, and alignment techniques for large language models.',
-          },
-          {
-            title: 'Computer-Use Agent',
-            description: 'Building next-generation Computer-Use Agents for general desktop and web automation.',
           },
         ],
       },
@@ -540,17 +548,8 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguageState] = useState<Language>('en')
 
-  // 从 localStorage 读取语言设置
-  useEffect(() => {
-    const savedLanguage = localStorage.getItem('language') as Language
-    if (savedLanguage && (savedLanguage === 'zh' || savedLanguage === 'en')) {
-      setLanguageState(savedLanguage)
-    }
-  }, [])
-
   const setLanguage = useCallback((lang: Language) => {
     setLanguageState(lang)
-    localStorage.setItem('language', lang)
     // 更新 html lang 属性
     document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en'
   }, [])

@@ -52,12 +52,13 @@ export function AboutPageClient({ blogCount }: AboutPageClientProps) {
   const researchAreas = t.about.research.areas.map((area, index) => ({
     ...area,
     tags: [
-      ['VLM', 'Computer Use', 'Automation', 'Screen Understanding'],
-      ['PPO', 'RLHF', 'Reward Modeling', 'Policy Optimization'],
-      ['SFT', 'DPO', 'Alignment', 'Instruction Tuning'],
-      ['State Prediction', 'Planning', 'Simulation'],
+      ['Computer Use', 'Desktop Automation', 'Long-Horizon Tasks', 'VLA'],
+      ['Browser Use', 'Web Navigation', 'Web Automation', 'Evaluation'],
+      ['VLM', 'Visual Grounding', 'Action Modeling', 'Screen Understanding'],
+      ['Online RL', 'Policy Optimization', 'Reward Modeling', 'RLHF'],
+      ['Pre-training', 'SFT', 'Alignment', 'Instruction Tuning'],
     ][index],
-    status: index < 2 ? 'active' as const : 'exploring' as const,
+    status: index < 4 ? 'active' as const : 'exploring' as const,
   }))
 
 // 兴趣爱好

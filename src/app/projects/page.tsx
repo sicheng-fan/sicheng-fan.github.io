@@ -22,21 +22,23 @@ export default function ProjectsPage() {
   const { theme } = useTheme()
   const { getStats } = useGithubStats()
 
+  const projectsWithLiveStats = allProjectsData.map((project) => {
+    const live = getStats(project.github)
+    return { ...project, stars: live.stars, forks: live.forks }
+  })
+
   if (theme === 'academic') {
-    const academicProjects = allProjectsData.map((p) => ({
+    const academicProjects = projectsWithLiveStats.map((p) => ({
       ...p,
       description: p.description,
     }))
     return <AcademicProjectsClient projects={academicProjects} />
   }
 
-  const allProjects = allProjectsData.map(p => {
-    const live = getStats(p.github)
+  const allProjects = projectsWithLiveStats.map(p => {
     return {
       ...p,
       description: p.description[language],
-      stars: live.stars,
-      forks: live.forks,
     }
   })
 

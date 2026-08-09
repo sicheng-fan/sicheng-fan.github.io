@@ -126,18 +126,18 @@ export function AcademicAboutClient({ blogCount }: AcademicAboutClientProps) {
 
   const researchAreas = {
     zh: [
-      { name: 'GUI Agent', tags: ['VLM', 'Computer Use', 'Web Automation', 'Screen Understanding'] },
-      { name: '强化学习', tags: ['PPO', 'RLHF', 'Reward Modeling', 'Policy Optimization'] },
-      { name: '大模型训练与微调', tags: ['SFT', 'DPO', 'Alignment', 'Instruction Tuning'] },
-      { name: 'World Model', tags: ['State Prediction', 'Planning', 'Simulation'] },
-      { name: 'Computer-Use Agent', tags: ['Computer Use', 'Web Automation', 'Screen Understanding'] },
+      { name: 'Computer-Use Agent', tags: ['Computer Use', 'Desktop Automation', 'Long-Horizon Tasks', 'VLA'] },
+      { name: 'Web Agent', tags: ['Browser Use', 'Web Navigation', 'Web Automation', 'Evaluation'] },
+      { name: 'GUI Agent', tags: ['VLM', 'Visual Grounding', 'Action Modeling', 'Screen Understanding'] },
+      { name: '强化学习', tags: ['Online RL', 'Policy Optimization', 'Reward Modeling', 'RLHF'] },
+      { name: '大模型训练与微调', tags: ['Pre-training', 'SFT', 'Alignment', 'Instruction Tuning'] },
     ],
     en: [
-      { name: 'GUI Agent', tags: ['VLM', 'Computer Use', 'Web Automation', 'Screen Understanding'] },
-      { name: 'Reinforcement Learning', tags: ['PPO', 'RLHF', 'Reward Modeling', 'Policy Optimization'] },
-      { name: 'LLM Training & Fine-tuning', tags: ['SFT', 'DPO', 'Alignment', 'Instruction Tuning'] },
-      { name: 'World Model', tags: ['State Prediction', 'Planning', 'Simulation'] },
-      { name: 'Computer-Use Agent', tags: ['Computer Use', 'Web Automation', 'Screen Understanding'] },
+      { name: 'Computer-Use Agent', tags: ['Computer Use', 'Desktop Automation', 'Long-Horizon Tasks', 'VLA'] },
+      { name: 'Web Agent', tags: ['Browser Use', 'Web Navigation', 'Web Automation', 'Evaluation'] },
+      { name: 'GUI Agent', tags: ['VLM', 'Visual Grounding', 'Action Modeling', 'Screen Understanding'] },
+      { name: 'Reinforcement Learning', tags: ['Online RL', 'Policy Optimization', 'Reward Modeling', 'RLHF'] },
+      { name: 'LLM Training & Fine-tuning', tags: ['Pre-training', 'SFT', 'Alignment', 'Instruction Tuning'] },
     ],
   }
 
