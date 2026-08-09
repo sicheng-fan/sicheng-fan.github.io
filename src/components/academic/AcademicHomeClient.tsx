@@ -1,17 +1,11 @@
 'use client'
 
 import { useState } from 'react'
-import Link from 'next/link'
 import Image from 'next/image'
-import { Github, Twitter, Linkedin, Mail, ExternalLink, Copy, Check, ChevronDown, ChevronUp, BookOpen, Code2 } from 'lucide-react'
+import { Github, Twitter, Linkedin, Mail, ExternalLink, Copy, Check, ChevronDown, ChevronUp, BookOpen, Code2, GraduationCap, Briefcase } from 'lucide-react'
 import { useLanguage } from '@/lib/i18n'
 import { publications, generateBibtex } from '@/data/publications'
-import type { PostMeta } from '@/lib/mdx'
-
-interface AcademicHomeClientProps {
-  zhPosts: PostMeta[]
-  enPosts: PostMeta[]
-}
+import { education, experience } from '@/data/profile'
 
 function PublicationCard({ pub, language }: { pub: typeof publications[0]; language: 'zh' | 'en' }) {
   const [showAbstract, setShowAbstract] = useState(false)
@@ -132,9 +126,8 @@ function PublicationCard({ pub, language }: { pub: typeof publications[0]; langu
   )
 }
 
-export function AcademicHomeClient({ zhPosts, enPosts }: AcademicHomeClientProps) {
+export function AcademicHomeClient() {
   const { language } = useLanguage()
-  const recentPosts = (language === 'zh' ? zhPosts : enPosts).slice(0, 3)
 
   const bio = {
     zh: '复旦大学硕士在读，研究方向为 Computer-Use Agent 与强化学习。同时担任 WebAgentLab 社区技术负责人，阿里巴巴 Qwen 基模组研究员。致力于构建能够自主操作图形界面的智能体系统，研究成果发表于 CVPR、ICLR 等顶级会议。',
@@ -257,31 +250,42 @@ export function AcademicHomeClient({ zhPosts, enPosts }: AcademicHomeClientProps
               </div>
             </section>
 
-            {/* Recent Blog Posts */}
-            {recentPosts.length > 0 && (
-              <section>
-                <h2 className="text-xl font-semibold text-slate-900 mb-5 pb-2 border-b border-slate-200">
-                  {language === 'zh' ? '近期博客' : 'Recent Posts'}
+            {/* Education & Experience */}
+            <section className="grid md:grid-cols-2 gap-8">
+              <div>
+                <h2 className="text-xl font-semibold text-slate-900 mb-5 pb-2 border-b border-slate-200 flex items-center gap-2">
+                  <GraduationCap className="w-5 h-5 text-slate-400" />
+                  {language === 'zh' ? '教育经历' : 'Education'}
                 </h2>
-                <div className="space-y-3">
-                  {recentPosts.map((post) => (
-                    <Link key={post.slug} href={`/blog/${post.slug}`}
-                      className="flex items-start gap-3 group">
-                      <span className="text-sm text-slate-400 mt-0.5 flex-shrink-0 font-mono w-24">
-                        {new Date(post.date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
-                      </span>
-                      <span className="text-sm text-slate-700 group-hover:text-blue-600 transition-colors leading-snug">
-                        {post.title}
-                      </span>
-                    </Link>
+                <div className="space-y-5">
+                  {education[language].map((item) => (
+                    <div key={`${item.organization}-${item.period}`} className="border-l-2 border-blue-200 pl-4">
+                      <h3 className="font-medium text-slate-900">{item.title}</h3>
+                      <p className="text-sm text-slate-600">{item.organization}</p>
+                      <p className="text-xs text-slate-400 mt-0.5">{item.period}</p>
+                      <p className="text-sm text-slate-600 mt-1 leading-relaxed">{item.description}</p>
+                    </div>
                   ))}
                 </div>
-                <Link href="/blog" className="inline-flex items-center gap-1 mt-4 text-sm text-blue-600 hover:text-blue-800 transition-colors">
-                  {language === 'zh' ? '查看全部文章' : 'View all posts'}
-                  <ExternalLink className="w-3 h-3" />
-                </Link>
-              </section>
-            )}
+              </div>
+
+              <div>
+                <h2 className="text-xl font-semibold text-slate-900 mb-5 pb-2 border-b border-slate-200 flex items-center gap-2">
+                  <Briefcase className="w-5 h-5 text-slate-400" />
+                  {language === 'zh' ? '工作经历' : 'Experience'}
+                </h2>
+                <div className="space-y-5">
+                  {experience[language].map((item) => (
+                    <div key={`${item.organization}-${item.period}`} className="border-l-2 border-slate-200 pl-4">
+                      <h3 className="font-medium text-slate-900">{item.title}</h3>
+                      <p className="text-sm text-slate-600">{item.organization}</p>
+                      <p className="text-xs text-slate-400 mt-0.5">{item.period}</p>
+                      <p className="text-sm text-slate-600 mt-1 leading-relaxed">{item.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
           </div>
 
           {/* Sidebar */}
