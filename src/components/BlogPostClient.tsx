@@ -274,7 +274,7 @@ export function BlogPostClient({ slug, zhPost, enPost }: BlogPostClientProps) {
                     {post.meta.author}
                   </h3>
                   <p className="text-cyber-gray text-sm mb-3">
-                    GUI Agent & RL Researcher | WebAgentLab
+                    GUI Agent & RL Researcher | Alibaba Qwen
                   </p>
                   <Link
                     href="/about"

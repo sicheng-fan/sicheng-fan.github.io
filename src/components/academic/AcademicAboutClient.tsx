@@ -15,8 +15,8 @@ export function AcademicAboutClient({ blogCount }: AcademicAboutClientProps) {
     zh: {
       title: '关于我',
       bio: [
-        '我是范思诚，复旦大学硕士在读，研究方向为 GUI Agent/Computer-Use Agent与强化学习。担任 WebAgentLab 社区技术负责人, 现任美团 LongCat 基座大模型组 AI Research Intern，曾担任 iMeanAI 研究员。',
-        '我的研究聚焦于构建能够自主操作图形用户界面的智能体系统，利用视觉语言模型（VLM）实现跨平台的通用任务自动化，实现下一代Computer-Use Agent。近期工作包括 WebChain（CVPR 2026，迄今最大规模网页交互轨迹数据集）和 WebFactory（ICLR 2026，自动化 GUI Agent 强化学习训练框架）。',
+        '我是范思诚，复旦大学硕士在读，研究方向为 GUI Agent、Computer-Use Agent 与强化学习。2026 年 6 月加入阿里巴巴 Qwen 基础大模型组；此前于 2026 年 4 月加入美团 LongCat 基础大模型组。',
+        '我的研究聚焦于构建能够自主操作图形用户界面的智能体系统，利用视觉语言模型（VLM）与强化学习实现跨平台通用任务自动化。近期工作包括 Qwen-CUA、EvoCUA-1.5、WebChain（CVPR 2026）和 WebFactory（ICLR 2026），并参与 Qwen 3.8 的发布。',
         '参与开源社区，致力于通过分享研究成果和工具推动 GUI Agent 领域发展。欢迎合作与交流！',
       ],
       education: '教育经历',
@@ -28,8 +28,8 @@ export function AcademicAboutClient({ blogCount }: AcademicAboutClientProps) {
     en: {
       title: 'About Me',
       bio: [
-        "I'm Sicheng Fan, a Master's student at Fudan University, working on GUI Agents/Computer-Use Agents and Reinforcement Learning. I also serve as the Technical Lead at WebAgentLab community and as an AI Research Intern at LongCat Group, Meituan.",
-        'My research focuses on building Computer-Use Agents, utilizing Vision-Language Models (VLMs) for cross-platform task automation, to achieve the next generation of Computer-Use Agents. Recent work includes WebChain (CVPR 2026, the largest web interaction trajectory dataset) and WebFactory (ICLR 2026, an automated RL training framework for GUI agents).',
+        "I'm Sicheng Fan, a Master's student at Fudan University, working on GUI agents, computer-use agents, and reinforcement learning. I joined Alibaba's Qwen foundation model team in June 2026, after joining Meituan's LongCat foundation model team in April 2026.",
+        'My research focuses on building agents that can autonomously operate graphical interfaces, using Vision-Language Models (VLMs) and reinforcement learning for cross-platform task automation. Recent work includes Qwen-CUA, EvoCUA-1.5, WebChain (CVPR 2026), and WebFactory (ICLR 2026), as well as the Qwen 3.8 release.',
         'I actively contribute to open source and aim to advance the GUI agent field through shared research and tools. Feel free to reach out for collaboration!',
       ],
       education: 'Education',
@@ -74,10 +74,16 @@ export function AcademicAboutClient({ blogCount }: AcademicAboutClientProps) {
   const experience = {
     zh: [
       {
+        title: '大模型研究',
+        org: '阿里巴巴 Qwen 基础大模型组',
+        period: '2026年6月 — 至今',
+        desc: '参与 Qwen 基础大模型与 Computer-Use Agent 研究，参与 Qwen-CUA 与 Qwen 3.8。',
+      },
+      {
         title: 'AI Research Intern',
-        org: '美团 LongCat 基座大模型组',
-        period: '2026年4月 — 至今',
-        desc: '参与美团 LongCat 基座大模型组 AI Research，负责 Computer-Use Agent 方向研究。',
+        org: '美团 LongCat 基础大模型组',
+        period: '2026年4月 — 2026年6月',
+        desc: '参与 Computer-Use Agent 方向研究及 EvoCUA-1.5。',
       },
       {
         title: 'GUI Agent 研究员',
@@ -94,15 +100,21 @@ export function AcademicAboutClient({ blogCount }: AcademicAboutClientProps) {
     ],
     en: [
       {
+        title: 'Foundation Model Research',
+        org: 'Qwen Foundation Model Team, Alibaba',
+        period: 'Jun 2026 — Present',
+        desc: 'Working on Qwen foundation models and computer-use agents, including Qwen-CUA and Qwen 3.8.',
+      },
+      {
         title: 'AI Research Intern',
-        org: 'LongCat Group, Meituan',
-        period: 'Apr 2026 — Present',
-        desc: 'Participating in AI Research at LongCat Group, focusing on Computer-Use Agent research.',
+        org: 'LongCat Foundation Model Team, Meituan',
+        period: 'Apr 2026 — Jun 2026',
+        desc: 'Worked on computer-use agents and EvoCUA-1.5.',
       },
       {
         title: 'GUI Agent Researcher',
         org: 'iMeanAI',
-        period: 'Jun 2024 — Present',
+        period: 'Jun 2024 — Feb 2026',
         desc: 'Conducting GUI agent research, leading WebChain and WebFactory projects.',
       },
       {

@@ -6,12 +6,12 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: 'Fan Sicheng | Researcher',
-  description: 'Personal academic website of Fan Sicheng — GUI Agent & RL researcher at Fudan University.',
-  keywords: ['GUI Agent', 'Reinforcement Learning', 'AI Researcher', 'Fudan University', '范思诚'],
+  description: 'Personal academic website of Sicheng Fan — GUI agent and computer-use agent researcher in the Alibaba Qwen foundation model team.',
+  keywords: ['GUI Agent', 'Computer-Use Agent', 'Reinforcement Learning', 'Qwen', 'Fudan University', '范思诚'],
   authors: [{ name: 'Fan Sicheng' }],
   openGraph: {
     title: 'Fan Sicheng | Researcher',
-    description: 'Personal academic website of Fan Sicheng — GUI Agent & RL researcher at Fudan University.',
+    description: 'Personal academic website of Sicheng Fan — GUI agent and computer-use agent researcher in the Alibaba Qwen foundation model team.',
     url: 'https://fansicheng.online',
     siteName: 'Fan Sicheng',
     locale: 'en_US',

@@ -27,10 +27,54 @@ const typeConfig: Record<EventType, { icon: typeof Briefcase; color: string; bg:
 
 const timelineEvents: TimelineEvent[] = [
   {
+    title: { zh: 'Qwen 3.8 发布', en: 'Qwen 3.8 Released' },
+    description: { zh: '参与 Qwen 3.8 的研发与发布。', en: 'Contributed to the development and release of Qwen 3.8.' },
+    date: { zh: '2026年8月', en: 'Aug 2026' },
+    type: 'achievement',
+    organization: '阿里巴巴 Qwen / Alibaba Qwen',
+    tags: ['Qwen 3.8', 'Foundation Model'],
+    link: 'https://qwen.ai/blog?id=qwen3.8',
+  },
+  {
+    title: { zh: 'Qwen-CUA 技术报告发布', en: 'Qwen-CUA Technical Report Released' },
+    description: {
+      zh: '发布原生 Computer-Use Agent 技术报告《Qwen-CUA: Native Computer Use for (almost) Everything》。',
+      en: 'Released “Qwen-CUA: Native Computer Use for (almost) Everything,” a technical report on native computer-use agents.',
+    },
+    date: { zh: '2026年8月', en: 'Aug 2026' },
+    type: 'achievement',
+    organization: '阿里巴巴 Qwen / Alibaba Qwen',
+    tags: ['Qwen-CUA', 'Computer-Use Agent', 'RL'],
+    link: 'https://arxiv.org/abs/2608.02352',
+  },
+  {
+    title: { zh: 'EvoCUA-1.5 技术报告发布', en: 'EvoCUA-1.5 Technical Report Released' },
+    description: {
+      zh: '发布面向多轮 Computer-Use Agent 的在线强化学习技术报告 EvoCUA-1.5。',
+      en: 'Released EvoCUA-1.5, a technical report on online reinforcement learning for multi-turn computer-use agents.',
+    },
+    date: { zh: '2026年7月', en: 'Jul 2026' },
+    type: 'achievement',
+    organization: '美团 LongCat / Meituan LongCat',
+    tags: ['EvoCUA-1.5', 'Online RL', 'Computer-Use Agent'],
+    link: 'https://arxiv.org/abs/2607.09773',
+  },
+  {
+    title: { zh: '加入阿里巴巴 Qwen 基础大模型组', en: 'Joined Alibaba Qwen Foundation Model Team' },
+    description: {
+      zh: '参与 Qwen 基础大模型与 Computer-Use Agent 研究。',
+      en: 'Working on Qwen foundation models and computer-use agent research.',
+    },
+    date: { zh: '2026年6月', en: 'Jun 2026' },
+    type: 'work',
+    organization: '阿里巴巴 Qwen / Alibaba Qwen',
+    tags: ['Foundation Model', 'Computer-Use Agent', 'LLM'],
+  },
+  {
     title: { zh: '加入美团 LongCat 基座大模型组', en: 'Joined Meituan LongCat Group' },
     description: {
-      zh: '担任 AI Research Intern，负责 Computer-Use Agent 方向研究。',
-      en: 'Serving as AI Research Intern, focusing on Computer-Use Agent research.',
+      zh: '参与 Computer-Use Agent 方向研究及 EvoCUA-1.5。',
+      en: 'Worked on computer-use agents and EvoCUA-1.5.',
     },
     date: { zh: '2026年4月', en: 'Apr 2026' },
     type: 'work',

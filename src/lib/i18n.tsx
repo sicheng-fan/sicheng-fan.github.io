@@ -29,12 +29,12 @@ const translations = {
       systemOnline: 'SYSTEM_ONLINE',
       greeting: "Hello, I'm",
       roles: [
-        'Full-Stack Developer',
-        'Open Source Enthusiast',
-        'System Architect',
-        'Tech Explorer',
+        'Qwen Foundation Model Research',
+        'Computer-Use Agent',
+        'GUI Agent Researcher',
+        'Reinforcement Learning',
       ],
-      description: '欢迎来到我的数字空间。这里记录着技术探索、项目开发与思考感悟。探索代码的边界，构建有价值的产品。',
+      description: '复旦大学硕士在读，现加入阿里巴巴 Qwen 基础大模型组，研究 GUI Agent、Computer-Use Agent 与强化学习。',
       exploreBlog: '探索文章',
       viewProjects: '查看项目',
       scrollDown: 'SCROLL_DOWN',
@@ -81,9 +81,9 @@ const translations = {
     about: {
       title: 'ABOUT ME',
       subtitle: '了解更多关于我的信息、技能和背景。',
-      bio: `你好！我是范思诚，复旦大学硕士在读，研究方向为 GUI Agent/Computer-Use Agent 与强化学习。担任 WebAgentLab 社区技术负责人，现任美团 LongCat 基座大模型组 AI Research Intern。
+      bio: `你好！我是范思诚，复旦大学硕士在读，研究方向为 GUI Agent、Computer-Use Agent 与强化学习。2026 年 6 月加入阿里巴巴 Qwen 基础大模型组；此前于 2026 年 4 月加入美团 LongCat 基础大模型组。
 
-我的研究聚焦于构建能够自主操作图形用户界面的智能体系统，利用视觉语言模型实现跨平台的通用任务自动化。近期工作包括 WebChain（CVPR 2026）和 WebFactory（ICLR 2026）。
+我的研究聚焦于构建能够自主操作图形用户界面的智能体系统，利用视觉语言模型与强化学习实现跨平台通用任务自动化。近期工作包括 Qwen-CUA、EvoCUA-1.5、WebChain（CVPR 2026）和 WebFactory（ICLR 2026），并参与 Qwen 3.8 的发布。
 
 参与开源社区，致力于通过分享研究成果和工具推动 GUI Agent 领域发展。欢迎合作与交流！`,
       location: '中国',
@@ -147,9 +147,25 @@ const translations = {
         description: '这个时间线将持续更新。每一天都是新的开始，每一行代码都是新的故事。',
       },
       events: {
+        qwen38Release: {
+          title: 'Qwen 3.8 发布',
+          description: '参与 Qwen 3.8 的研发与发布。',
+        },
+        qwenCuaReport: {
+          title: 'Qwen-CUA 技术报告发布',
+          description: '发布原生 Computer-Use Agent 技术报告《Qwen-CUA: Native Computer Use for (almost) Everything》。',
+        },
+        evocuaReport: {
+          title: 'EvoCUA-1.5 技术报告发布',
+          description: '发布面向多轮 Computer-Use Agent 的在线强化学习技术报告 EvoCUA-1.5。',
+        },
+        qwenJoin: {
+          title: '加入阿里巴巴 Qwen 基础大模型组',
+          description: '参与 Qwen 基础大模型与 Computer-Use Agent 研究。',
+        },
         meituanJoin: {
           title: '加入美团 LongCat 基座大模型组',
-          description: '担任 AI Research Intern，负责 Computer-Use Agent 方向研究。',
+          description: '参与 Computer-Use Agent 方向研究及 EvoCUA-1.5。',
         },
         iclrFirstAuthor: {
           title: 'ICLR 一作论文发表（WebFactory）',
@@ -273,12 +289,12 @@ const translations = {
       systemOnline: 'SYSTEM_ONLINE',
       greeting: "Hello, I'm",
       roles: [
-        'Full-Stack Developer',
-        'Open Source Enthusiast',
-        'System Architect',
-        'Tech Explorer',
+        'Qwen Foundation Model Research',
+        'Computer-Use Agent',
+        'GUI Agent Researcher',
+        'Reinforcement Learning',
       ],
-      description: 'Welcome to my digital space. Here I document my tech explorations, project development, and reflections. Pushing the boundaries of code, building valuable products.',
+      description: "Master's student at Fudan University and a member of Alibaba's Qwen foundation model team, researching GUI agents, computer-use agents, and reinforcement learning.",
       exploreBlog: 'Explore Blog',
       viewProjects: 'View Projects',
       scrollDown: 'SCROLL_DOWN',
@@ -325,9 +341,9 @@ const translations = {
     about: {
       title: 'ABOUT ME',
       subtitle: 'Learn more about me, my skills, and background.',
-      bio: `Hi! I'm Sicheng Fan, a Master's student at Fudan University, working on GUI Agents/Computer-Use Agents and Reinforcement Learning. I serve as the Technical Lead at WebAgentLab community and as an AI Research Intern at LongCat Group, Meituan.
+      bio: `Hi! I'm Sicheng Fan, a Master's student at Fudan University, working on GUI agents, computer-use agents, and reinforcement learning. I joined Alibaba's Qwen foundation model team in June 2026, after joining Meituan's LongCat foundation model team in April 2026.
 
-My research focuses on building Computer-Use Agents, utilizing Vision-Language Models for cross-platform task automation. Recent work includes WebChain (CVPR 2026) and WebFactory (ICLR 2026).
+My research focuses on building agents that autonomously operate graphical interfaces using Vision-Language Models and reinforcement learning. Recent work includes Qwen-CUA, EvoCUA-1.5, WebChain (CVPR 2026), and WebFactory (ICLR 2026), as well as the Qwen 3.8 release.
 
 I actively contribute to open source and aim to advance the GUI agent field through shared research and tools. Feel free to reach out for collaboration!`,
       location: 'China',
@@ -391,9 +407,25 @@ I actively contribute to open source and aim to advance the GUI agent field thro
         description: 'This timeline will keep updating. Every day is a new beginning, every line of code is a new story.',
       },
       events: {
+        qwen38Release: {
+          title: 'Qwen 3.8 Released',
+          description: 'Contributed to the development and release of Qwen 3.8.',
+        },
+        qwenCuaReport: {
+          title: 'Qwen-CUA Technical Report Released',
+          description: 'Released “Qwen-CUA: Native Computer Use for (almost) Everything,” a technical report on native computer-use agents.',
+        },
+        evocuaReport: {
+          title: 'EvoCUA-1.5 Technical Report Released',
+          description: 'Released EvoCUA-1.5, a technical report on online reinforcement learning for multi-turn computer-use agents.',
+        },
+        qwenJoin: {
+          title: 'Joined Alibaba Qwen Foundation Model Team',
+          description: 'Working on Qwen foundation models and computer-use agent research.',
+        },
         meituanJoin: {
           title: 'Joined Meituan LongCat Group',
-          description: 'Serving as AI Research Intern, focusing on Computer-Use Agent research.',
+          description: 'Worked on computer-use agents and EvoCUA-1.5.',
         },
         iclrFirstAuthor: {
           title: 'ICLR First-Author Paper Published (WebFactory)',

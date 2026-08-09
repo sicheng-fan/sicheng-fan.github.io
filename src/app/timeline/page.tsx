@@ -21,6 +21,41 @@ export default function TimelinePage() {
 // 时间线数据
 const timelineData = [
   {
+      title: t.timeline.events.qwen38Release.title,
+      description: t.timeline.events.qwen38Release.description,
+    date: '2026年8月',
+    type: 'achievement' as const,
+    organization: '阿里巴巴 Qwen',
+    link: 'https://qwen.ai/blog?id=qwen3.8',
+    tags: ['Qwen 3.8', 'Foundation Model'],
+  },
+  {
+      title: t.timeline.events.qwenCuaReport.title,
+      description: t.timeline.events.qwenCuaReport.description,
+    date: '2026年8月',
+    type: 'achievement' as const,
+    organization: '阿里巴巴 Qwen',
+    link: 'https://arxiv.org/abs/2608.02352',
+    tags: ['Qwen-CUA', 'Computer-Use Agent', 'RL'],
+  },
+  {
+      title: t.timeline.events.evocuaReport.title,
+      description: t.timeline.events.evocuaReport.description,
+    date: '2026年7月',
+    type: 'achievement' as const,
+    organization: '美团 LongCat',
+    link: 'https://arxiv.org/abs/2607.09773',
+    tags: ['EvoCUA-1.5', 'Online RL', 'Computer-Use Agent'],
+  },
+  {
+      title: t.timeline.events.qwenJoin.title,
+      description: t.timeline.events.qwenJoin.description,
+    date: '2026年6月',
+    type: 'work' as const,
+    organization: '阿里巴巴 Qwen',
+    tags: ['Foundation Model', 'Computer-Use Agent', 'LLM'],
+  },
+  {
       title: t.timeline.events.meituanJoin.title,
       description: t.timeline.events.meituanJoin.description,
     date: '2026年4月',

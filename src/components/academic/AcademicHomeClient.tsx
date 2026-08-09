@@ -137,24 +137,26 @@ export function AcademicHomeClient({ zhPosts, enPosts }: AcademicHomeClientProps
   const recentPosts = (language === 'zh' ? zhPosts : enPosts).slice(0, 3)
 
   const bio = {
-    zh: '复旦大学硕士在读，研究方向为 GUI Agent 与强化学习。同时担任 WebAgentLab 社区技术负责人，iMeanAI 研究员。致力于构建能够自主操作图形界面的智能体系统，研究成果发表于 CVPR、ICLR 等顶级会议。',
-    en: "Master's student at Fudan University, researching GUI Agents and Reinforcement Learning. Serving as Technical Lead at WebAgentLab and researcher at iMeanAI. My work focuses on building autonomous agents that can operate graphical interfaces. Publications at CVPR and ICLR.",
+    zh: '复旦大学硕士在读，现加入阿里巴巴 Qwen 基础大模型组，研究方向为 GUI Agent、Computer-Use Agent 与强化学习。此前曾加入美团 LongCat 基础大模型组并参与 EvoCUA-1.5，近期参与 Qwen-CUA 与 Qwen 3.8。',
+    en: "Master's student at Fudan University and a member of Alibaba's Qwen foundation model team, researching GUI agents, computer-use agents, and reinforcement learning. Previously worked with Meituan's LongCat foundation model team on EvoCUA-1.5; recent work includes Qwen-CUA and Qwen 3.8.",
   }
 
   const news = {
     zh: [
+      { date: '2026年8月', content: '发布 Qwen-CUA 技术报告与 Qwen 3.8' },
+      { date: '2026年7月', content: '发布 EvoCUA-1.5 技术报告' },
+      { date: '2026年6月', content: '加入阿里巴巴 Qwen 基础大模型组' },
+      { date: '2026年4月', content: '加入美团 LongCat 基础大模型组' },
       { date: '2026年2月', content: '论文《WebChain》被 CVPR 2026 接收（一作）' },
       { date: '2026年1月', content: '论文《WebFactory》被 ICLR 2026 接收（一作）' },
-      { date: '2025年12月', content: '搭建个人学术主页' },
-      { date: '2025年', content: '担任 WebAgentLab 社区技术负责人' },
-      { date: '2024年9月', content: '入读复旦大学硕士' },
     ],
     en: [
+      { date: 'Aug 2026', content: 'Released the Qwen-CUA technical report and Qwen 3.8' },
+      { date: 'Jul 2026', content: 'Released the EvoCUA-1.5 technical report' },
+      { date: 'Jun 2026', content: "Joined Alibaba's Qwen foundation model team" },
+      { date: 'Apr 2026', content: "Joined Meituan's LongCat foundation model team" },
       { date: 'Feb 2026', content: 'Paper "WebChain" accepted at CVPR 2026 (first author)' },
       { date: 'Jan 2026', content: 'Paper "WebFactory" accepted at ICLR 2026 (first author)' },
-      { date: 'Dec 2025', content: 'Launched personal academic website' },
-      { date: '2025', content: 'Became Technical Lead at WebAgentLab community' },
-      { date: 'Sep 2024', content: "Enrolled in Master's program at Fudan University" },
     ],
   }
 
@@ -194,8 +196,8 @@ export function AcademicHomeClient({ zhPosts, enPosts }: AcademicHomeClientProps
               </p>
               <p className="text-slate-500 text-sm mb-4">
                 {language === 'zh'
-                  ? 'WebAgentLab 技术负责人 · iMeanAI 研究员'
-                  : 'Technical Lead @ WebAgentLab · Researcher @ iMeanAI'}
+                  ? '阿里巴巴 Qwen 基础大模型组 · GUI Agent 研究'
+                  : 'Alibaba Qwen Foundation Model Team · GUI Agent Research'}
               </p>
               <p className="text-slate-700 leading-relaxed mb-5 max-w-2xl text-sm sm:text-base">
                 {bio[language]}
@@ -236,10 +238,7 @@ export function AcademicHomeClient({ zhPosts, enPosts }: AcademicHomeClientProps
               <h2 className="text-xl font-semibold text-slate-900 mb-1 pb-2 border-b border-slate-200">
                 {language === 'zh' ? '发表论文' : 'Publications'}
               </h2>
-              <p className="text-sm text-slate-500 mb-5">
-                {language === 'zh' ? '* 表示同等贡献' : '* indicates equal contribution'}
-              </p>
-              <div className="space-y-4">
+              <div className="space-y-4 mt-5">
                 {publications.map((pub) => (
                   <PublicationCard key={pub.id} pub={pub} language={language} />
                 ))}
