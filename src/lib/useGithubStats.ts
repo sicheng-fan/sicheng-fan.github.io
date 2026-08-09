@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { projects, getRepoName } from '@/data/projects'
+import { apiUrl } from '@/lib/api'
 
 type RepoStats = Record<string, { stars: number; forks: number }>
 
@@ -16,7 +17,7 @@ export function useGithubStats() {
   })
 
   useEffect(() => {
-    fetch('/api/github')
+    fetch(apiUrl('/api/github'))
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
         if (data && Object.keys(data).length > 0) setStats(data)

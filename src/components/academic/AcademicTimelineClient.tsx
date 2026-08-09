@@ -80,7 +80,7 @@ const timelineEvents: TimelineEvent[] = [
     date: { zh: '2024年11月', en: 'Nov 2024' },
     type: 'project',
     tags: ['Dataset', 'GUI Agent', 'Open Source'],
-    link: 'https://github.com/franskey-0112/WebChain',
+    link: 'https://github.com/sicheng-fan/WebChain',
   },
   {
     title: { zh: '入职 iMeanAI', en: 'Joined iMeanAI' },

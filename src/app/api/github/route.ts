@@ -1,5 +1,5 @@
-import { NextResponse } from 'next/server'
 import { GITHUB_USERNAME } from '@/data/projects'
+import { corsJson } from '@/lib/cors'
 
 interface GitHubRepo {
   name: string
@@ -18,7 +18,7 @@ const CACHE_TTL = 10 * 60 * 1000 // 10 minutes
 export async function GET() {
   const now = Date.now()
   if (cache.data && now - cache.timestamp < CACHE_TTL) {
-    return NextResponse.json(cache.data)
+    return corsJson(cache.data)
   }
 
   try {
@@ -28,8 +28,8 @@ export async function GET() {
     )
 
     if (!res.ok) {
-      if (cache.data) return NextResponse.json(cache.data)
-      return NextResponse.json({}, { status: 502 })
+      if (cache.data) return corsJson(cache.data)
+      return corsJson({}, { status: 502 })
     }
 
     const repos: GitHubRepo[] = await res.json()
@@ -43,9 +43,9 @@ export async function GET() {
     }
 
     cache = { data: stats, timestamp: now }
-    return NextResponse.json(stats)
+    return corsJson(stats)
   } catch {
-    if (cache.data) return NextResponse.json(cache.data)
-    return NextResponse.json({}, { status: 502 })
+    if (cache.data) return corsJson(cache.data)
+    return corsJson({}, { status: 502 })
   }
 }

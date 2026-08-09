@@ -1,7 +1,7 @@
-import { NextResponse } from 'next/server'
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
+import { corsJson } from '@/lib/cors'
 
 // 项目数据（与 projects/page.tsx 保持同步）
 const allProjects = [
@@ -9,7 +9,7 @@ const allProjects = [
     title: 'CafeMeet',
     description: '智能会面地点推荐系统。基于 AI 和地图数据分析，为多人会面智能推荐最佳咖啡馆，综合考量评分、距离、环境、交通等多维因素，让社交活动规划变得轻松愉快。',
     tags: ['Python', 'FastAPI', 'AI', 'Map', 'OpenManus'],
-    github: 'https://github.com/franskey-0112/CafeMeet',
+    github: 'https://github.com/sicheng-fan/CafeMeet',
     status: 'active' as const,
     category: 'AI & ML',
   },
@@ -61,36 +61,21 @@ export interface SearchResult {
   date?: string
 }
 
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url)
-  const query = searchParams.get('q')?.toLowerCase() || ''
-
-  if (!query || query.length < 2) {
-    return NextResponse.json({ results: [] })
-  }
-
+export async function GET() {
   const results: SearchResult[] = []
 
   // 搜索博客文章
   try {
     const posts = getPostsForSearch()
     posts.forEach((post) => {
-      const matchesTitle = post.title.toLowerCase().includes(query)
-      const matchesExcerpt = post.excerpt.toLowerCase().includes(query)
-      const matchesTags = post.tags.some((tag) => 
-        tag.toLowerCase().includes(query)
-      )
-
-      if (matchesTitle || matchesExcerpt || matchesTags) {
-        results.push({
-          type: 'post',
-          title: post.title,
-          description: post.excerpt.slice(0, 100) + (post.excerpt.length > 100 ? '...' : ''),
-          url: `/blog/${post.slug}`,
-          tags: post.tags,
-          date: post.date,
-        })
-      }
+      results.push({
+        type: 'post',
+        title: post.title,
+        description: post.excerpt.slice(0, 100) + (post.excerpt.length > 100 ? '...' : ''),
+        url: `/blog/${post.slug}`,
+        tags: post.tags,
+        date: post.date,
+      })
     })
   } catch (error) {
     console.error('Error searching posts:', error)
@@ -98,23 +83,14 @@ export async function GET(request: Request) {
 
   // 搜索项目
   allProjects.forEach((project) => {
-    const matchesTitle = project.title.toLowerCase().includes(query)
-    const matchesDescription = project.description.toLowerCase().includes(query)
-    const matchesTags = project.tags.some((tag) => 
-      tag.toLowerCase().includes(query)
-    )
-    const matchesCategory = project.category.toLowerCase().includes(query)
-
-    if (matchesTitle || matchesDescription || matchesTags || matchesCategory) {
-      results.push({
-        type: 'project',
-        title: project.title,
-        description: project.description.slice(0, 100) + (project.description.length > 100 ? '...' : ''),
-        url: project.github || '/projects',
-        tags: project.tags,
-      })
-    }
+    results.push({
+      type: 'project',
+      title: project.title,
+      description: project.description.slice(0, 100) + (project.description.length > 100 ? '...' : ''),
+      url: project.github || '/projects',
+      tags: [...project.tags, project.category],
+    })
   })
 
-  return NextResponse.json({ results })
+  return corsJson({ results })
 }

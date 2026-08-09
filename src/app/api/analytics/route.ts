@@ -1,6 +1,7 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import { corsJson, corsOptions } from '@/lib/cors';
 
 // 数据文件路径
 const DATA_DIR = process.env.ANALYTICS_DATA_DIR || path.join(process.cwd(), 'data');
@@ -144,7 +145,7 @@ export async function POST(request: NextRequest) {
     
     writeData(data);
     
-    return NextResponse.json({
+    return corsJson({
       success: true,
       totalVisits: data.totalVisits,
       uniqueVisitors: data.uniqueVisitors,
@@ -152,7 +153,7 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error('Analytics error:', error);
-    return NextResponse.json(
+    return corsJson(
       { error: 'Failed to record visit' },
       { status: 500 }
     );
@@ -206,7 +207,7 @@ export async function GET(request: NextRequest) {
           pages: info.pages,
         }));
       
-      return NextResponse.json({
+      return corsJson({
         ...publicData,
         last7Days,
         recentVisitors,
@@ -214,12 +215,14 @@ export async function GET(request: NextRequest) {
       });
     }
     
-    return NextResponse.json(publicData);
+    return corsJson(publicData);
   } catch (error) {
     console.error('Analytics error:', error);
-    return NextResponse.json(
+    return corsJson(
       { error: 'Failed to get analytics' },
       { status: 500 }
     );
   }
 }
+
+export const OPTIONS = corsOptions;

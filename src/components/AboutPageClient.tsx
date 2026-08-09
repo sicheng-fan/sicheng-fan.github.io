@@ -18,7 +18,7 @@ import { useLanguage } from '@/lib/i18n'
 
 // 社交链接
 const socialLinks = [
-  { icon: Github, href: 'https://github.com/franskey-0112', label: 'GitHub' },
+  { icon: Github, href: 'https://github.com/sicheng-fan', label: 'GitHub' },
   { icon: Twitter, href: 'https://x.com/fan_si_cheng', label: 'X' },
   { icon: Linkedin, href: 'https://linkedin.com/in/fansicheng', label: 'LinkedIn' },
   { icon: Mail, href: 'mailto:sicheng_fan@foxmail.com', label: 'Email' },

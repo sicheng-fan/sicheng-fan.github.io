@@ -208,7 +208,7 @@ export function AcademicHomeClient({ zhPosts, enPosts }: AcademicHomeClientProps
                   <Mail className="w-4 h-4" />
                   {language === 'zh' ? '邮件联系' : 'Email'}
                 </a>
-                <a href="https://github.com/franskey-0112" target="_blank" rel="noopener noreferrer"
+                <a href="https://github.com/sicheng-fan" target="_blank" rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-md border border-slate-200 text-slate-700 hover:bg-slate-50 transition-colors">
                   <Github className="w-4 h-4" />
                   GitHub
@@ -322,9 +322,9 @@ export function AcademicHomeClient({ zhPosts, enPosts }: AcademicHomeClientProps
                 </div>
                 <div className="flex items-center gap-2">
                   <Github className="w-4 h-4 text-slate-400 flex-shrink-0" />
-                  <a href="https://github.com/franskey-0112" target="_blank" rel="noopener noreferrer"
+                  <a href="https://github.com/sicheng-fan" target="_blank" rel="noopener noreferrer"
                     className="text-blue-600 hover:underline">
-                    franskey-0112
+                    sicheng-fan
                   </a>
                 </div>
               </div>

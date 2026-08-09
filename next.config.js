@@ -6,6 +6,8 @@ const withMDX = require('@next/mdx')({
   },
 })
 
+const isGitHubPages = process.env.GITHUB_PAGES === 'true'
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
@@ -13,7 +15,8 @@ const nextConfig = {
     domains: ['localhost', 'fansicheng.online'],
     unoptimized: true,
   },
-  output: 'standalone',
+  output: isGitHubPages ? 'export' : 'standalone',
+  trailingSlash: isGitHubPages,
 }
 
 module.exports = withMDX(nextConfig)

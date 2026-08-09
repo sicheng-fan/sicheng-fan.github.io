@@ -212,7 +212,7 @@ export function AcademicProjectsClient({ projects }: AcademicProjectsClientProps
           </div>
 
           <div className="mt-6 text-center">
-            <a href="https://github.com/franskey-0112" target="_blank" rel="noopener noreferrer"
+            <a href="https://github.com/sicheng-fan" target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-4 py-2 text-sm rounded-md border border-slate-200 text-slate-700 hover:bg-slate-50 transition-colors">
               <Github className="w-4 h-4" />
               {language === 'zh' ? '在 GitHub 查看更多' : 'View more on GitHub'}

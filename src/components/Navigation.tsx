@@ -7,6 +7,7 @@ import { Menu, X, Folder, User, Clock, Home, Rss, Search, FileText, ExternalLink
 import { motion, AnimatePresence } from 'framer-motion'
 import { useLanguage } from '@/lib/i18n'
 import { useTheme } from '@/lib/theme'
+import { apiUrl } from '@/lib/api'
 
 interface SearchResult {
   type: 'post' | 'project'
@@ -47,9 +48,15 @@ export function Navigation() {
     }
     setIsSearching(true)
     try {
-      const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`)
+      const response = await fetch(apiUrl('/api/search'))
       const data = await response.json()
-      setSearchResults(data.results || [])
+      const normalizedQuery = query.toLowerCase()
+      const results = (data.results || []).filter((result: SearchResult) =>
+        result.title.toLowerCase().includes(normalizedQuery) ||
+        result.description.toLowerCase().includes(normalizedQuery) ||
+        result.tags.some((tag) => tag.toLowerCase().includes(normalizedQuery))
+      )
+      setSearchResults(results)
       setSelectedIndex(0)
     } catch {
       setSearchResults([])

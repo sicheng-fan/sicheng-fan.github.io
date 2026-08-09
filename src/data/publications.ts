@@ -34,7 +34,7 @@ export const publications: Publication[] = [
     abstractZh:
       '我们提出 WebChain，迄今为止最大的真实网站人工标注轨迹开源数据集，包含 31,725 条轨迹和 318,000 个步骤。WebChain 引入视觉、结构和动作数据的三重对齐用于多模态监督，并在训练方法论中将空间定位与规划任务分离。实验表明在 WebChainBench 和其他 GUI 评估基准上性能显著提升，为下一代网页智能体的开发提供支持。',
     tags: ['GUI Agent', 'Dataset', 'Web Agent', 'Multi-modal'],
-    github: 'https://github.com/franskey-0112/WebChain',
+    github: 'https://github.com/sicheng-fan/WebChain',
     featured: true,
     venueColor: '#dc2626',
     venueBg: '#fef2f2',
@@ -63,7 +63,7 @@ export const publications: Publication[] = [
     abstractZh:
       '我们提出 WebFactory，一种自动化强化学习流程，无需不安全的实时网络交互或昂贵的人工标注数据集即可训练 GUI 网页智能体。WebFactory 自动化环境合成、任务生成、LLM 轨迹收集、分解奖励 RL 和智能体评估。仅在 10 个合成网站上训练的智能体与在更大规模人工标注数据集上训练的智能体性能相当，验证了所提出"具身潜力"框架的有效性。',
     tags: ['GUI Agent', 'Reinforcement Learning', 'LLM', 'Synthetic Data'],
-    github: 'https://github.com/franskey-0112/WebFactory',
+    github: 'https://github.com/sicheng-fan/WebFactory',
     featured: true,
     venueColor: '#7c3aed',
     venueBg: '#f5f3ff',

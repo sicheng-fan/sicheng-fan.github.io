@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:pages": "GITHUB_PAGES=true next build",
     "postbuild": "bash scripts/prepare-standalone.sh",
     "start": "node .next/standalone/server.js",
     "lint": "next lint",

@@ -10,7 +10,7 @@ import { fileURLToPath } from 'url'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const PROJECTS_FILE = resolve(__dirname, '../src/data/projects.ts')
-const GITHUB_USERNAME = 'franskey-0112'
+const GITHUB_USERNAME = 'sicheng-fan'
 
 async function fetchRepos() {
   const res = await fetch(

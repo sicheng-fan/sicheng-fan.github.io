@@ -11,7 +11,7 @@ export interface ProjectData {
   featured: boolean
 }
 
-export const GITHUB_USERNAME = 'franskey-0112'
+export const GITHUB_USERNAME = 'sicheng-fan'
 
 export const projects: ProjectData[] = [
   {

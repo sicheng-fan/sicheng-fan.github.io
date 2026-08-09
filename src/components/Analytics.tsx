@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
+import { apiUrl } from '@/lib/api';
 
 interface AnalyticsData {
   totalVisits: number;
@@ -18,7 +19,7 @@ export function AnalyticsTracker() {
     // 记录页面访问
     const recordVisit = async () => {
       try {
-        await fetch('/api/analytics', {
+        await fetch(apiUrl('/api/analytics'), {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -45,7 +46,7 @@ export function AnalyticsDisplay() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const response = await fetch('/api/analytics');
+        const response = await fetch(apiUrl('/api/analytics'));
         if (response.ok) {
           const data = await response.json();
           setStats(data);
@@ -94,7 +95,7 @@ export function VisitorCounter() {
   useEffect(() => {
     const fetchCount = async () => {
       try {
-        const response = await fetch('/api/analytics');
+        const response = await fetch(apiUrl('/api/analytics'));
         if (response.ok) {
           const data = await response.json();
           setCount(data.totalVisits);

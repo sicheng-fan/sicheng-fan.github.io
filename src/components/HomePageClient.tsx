@@ -385,7 +385,7 @@ export function HomePageClient({ zhPosts, enPosts }: HomePageClientProps) {
                   {t.home.contact.sendEmail}
                 </a>
                 <a
-                  href="https://github.com/franskey-0112"
+                  href="https://github.com/sicheng-fan"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-7 py-3 font-mono text-sm text-cyber-pink border border-cyber-pink/40 hover:bg-cyber-pink/10 hover:border-cyber-pink/70 transition-all clip-corner-sm"

@@ -237,9 +237,9 @@ export function AcademicAboutClient({ blogCount }: AcademicAboutClientProps) {
                 </div>
                 <div className="flex items-center gap-2">
                   <Github className="w-4 h-4 text-slate-400 flex-shrink-0" />
-                  <a href="https://github.com/franskey-0112" target="_blank" rel="noopener noreferrer"
+                  <a href="https://github.com/sicheng-fan" target="_blank" rel="noopener noreferrer"
                     className="text-blue-600 hover:underline">
-                    franskey-0112
+                    sicheng-fan
                   </a>
                 </div>
                 <div className="flex items-center gap-2">

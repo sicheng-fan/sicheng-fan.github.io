@@ -17,7 +17,7 @@ export function AcademicFooter() {
           </p>
           <div className="flex items-center gap-4">
             <a
-              href="https://github.com/franskey-0112"
+              href="https://github.com/sicheng-fan"
               target="_blank"
               rel="noopener noreferrer"
               className="text-slate-400 hover:text-slate-700 transition-colors"
