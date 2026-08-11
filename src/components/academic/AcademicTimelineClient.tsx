@@ -138,7 +138,7 @@ const timelineEvents: TimelineEvent[] = [
   },
   {
     title: { zh: '复旦大学本科毕业', en: "Bachelor's Graduation from Fudan University" },
-    description: { zh: '完成复旦大学计算机科学与技术本科学习，顺利毕业。', en: 'Completed B.S. in Computer Science and Technology at Fudan University.' },
+    description: { zh: '完成复旦大学电子信息科学与技术本科学习，顺利毕业。', en: 'Completed B.S. in Electronic Information Science and Technology at Fudan University.' },
     date: { zh: '2024年6月', en: 'Jun 2024' },
     type: 'education',
     organization: '复旦大学 / Fudan University',

@@ -47,7 +47,7 @@ export function AcademicAboutClient({ blogCount }: AcademicAboutClientProps) {
         desc: '研究方向：GUI Agent/Computer-Use Agent、强化学习',
       },
       {
-        degree: '学士学位',
+        degree: '电子信息科学与技术学士',
         school: '复旦大学',
         period: '2020年9月 — 2024年6月',
         desc: '上海市优秀毕业生、复旦大学望道学者',
@@ -61,7 +61,7 @@ export function AcademicAboutClient({ blogCount }: AcademicAboutClientProps) {
         desc: 'Research: GUI Agent/Computer-Use Agent, Reinforcement Learning',
       },
       {
-        degree: 'Bachelor\'s Student',
+        degree: 'B.S. in Electronic Information Science and Technology',
         school: 'Fudan University',
         period: 'Sep 2020 — Jun 2024',
         desc: 'Outstanding Graduate of Shanghai, Outstanding Student of Fudan University',

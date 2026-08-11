@@ -14,7 +14,7 @@ export const education: Record<'zh' | 'en', ProfileEntry[]> = {
       description: '研究方向：Computer-Use Agent、强化学习',
     },
     {
-      title: '计算机科学与技术学士',
+      title: '电子信息科学与技术学士',
       organization: '复旦大学',
       period: '2020年9月 — 2024年6月',
       description: '上海市优秀毕业生、复旦大学望道学者',
@@ -28,7 +28,7 @@ export const education: Record<'zh' | 'en', ProfileEntry[]> = {
       description: 'Research: Computer-Use Agent and Reinforcement Learning',
     },
     {
-      title: "B.S. in Computer Science and Technology",
+      title: "B.S. in Electronic Information Science and Technology",
       organization: 'Fudan University',
       period: 'Sep 2020 — Jun 2024',
       description: 'Outstanding Graduate of Shanghai and Wangdao Scholar at Fudan University',
