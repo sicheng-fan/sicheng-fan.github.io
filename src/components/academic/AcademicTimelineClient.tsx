@@ -104,13 +104,6 @@ const timelineEvents: TimelineEvent[] = [
     link: 'https://arxiv.org/abs/2603.05044',
   },
   {
-    title: { zh: '个人学术主页上线', en: 'Personal Academic Website' },
-    description: { zh: '搭建本学术主页，记录研究成果与学习历程。', en: 'Launched this academic website to document research and growth.' },
-    date: { zh: '2025年12月', en: 'Dec 2025' },
-    type: 'milestone',
-    tags: ['Next.js', 'React'],
-  },
-  {
     title: { zh: '担任 WebAgentLab 技术负责人', en: 'Technical Lead at WebAgentLab' },
     description: { zh: '负责 WebAgentLab 社区技术方向，推动 GUI Agent 开源生态建设。', en: 'Leading technical direction at WebAgentLab community, building the GUI agent open-source ecosystem.' },
     date: { zh: '2025年', en: '2025' },

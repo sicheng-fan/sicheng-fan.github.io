@@ -80,13 +80,6 @@ const timelineData = [
     tags: ['ICLR', 'First Author', 'GUI Agent'],
   },
   {
-      title: t.timeline.events.digitalSpace.title,
-      description: t.timeline.events.digitalSpace.description,
-    date: '2025年12月',
-    type: 'milestone' as const,
-    tags: ['Next.js', 'React', '个人网站'],
-  },
-  {
       title: t.timeline.events.webAgentLab.title,
       description: t.timeline.events.webAgentLab.description,
     date: '2025年',

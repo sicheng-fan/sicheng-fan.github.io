@@ -177,10 +177,6 @@ const translations = {
           title: 'CVPR 一作论文发表（WebChain）',
           description: 'WebChain 于 2026 年 2 月 18 日完成发表，聚焦大规模真实网页交互轨迹数据集与训练范式。',
         },
-        digitalSpace: {
-          title: '搭建自己的数字空间',
-          description: '拥有了属于自己的一片赛博空间，搭建了这个个人网站，开始记录技术探索与人生思考。',
-        },
         webAgentLab: {
           title: '加入 WebAgentLab',
           description: 'WebAgentLab 社区负责人，专注于 GUI Agent 技术研究与开源项目开发。',
@@ -438,10 +434,6 @@ I actively contribute to open source and aim to advance the GUI agent field thro
         cvprFirstAuthor: {
           title: 'CVPR First-Author Paper Published (WebChain)',
           description: 'WebChain was published on February 18, 2026 as first-author work, focusing on large-scale real-world web interaction trajectories and training paradigms.',
-        },
-        digitalSpace: {
-          title: 'Built My Digital Space',
-          description: 'Created my own cyber space, built this personal website to document tech explorations and life reflections.',
         },
         webAgentLab: {
           title: 'Joined WebAgentLab',
