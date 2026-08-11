@@ -260,8 +260,8 @@ export function AcademicHomeClient() {
                 <div className="space-y-5">
                   {education[language].map((item) => (
                     <div key={`${item.organization}-${item.period}`} className="border-l-2 border-blue-200 pl-4">
-                      <h3 className="font-medium text-slate-900">{item.title}</h3>
-                      <p className="text-sm text-slate-600">{item.organization}</p>
+                      <h3 className="font-semibold text-slate-900">{item.organization}</h3>
+                      <p className="text-sm text-slate-600">{item.title}</p>
                       <p className="text-xs text-slate-400 mt-0.5">{item.period}</p>
                       <p className="text-sm text-slate-600 mt-1 leading-relaxed">{item.description}</p>
                     </div>
@@ -277,8 +277,8 @@ export function AcademicHomeClient() {
                 <div className="space-y-5">
                   {experience[language].map((item) => (
                     <div key={`${item.organization}-${item.period}`} className="border-l-2 border-slate-200 pl-4">
-                      <h3 className="font-medium text-slate-900">{item.title}</h3>
-                      <p className="text-sm text-slate-600">{item.organization}</p>
+                      <h3 className="font-semibold text-slate-900">{item.organization}</h3>
+                      <p className="text-sm text-slate-600">{item.title}</p>
                       <p className="text-xs text-slate-400 mt-0.5">{item.period}</p>
                       <p className="text-sm text-slate-600 mt-1 leading-relaxed">{item.description}</p>
                     </div>

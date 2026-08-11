@@ -173,8 +173,8 @@ export function AcademicAboutClient({ blogCount }: AcademicAboutClientProps) {
                   <div key={i} className="flex gap-4">
                     <div className="flex-shrink-0 w-1 bg-blue-200 rounded-full mt-1" />
                     <div>
-                      <h3 className="font-medium text-slate-900">{edu.degree}</h3>
-                      <p className="text-slate-600 text-sm">{edu.school}</p>
+                      <h3 className="font-semibold text-slate-900">{edu.school}</h3>
+                      <p className="text-slate-600 text-sm">{edu.degree}</p>
                       <p className="text-slate-400 text-xs mt-0.5">{edu.period}</p>
                       {edu.desc && <p className="text-slate-600 text-sm mt-1">{edu.desc}</p>}
                     </div>
@@ -194,8 +194,8 @@ export function AcademicAboutClient({ blogCount }: AcademicAboutClientProps) {
                   <div key={i} className="flex gap-4">
                     <div className="flex-shrink-0 w-1 bg-slate-200 rounded-full mt-1" />
                     <div>
-                      <h3 className="font-medium text-slate-900">{exp.title}</h3>
-                      <p className="text-slate-600 text-sm">{exp.org}</p>
+                      <h3 className="font-semibold text-slate-900">{exp.org}</h3>
+                      <p className="text-slate-600 text-sm">{exp.title}</p>
                       <p className="text-slate-400 text-xs mt-0.5">{exp.period}</p>
                       <p className="text-slate-600 text-sm mt-1">{exp.desc}</p>
                     </div>

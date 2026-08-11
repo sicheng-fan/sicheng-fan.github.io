@@ -32,6 +32,7 @@ yarn-error.log*
 # Local
 *.local
 website.tar.gz
+DEPLOYMENT.local.md
 
 # Vercel
 .vercel
