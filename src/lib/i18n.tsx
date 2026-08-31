@@ -34,7 +34,7 @@ const translations = {
         'Computer-Use Agent',
         'Reinforcement Learning',
       ],
-      description: '复旦大学硕士在读，研究方向为 Computer-Use Agent 与强化学习。同时担任 WebAgentLab 社区技术负责人，阿里巴巴 Qwen 基模组研究员。',
+      description: '复旦大学硕士在读，研究方向为 Computer-Use Agent、Hybrid Agent 与强化学习。同时担任 WebAgentLab 社区技术负责人，阿里巴巴 Qwen 基模组研究员。',
       exploreBlog: '探索文章',
       viewProjects: '查看项目',
       scrollDown: 'SCROLL_DOWN',
@@ -81,9 +81,9 @@ const translations = {
     about: {
       title: 'ABOUT ME',
       subtitle: '了解更多关于我的信息、技能和背景。',
-      bio: `你好！我是范思诚，复旦大学硕士在读，研究方向为 GUI Agent 与强化学习。同时担任 WebAgentLab 社区技术负责人，阿里巴巴 Qwen 基模组研究员。致力于构建能够自主操作图形界面的智能体系统，研究成果发表于 CVPR、ICLR 等顶级会议。
+      bio: `你好！我是范思诚，复旦大学硕士在读，研究方向为 Computer-Use Agent、Hybrid Agent 与强化学习。同时担任 WebAgentLab 社区技术负责人，阿里巴巴 Qwen 基模组研究员。致力于构建能够自主操作图形界面的智能体系统，研究成果发表于 CVPR、ICLR 等顶级会议。
 
-参与开源社区，致力于通过分享研究成果和工具推动 GUI Agent 领域发展。欢迎合作与交流！`,
+参与开源社区，致力于通过分享研究成果和工具推动 Computer-Use Agent 与 Hybrid Agent 领域发展。欢迎合作与交流！`,
       location: '中国',
       research: {
         title: 'RESEARCH FOCUS',
@@ -98,8 +98,8 @@ const translations = {
             description: '研究网页环境中的自主导航、交互决策、任务执行与可验证评测。',
           },
           {
-            title: 'GUI Agent',
-            description: '研究基于视觉语言模型的界面感知、视觉定位与动作生成。',
+            title: 'Hybrid Agent',
+            description: '研究结合 GUI 操作、API 与多种工具的混合智能体决策与执行。',
           },
           {
             title: '强化学习',
@@ -191,7 +191,7 @@ const translations = {
         },
         masterEnroll: {
           title: '复旦大学硕士入学',
-          description: '继续在复旦攻读硕士学位，研究方向为 GUI Agent 与强化学习。',
+          description: '继续在复旦攻读硕士学位，研究方向为 Computer-Use Agent、Hybrid Agent 与强化学习。',
         },
         bachelorGrad: {
           title: '复旦大学本科毕业',
@@ -292,7 +292,7 @@ const translations = {
         'Computer-Use Agent',
         'Reinforcement Learning',
       ],
-      description: "Master's student at Fudan University, researching Computer-Use Agents and Reinforcement Learning. Technical Lead at WebAgentLab and Researcher at Qwen, Alibaba.",
+      description: "Master's student at Fudan University, researching Computer-Use Agents, Hybrid Agents, and Reinforcement Learning. Technical Lead at WebAgentLab and Researcher at Qwen, Alibaba.",
       exploreBlog: 'Explore Blog',
       viewProjects: 'View Projects',
       scrollDown: 'SCROLL_DOWN',
@@ -339,9 +339,9 @@ const translations = {
     about: {
       title: 'ABOUT ME',
       subtitle: 'Learn more about me, my skills, and background.',
-      bio: `Hi! I'm Sicheng Fan, a Master's student at Fudan University, researching GUI Agents and Reinforcement Learning. I serve as Technical Lead at WebAgentLab and Researcher at Qwen, Alibaba. I am dedicated to building intelligent agent systems capable of autonomously operating graphical interfaces, with research published at top-tier conferences including CVPR and ICLR.
+      bio: `Hi! I'm Sicheng Fan, a Master's student at Fudan University, researching Computer-Use Agents, Hybrid Agents, and Reinforcement Learning. I serve as Technical Lead at WebAgentLab and Researcher at Qwen, Alibaba. I am dedicated to building intelligent agent systems capable of autonomously operating graphical interfaces, with research published at top-tier conferences including CVPR and ICLR.
 
-I actively contribute to open source and aim to advance the GUI agent field through shared research and tools. Feel free to reach out for collaboration!`,
+I actively contribute to open source and aim to advance computer-use and hybrid agents through shared research and tools. Feel free to reach out for collaboration!`,
       location: 'China',
       research: {
         title: 'RESEARCH FOCUS',
@@ -356,8 +356,8 @@ I actively contribute to open source and aim to advance the GUI agent field thro
             description: 'Researching autonomous web navigation, interactive decision-making, task execution, and verifiable evaluation.',
           },
           {
-            title: 'GUI Agent',
-            description: 'Researching interface perception, visual grounding, and action generation with vision-language models.',
+            title: 'Hybrid Agent',
+            description: 'Researching hybrid agent decision-making and execution across graphical interfaces, APIs, and other tools.',
           },
           {
             title: 'Reinforcement Learning',
@@ -449,7 +449,7 @@ I actively contribute to open source and aim to advance the GUI agent field thro
         },
         masterEnroll: {
           title: "Master's Enrollment at Fudan",
-          description: "Continuing Master's studies at Fudan, researching GUI Agent and Reinforcement Learning.",
+          description: "Continuing Master's studies at Fudan, researching Computer-Use Agents, Hybrid Agents, and Reinforcement Learning.",
         },
         bachelorGrad: {
           title: "Bachelor's Graduation from Fudan",

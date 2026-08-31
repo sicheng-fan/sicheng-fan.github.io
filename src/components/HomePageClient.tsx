@@ -26,14 +26,14 @@ const researchFields = {
   zh: [
     { name: 'Computer-Use Agent', icon: '💻', desc: 'Desktop & Computer Use' },
     { name: 'Web Agent', icon: '🌐', desc: 'Browser & Web Automation' },
-    { name: 'GUI Agent', icon: '🖥️', desc: 'Visual Interface Agent' },
+    { name: 'Hybrid Agent', icon: '🖥️', desc: 'GUI & API Collaboration' },
     { name: '强化学习', icon: '🎯', desc: 'Reinforcement Learning' },
     { name: '大模型训练与微调', icon: '🧠', desc: 'LLM Training & Fine-tuning' },
   ],
   en: [
     { name: 'Computer-Use Agent', icon: '💻', desc: 'Desktop & Computer Use' },
     { name: 'Web Agent', icon: '🌐', desc: 'Browser & Web Automation' },
-    { name: 'GUI Agent', icon: '🖥️', desc: 'Visual Interface Agent' },
+    { name: 'Hybrid Agent', icon: '🖥️', desc: 'GUI & API Collaboration' },
     { name: 'Reinforcement Learning', icon: '🎯', desc: 'RL' },
     { name: 'LLM Training & Fine-tuning', icon: '🧠', desc: 'Alignment & Instruction Tuning' },
   ],
@@ -59,7 +59,7 @@ export function HomePageClient({ zhPosts, enPosts }: HomePageClientProps) {
     { type: 'command' as const, content: 'whoami', delay: 80 },
     { type: 'output' as const, content: 'Fan Sicheng - AI Researcher / Engineer' },
     { type: 'command' as const, content: 'cat /var/interests.txt', delay: 60 },
-    { type: 'output' as const, content: '• Computer-Use Agent & GUI Agent\n• Web Agent\n• Reinforcement Learning\n• LLM Training & Fine-tuning' },
+    { type: 'output' as const, content: '• Computer-Use Agent & Hybrid Agent\n• Web Agent\n• Reinforcement Learning\n• LLM Training & Fine-tuning' },
     { type: 'command' as const, content: 'echo $CURRENT_STATUS', delay: 70 },
     { type: 'success' as const, content: 'Building the future of AI agents.' },
   ]

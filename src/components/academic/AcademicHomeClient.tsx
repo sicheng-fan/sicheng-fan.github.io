@@ -130,8 +130,8 @@ export function AcademicHomeClient() {
   const { language } = useLanguage()
 
   const bio = {
-    zh: '复旦大学硕士在读，研究方向为 Computer-Use Agent 与强化学习。同时担任 WebAgentLab 社区技术负责人，阿里巴巴 Qwen 基模组研究员。致力于构建能够自主操作图形界面的智能体系统，研究成果发表于 CVPR、ICLR 等顶级会议。',
-    en: "Master's student at Fudan University, researching Computer-Use Agents and Reinforcement Learning. Serving as Technical Lead at WebAgentLab and Researcher at Qwen, Alibaba. Dedicated to building intelligent agent systems capable of autonomously operating graphical interfaces, with research published at top-tier conferences including CVPR and ICLR.",
+    zh: '复旦大学硕士在读，研究方向为 Computer-Use Agent、Hybrid Agent 与强化学习。同时担任 WebAgentLab 社区技术负责人，阿里巴巴 Qwen 基模组研究员。致力于构建能够自主操作图形界面的智能体系统，研究成果发表于 CVPR、ICLR 等顶级会议。',
+    en: "Master's student at Fudan University, researching Computer-Use Agents, Hybrid Agents, and Reinforcement Learning. Serving as Technical Lead at WebAgentLab and Researcher at Qwen, Alibaba. Dedicated to building intelligent agent systems capable of autonomously operating graphical interfaces, with research published at top-tier conferences including CVPR and ICLR.",
   }
 
   const news = {
@@ -164,8 +164,8 @@ export function AcademicHomeClient() {
   }
 
   const interests = {
-    zh: ['Computer-Use Agent', 'Web Agent', 'GUI Agent', '强化学习', '大模型训练', '大模型微调'],
-    en: ['Computer-Use Agent', 'Web Agent', 'GUI Agent', 'Reinforcement Learning', 'LLM Training', 'LLM Fine-tuning'],
+    zh: ['Computer-Use Agent', 'Hybrid Agent', 'Web Agent', '强化学习', '大模型训练', '大模型微调'],
+    en: ['Computer-Use Agent', 'Hybrid Agent', 'Web Agent', 'Reinforcement Learning', 'LLM Training', 'LLM Fine-tuning'],
   }
 
   return (

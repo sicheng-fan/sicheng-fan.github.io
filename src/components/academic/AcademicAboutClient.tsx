@@ -15,8 +15,8 @@ export function AcademicAboutClient({ blogCount }: AcademicAboutClientProps) {
     zh: {
       title: '关于我',
       bio: [
-        '我是范思诚，复旦大学硕士在读，研究方向为 GUI Agent 与强化学习。同时担任 WebAgentLab 社区技术负责人，阿里巴巴 Qwen 基模组研究员。致力于构建能够自主操作图形界面的智能体系统，研究成果发表于 CVPR、ICLR 等顶级会议。',
-        '参与开源社区，致力于通过分享研究成果和工具推动 GUI Agent 领域发展。欢迎合作与交流！',
+        '我是范思诚，复旦大学硕士在读，研究方向为 Computer-Use Agent、Hybrid Agent 与强化学习。同时担任 WebAgentLab 社区技术负责人，阿里巴巴 Qwen 基模组研究员。致力于构建能够自主操作图形界面的智能体系统，研究成果发表于 CVPR、ICLR 等顶级会议。',
+        '参与开源社区，致力于通过分享研究成果和工具推动 Computer-Use Agent 与 Hybrid Agent 领域发展。欢迎合作与交流！',
       ],
       education: '教育经历',
       experience: '工作经历',
@@ -27,8 +27,8 @@ export function AcademicAboutClient({ blogCount }: AcademicAboutClientProps) {
     en: {
       title: 'About Me',
       bio: [
-        "I'm Sicheng Fan, a Master's student at Fudan University, researching GUI Agents and Reinforcement Learning. I serve as Technical Lead at WebAgentLab and Researcher at Qwen, Alibaba. I am dedicated to building intelligent agent systems capable of autonomously operating graphical interfaces, with research published at top-tier conferences including CVPR and ICLR.",
-        'I actively contribute to open source and aim to advance the GUI agent field through shared research and tools. Feel free to reach out for collaboration!',
+        "I'm Sicheng Fan, a Master's student at Fudan University, researching Computer-Use Agents, Hybrid Agents, and Reinforcement Learning. I serve as Technical Lead at WebAgentLab and Researcher at Qwen, Alibaba. I am dedicated to building intelligent agent systems capable of autonomously operating graphical interfaces, with research published at top-tier conferences including CVPR and ICLR.",
+        'I actively contribute to open source and aim to advance computer-use and hybrid agents through shared research and tools. Feel free to reach out for collaboration!',
       ],
       education: 'Education',
       experience: 'Experience',
@@ -44,7 +44,7 @@ export function AcademicAboutClient({ blogCount }: AcademicAboutClientProps) {
         degree: '硕士研究生',
         school: '复旦大学',
         period: '2024年9月 — 至今',
-        desc: '研究方向：GUI Agent/Computer-Use Agent、强化学习',
+        desc: '研究方向：Computer-Use Agent、Hybrid Agent、强化学习',
       },
       {
         degree: '电子信息科学与技术学士',
@@ -58,7 +58,7 @@ export function AcademicAboutClient({ blogCount }: AcademicAboutClientProps) {
         degree: 'Master\'s Student',
         school: 'Fudan University',
         period: 'Sep 2024 — Present',
-        desc: 'Research: GUI Agent/Computer-Use Agent, Reinforcement Learning',
+        desc: 'Research: Computer-Use Agent, Hybrid Agent, Reinforcement Learning',
       },
       {
         degree: 'B.S. in Electronic Information Science and Technology',
@@ -84,16 +84,16 @@ export function AcademicAboutClient({ blogCount }: AcademicAboutClientProps) {
         desc: '参与 Computer-Use Agent 方向研究及 EvoCUA-1.5。',
       },
       {
+        title: '技术负责人',
+        org: 'WebAgentLab',
+        period: '2025年 — 至今',
+        desc: '负责社区技术方向，推动 Computer-Use Agent 与 Hybrid Agent 开源生态建设。',
+      },
+      {
         title: 'GUI Agent 研究员',
         org: 'iMeanAI',
         period: '2024年6月 — 2026年2月',
         desc: '参与前沿 GUI Agent 研究，主导 WebChain 和 WebFactory 项目开发。',
-      },
-      {
-        title: '技术负责人',
-        org: 'WebAgentLab',
-        period: '2025年 — 至今',
-        desc: '负责社区技术方向，推动 GUI Agent 开源生态建设。',
       },
     ],
     en: [
@@ -110,16 +110,16 @@ export function AcademicAboutClient({ blogCount }: AcademicAboutClientProps) {
         desc: 'Worked on computer-use agents and EvoCUA-1.5.',
       },
       {
+        title: 'Technical Lead',
+        org: 'WebAgentLab',
+        period: '2025 — Present',
+        desc: 'Leading technical direction, building the open-source computer-use and hybrid agent ecosystem.',
+      },
+      {
         title: 'GUI Agent Researcher',
         org: 'iMeanAI',
         period: 'Jun 2024 — Feb 2026',
         desc: 'Conducting GUI agent research, leading WebChain and WebFactory projects.',
-      },
-      {
-        title: 'Technical Lead',
-        org: 'WebAgentLab',
-        period: '2025 — Present',
-        desc: 'Leading technical direction, building the open-source GUI agent ecosystem.',
       },
     ],
   }
@@ -128,14 +128,14 @@ export function AcademicAboutClient({ blogCount }: AcademicAboutClientProps) {
     zh: [
       { name: 'Computer-Use Agent', tags: ['Computer Use', 'Desktop Automation', 'Long-Horizon Tasks', 'VLA'] },
       { name: 'Web Agent', tags: ['Browser Use', 'Web Navigation', 'Web Automation', 'Evaluation'] },
-      { name: 'GUI Agent', tags: ['VLM', 'Visual Grounding', 'Action Modeling', 'Screen Understanding'] },
+      { name: 'Hybrid Agent', tags: ['GUI & API', 'Tool Use', 'Action Modeling', 'Screen Understanding'] },
       { name: '强化学习', tags: ['Online RL', 'Policy Optimization', 'Reward Modeling', 'RLHF'] },
       { name: '大模型训练与微调', tags: ['Pre-training', 'SFT', 'Alignment', 'Instruction Tuning'] },
     ],
     en: [
       { name: 'Computer-Use Agent', tags: ['Computer Use', 'Desktop Automation', 'Long-Horizon Tasks', 'VLA'] },
       { name: 'Web Agent', tags: ['Browser Use', 'Web Navigation', 'Web Automation', 'Evaluation'] },
-      { name: 'GUI Agent', tags: ['VLM', 'Visual Grounding', 'Action Modeling', 'Screen Understanding'] },
+      { name: 'Hybrid Agent', tags: ['GUI & API', 'Tool Use', 'Action Modeling', 'Screen Understanding'] },
       { name: 'Reinforcement Learning', tags: ['Online RL', 'Policy Optimization', 'Reward Modeling', 'RLHF'] },
       { name: 'LLM Training & Fine-tuning', tags: ['Pre-training', 'SFT', 'Alignment', 'Instruction Tuning'] },
     ],

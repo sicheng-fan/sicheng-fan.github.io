@@ -45,16 +45,16 @@ export const experience: Record<'zh' | 'en', ProfileEntry[]> = {
       description: '从事基础大模型与 Computer-Use Agent 方向研究',
     },
     {
-      title: '技术负责人',
-      organization: 'WebAgentLab',
-      period: '2025年 — 至今',
-      description: '负责社区技术方向，推动 GUI Agent 开源生态建设',
-    },
-    {
       title: 'AI Research Intern',
       organization: '美团 LongCat 基础大模型组',
       period: '2026年4月 — 2026年6月',
       description: '参与 Computer-Use Agent 与 EvoCUA-1.5 研究',
+    },
+    {
+      title: '技术负责人',
+      organization: 'WebAgentLab',
+      period: '2025年 — 至今',
+      description: '负责社区技术方向，推动 Computer-Use Agent 与 Hybrid Agent 开源生态建设',
     },
     {
       title: 'GUI Agent 研究员',
@@ -71,16 +71,16 @@ export const experience: Record<'zh' | 'en', ProfileEntry[]> = {
       description: 'Researching foundation models and Computer-Use Agents',
     },
     {
-      title: 'Technical Lead',
-      organization: 'WebAgentLab',
-      period: '2025 — Present',
-      description: 'Leading technical direction and advancing the open-source GUI agent ecosystem',
-    },
-    {
       title: 'AI Research Intern',
       organization: 'LongCat Foundation Model Team, Meituan',
       period: 'Apr 2026 — Jun 2026',
       description: 'Worked on Computer-Use Agents and EvoCUA-1.5',
+    },
+    {
+      title: 'Technical Lead',
+      organization: 'WebAgentLab',
+      period: '2025 — Present',
+      description: 'Leading technical direction and advancing the open-source computer-use and hybrid agent ecosystem',
     },
     {
       title: 'GUI Agent Researcher',

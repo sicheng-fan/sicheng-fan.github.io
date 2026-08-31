@@ -5,14 +5,15 @@ import { Briefcase, GraduationCap, Code, Award, Star, Filter } from 'lucide-reac
 import { useLanguage } from '@/lib/i18n'
 
 type EventType = 'work' | 'education' | 'project' | 'achievement' | 'milestone'
+type LocalizedText = { zh: string; en: string }
 
 interface TimelineEvent {
-  title: { zh: string; en: string }
-  description: { zh: string; en: string }
-  date: { zh: string; en: string }
+  title: LocalizedText
+  description: LocalizedText
+  date: LocalizedText
   type: EventType
-  organization?: string
-  location?: string
+  organization?: LocalizedText
+  location?: LocalizedText
   tags: string[]
   link?: string
 }
@@ -31,7 +32,7 @@ const timelineEvents: TimelineEvent[] = [
     description: { zh: '参与 Qwen 3.8 的研发与发布。', en: 'Contributed to the development and release of Qwen 3.8.' },
     date: { zh: '2026年8月', en: 'Aug 2026' },
     type: 'achievement',
-    organization: '阿里巴巴 Qwen / Alibaba Qwen',
+    organization: { zh: '阿里巴巴 Qwen', en: 'Alibaba Qwen' },
     tags: ['Qwen 3.8', 'Foundation Model'],
     link: 'https://qwen.ai/blog?id=qwen3.8',
   },
@@ -43,7 +44,7 @@ const timelineEvents: TimelineEvent[] = [
     },
     date: { zh: '2026年8月', en: 'Aug 2026' },
     type: 'achievement',
-    organization: '阿里巴巴 Qwen / Alibaba Qwen',
+    organization: { zh: '阿里巴巴 Qwen', en: 'Alibaba Qwen' },
     tags: ['Qwen-CUA', 'Computer-Use Agent', 'RL'],
     link: 'https://arxiv.org/abs/2608.02352',
   },
@@ -55,7 +56,7 @@ const timelineEvents: TimelineEvent[] = [
     },
     date: { zh: '2026年7月', en: 'Jul 2026' },
     type: 'achievement',
-    organization: '美团 LongCat / Meituan LongCat',
+    organization: { zh: '美团 LongCat', en: 'Meituan LongCat' },
     tags: ['EvoCUA-1.5', 'Online RL', 'Computer-Use Agent'],
     link: 'https://arxiv.org/abs/2607.09773',
   },
@@ -67,7 +68,7 @@ const timelineEvents: TimelineEvent[] = [
     },
     date: { zh: '2026年6月', en: 'Jun 2026' },
     type: 'work',
-    organization: '阿里巴巴 Qwen / Alibaba Qwen',
+    organization: { zh: '阿里巴巴 Qwen', en: 'Alibaba Qwen' },
     tags: ['Foundation Model', 'Computer-Use Agent', 'LLM'],
   },
   {
@@ -78,7 +79,7 @@ const timelineEvents: TimelineEvent[] = [
     },
     date: { zh: '2026年4月', en: 'Apr 2026' },
     type: 'work',
-    organization: '美团 / Meituan',
+    organization: { zh: '美团 LongCat', en: 'Meituan LongCat' },
     tags: ['AI Research', 'Computer-Use Agent', 'LLM'],
   },
   {
@@ -108,7 +109,7 @@ const timelineEvents: TimelineEvent[] = [
     description: { zh: '负责 WebAgentLab 社区技术方向，推动 GUI Agent 开源生态建设。', en: 'Leading technical direction at WebAgentLab community, building the GUI agent open-source ecosystem.' },
     date: { zh: '2025年', en: '2025' },
     type: 'work',
-    organization: 'WebAgentLab',
+    organization: { zh: 'WebAgentLab', en: 'WebAgentLab' },
     tags: ['GUI Agent', 'Open Source', 'Community'],
   },
   {
@@ -124,24 +125,24 @@ const timelineEvents: TimelineEvent[] = [
     description: { zh: '加入 iMeanAI 团队，参与前沿 GUI Agent 研究，主导 WebChain 和 WebFactory 项目开发。', en: 'Joined iMeanAI team, conducting GUI agent research, leading WebChain and WebFactory projects.' },
     date: { zh: '2024年6月', en: 'Jun 2024' },
     type: 'work',
-    organization: 'iMeanAI',
+    organization: { zh: 'iMeanAI', en: 'iMeanAI' },
     tags: ['AI Agent', 'LLM', 'Research'],
   },
   {
     title: { zh: '复旦大学硕士入学', en: "Master's Enrollment at Fudan University" },
-    description: { zh: '入读复旦大学计算机科学与技术硕士，研究方向为 GUI Agent 与强化学习。', en: "Enrolled in M.S. program in Computer Science at Fudan University, focusing on GUI Agents and RL." },
+    description: { zh: '入读复旦大学计算机科学与技术硕士，研究方向为 Computer-Use Agent、Hybrid Agent 与强化学习。', en: "Enrolled in the M.S. program in Computer Science at Fudan University, focusing on Computer-Use Agents, Hybrid Agents, and RL." },
     date: { zh: '2024年9月', en: 'Sep 2024' },
     type: 'education',
-    organization: '复旦大学 / Fudan University',
-    location: '上海 / Shanghai',
-    tags: ['Master\'s', 'GUI Agent', 'RL'],
+    organization: { zh: '复旦大学', en: 'Fudan University' },
+    location: { zh: '上海', en: 'Shanghai' },
+    tags: ['Master\'s', 'Computer-Use Agent', 'Hybrid Agent', 'RL'],
   },
   {
     title: { zh: '复旦大学本科毕业', en: "Bachelor's Graduation from Fudan University" },
     description: { zh: '完成复旦大学电子信息科学与技术本科学习，顺利毕业。', en: 'Completed B.S. in Electronic Information Science and Technology at Fudan University.' },
     date: { zh: '2024年6月', en: 'Jun 2024' },
     type: 'education',
-    organization: '复旦大学 / Fudan University',
+    organization: { zh: '复旦大学', en: 'Fudan University' },
     tags: ['B.S.', 'Graduation'],
   },
   {
@@ -170,8 +171,8 @@ const timelineEvents: TimelineEvent[] = [
     description: { zh: '踏入复旦校园，开始本科学习生涯。', en: 'Entered Fudan University, beginning the undergraduate journey.' },
     date: { zh: '2020年9月', en: 'Sep 2020' },
     type: 'education',
-    organization: '复旦大学 / Fudan University',
-    location: '上海 / Shanghai',
+    organization: { zh: '复旦大学', en: 'Fudan University' },
+    location: { zh: '上海', en: 'Shanghai' },
     tags: ['Undergraduate', 'CS'],
   },
 ]
@@ -256,9 +257,9 @@ export function AcademicTimelineClient() {
 
                     {(event.organization || event.location) && (
                       <p className="text-sm text-slate-500 mb-1">
-                        {event.organization}
+                        {event.organization?.[language]}
                         {event.organization && event.location && ' · '}
-                        {event.location}
+                        {event.location?.[language]}
                       </p>
                     )}
 
