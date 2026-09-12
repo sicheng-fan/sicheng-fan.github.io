@@ -1,0 +1,26 @@
+---
+title: "Open-Sourcing 320,000 Steps of Human Web Agent Interaction Data"
+excerpt: "Building a human data collection pipeline from scratch: 31,725 human trajectories and 318,000 interaction steps across 428 real websites."
+date: "2026-08-30"
+tags: ["WebChain", "GUI Agent", "Data", "Open Source", "CVPR 2026", "WebAgentLab"]
+featured: false
+author: "Fan Sicheng"
+---
+
+This is WebChain, a project we started in late 2024 and invested a great deal of time and effort in. At the time, we found that publicly available data on real web interactions was still far too scarce. Existing human demonstration datasets were limited in scale, while automatically synthesized data struggled to cover real websites, logins, CAPTCHAs, and other real-world situations. Much of the training data for GUI agents was also unavailable, making genuine reproduction and research on data scaling difficult.
+
+## Building a human data collection pipeline from scratch
+
+We built an entire human data collection pipeline from the ground up, covering task generation, human execution, trajectory recording and filtering, and post-processing. During collection, we synchronously saved webpage screenshots (GUI), HTML / DOM, accessibility trees, bounding boxes, timestamps, and other information. This aligned visual information, webpage structure, and real actions—the **Triple Alignment** emphasized in the paper.
+
+## 318,000 interaction steps across 428 real websites
+
+After several months of work, we assembled **31,725 human trajectories and 318,000 interaction steps across 428 real websites**. The data covers real web scenarios including e-commerce, travel booking, hotels, and real estate.
+
+In the paper, we further investigated how this data contributes to **GUI grounding and long-horizon planning**. We also proposed a **Dual Mid-Training** method to improve GUI agent capabilities.
+
+Text from the original cover: WebChain—a human-annotated Web Agent dataset; over 300,000 data entries; freely open-sourced; HTML / screenshots / DOM.
+
+---
+
+Translated from the original caption and cover image. [Original Xiaohongshu post](https://www.xiaohongshu.com/explore/6a9325940000000025011b7f)

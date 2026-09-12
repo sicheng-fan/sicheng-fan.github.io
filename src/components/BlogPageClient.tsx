@@ -2,13 +2,15 @@
 
 import { useTheme } from '@/lib/theme'
 import { AcademicBlogClient } from '@/components/academic/AcademicBlogClient'
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo } from 'react'
 import { motion } from 'framer-motion'
 import { Search, Filter, Calendar, Tag, ChevronDown } from 'lucide-react'
 import { BlogCard } from '@/components/BlogCard'
 import { SectionHeader } from '@/components/SectionHeader'
 import { useLanguage } from '@/lib/i18n'
 import type { PostMeta } from '@/lib/mdx'
+import { useBlogTag } from '@/lib/use-blog-tag'
+import { canonicalTag, localizedTag } from '@/lib/blog-display'
 
 interface BlogPageClientProps {
   zhPosts: PostMeta[]
@@ -19,27 +21,24 @@ interface BlogPageClientProps {
 export function BlogPageClient({ zhPosts, enPosts, allTags }: BlogPageClientProps) {
   const { theme } = useTheme()
   const [searchQuery, setSearchQuery] = useState('')
-  const [selectedTag, setSelectedTag] = useState<string | null>(null)
-
-  useEffect(() => {
-    setSelectedTag(new URLSearchParams(window.location.search).get('tag'))
-  }, [])
+  const [selectedTag, setSelectedTag] = useBlogTag()
   const [sortBy, setSortBy] = useState<'date' | 'readingTime'>('date')
   const [showFilters, setShowFilters] = useState(false)
-  const { language, t } = useLanguage()
+  const { language } = useLanguage()
 
   const allPosts = useMemo(() => {
     return language === 'zh' ? zhPosts : enPosts
   }, [language, zhPosts, enPosts])
+  const visibleTags = Array.from(new Set(allPosts.flatMap(post => post.tags))).sort()
 
   const filteredPosts = useMemo(() => {
     return allPosts
     .filter((post) => {
       const matchesSearch =
-        post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        post.tags.some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase()))
-      const matchesTag = !selectedTag || post.tags.includes(selectedTag)
+        post.title.toLowerCase().includes(searchQuery.trim().toLowerCase()) ||
+        post.excerpt.toLowerCase().includes(searchQuery.trim().toLowerCase()) ||
+        post.tags.some((tag) => tag.toLowerCase().includes(searchQuery.trim().toLowerCase()))
+      const matchesTag = !selectedTag || post.tags.some(tag => canonicalTag(tag) === canonicalTag(selectedTag))
       return matchesSearch && matchesTag
     })
     .sort((a, b) => {
@@ -78,7 +77,7 @@ export function BlogPageClient({ zhPosts, enPosts, allTags }: BlogPageClientProp
   return (
     <div className="min-h-screen py-12 px-4">
       <div className="max-w-6xl mx-auto">
-        <SectionHeader title={texts.title} subtitle={texts.subtitle} />
+        <SectionHeader title={texts.title} subtitle={texts.subtitle} headingLevel={1} />
 
         {/* Search and Filters */}
         <div className="mb-12">
@@ -88,6 +87,7 @@ export function BlogPageClient({ zhPosts, enPosts, allTags }: BlogPageClientProp
               <input
                 type="text"
                 placeholder={texts.searchPlaceholder}
+                aria-label={texts.searchPlaceholder}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="cyber-input"
@@ -129,11 +129,12 @@ export function BlogPageClient({ zhPosts, enPosts, allTags }: BlogPageClientProp
                     >
                       {texts.all}
                     </button>
-                    {allTags.map((tag) => (
+                    {visibleTags.map((tag) => (
                       <button
                         key={tag}
-                        onClick={() => setSelectedTag(tag === selectedTag ? null : tag)}
-                        className={`cyber-tag cursor-pointer ${tag === selectedTag ? 'bg-cyber-cyan/20 border-cyber-cyan' : ''}`}
+                        onClick={() => setSelectedTag(selectedTag && canonicalTag(tag) === canonicalTag(selectedTag) ? null : tag)}
+                        aria-pressed={Boolean(selectedTag && canonicalTag(tag) === canonicalTag(selectedTag))}
+                        className={`cyber-tag cursor-pointer ${selectedTag && canonicalTag(tag) === canonicalTag(selectedTag) ? 'bg-cyber-cyan/20 border-cyber-cyan' : ''}`}
                       >
                         {tag}
                       </button>
@@ -168,7 +169,7 @@ export function BlogPageClient({ zhPosts, enPosts, allTags }: BlogPageClientProp
           <div className="font-mono text-sm text-cyber-gray">
             <span className="text-cyber-cyan">{filteredPosts.length}</span> {texts.postsFound}
             {selectedTag && (
-              <span> {texts.in} <span className="text-cyber-pink">{selectedTag}</span></span>
+              <span> {texts.in} <span className="text-cyber-pink">{localizedTag(selectedTag, language)}</span> <button onClick={() => setSelectedTag(null)} aria-label={language === 'zh' ? '清除标签筛选' : 'Clear tag filter'}>×</button></span>
             )}
           </div>
         </div>

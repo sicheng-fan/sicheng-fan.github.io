@@ -1,0 +1,58 @@
+---
+title: "GUI agent 的未来在哪里"
+excerpt: "GUI 能力在 Computer-use agent 中仍然必要，但完整的 agent 应当在 API、CLI、结构化状态和 GUI 之间动态选择合适的交互方式。"
+date: "2026-08-21"
+tags: ["GUI Agent", "Computer Use", "Hybrid Agent", "WebAgentLab"]
+featured: false
+author: "Fan Sicheng"
+---
+
+## GUI 在 Computer-use agent 里还有必要性吗
+
+从 2024 年年初做 Web agent、GUI agent 开始，到现在已经有两年多的时间了。也通过 WebAgentLab 社区认识了这几年在各个公司里做 Computer-use agent 方向的老师和同学们。
+
+在 2025 年年初开始，coding agent 的能力突飞猛进，大家发现 CLI 可以覆盖绝大多数场景了，通过 CLI 就可以解决大多数任务，GUI 相比之下显得很慢很没有必要。最近半年，越来越多的同学会聊到，GUI 有必要吗，会不会地位很尴尬。也有一个论调出现了：GUI 是对人类友好的页面，不一定是 agent 友好的，未来与人交互的基建设置并不一定是 GUI。
+
+GUI Agent 最开始提出来是很偏学术的，很理想化的：GUI 是人类与电子设备交互最普遍的方式，如果我们能做出来一个很强大的 GUI Agent，理论上我们可以泛化到各个场景，无论软件或设备是什么，GUI 都可以理解页面并操作，无论 mobile、Web、app 都可以。
+
+但是现在的问题是，CLI 又快又准，GUI 需要截图回传分析等等，操作很慢，也不够准。那 GUI 存在的必要性在哪里呢。
+
+GUI Agent 确实 universal，但是不意味着 efficient。
+
+## 完整体应当是 hybrid agent
+
+我的理解是，GUI 是必要的，但纯 GUI 不会是 Computer-use agent 的形态，我们也不应该总是 CLI vs GUI。完全体的 Computer-use agent 应当是 hybrid agent，更准确来说，是 **coding-base model + GUI 能力**。在这个基础上，模型懂得动态路由，学会何时使用 GUI，何时切换 CLI / API。
+
+GUI 能力我觉得可以分成两个内容：
+
+1. 对于没有 API 接口的、CLI 不可达的软件或者页面，可以用 GUI 进行操作。
+2. 利用 GUI 能力在大量任务中提供视觉反馈。所以这一点上，准确来说可以理解为：视觉理解、视觉验证是不可或缺的，倒不是 GUI 不可或缺。
+
+针对第一点，我们需要保证的是，基模的 GUI 能力不能退化，在需要用 GUI 的时候，能准确执行 click、scroll、drag、hover 等操作，等需要用到的时候是可用的。
+
+针对第二点，那 GUI 就应该是以 LLM plugin、tool 的形式存在，在需要的时候调用，也就是刚刚说的：coding-base model + GUI 能力的存在形式。目前看来是最可行的。
+
+## 更轻、更快的 GUI 理解
+
+顺便也有几个小设想。比如：GUI 页面比起其他的图片有其特殊性，GUI 页面一般会有大量的留白，关键信息或者按键的占比其实很小，并且这些按键上一般会有对应的图标或者提示文字，信息主要集中在 20%～40% 的区域。
+
+GUI 是一个高度结构化、时序连续、变化稀疏的视觉环境。
+
+所以从落地的角度，完整截图识图有点太 heavy 了，是否能实现更快的识别和理解，这样可以给 GUI agent 大大提速，减少了负担之后也可以做得更准。或者先找到变化和任务相关区域，再做高质量视觉理解。是不是可以呢？
+
+另外，如果能直接读结构化状态，就先不看截图，这一点在 Web agent 尤为明显。两三年前，Shuyan 老师的 WebArena，Xiang Deng、Yu Gu、Boyuan 老师们的 Mind2Web，还有姚顺雨老师的 WebShop 等等，基本用的都是 HTML、DOM 或者 Accessibility Tree，在网站可达的情况下，这仍是操作 Web 最有效的途径。
+
+## 动态选择交互方式
+
+真正合理的 Agent 应该动态选择成本最低、可靠性最高的 interaction channel。
+
+1. 如果 API 可以完成，就调用 API。
+2. 如果 CLI 可以完成，就用 CLI。
+3. 如果能直接读结构化状态，就先不看截图。
+4. 结构化接口不可达的时候，使用 GUI 能力。
+
+已经快凌晨三点了，先写到这里。
+
+---
+
+整理自原帖 4 张配图，日期采用原帖显示的编辑日期。[小红书原帖](https://www.xiaohongshu.com/explore/6a874f3a0000000014026162)

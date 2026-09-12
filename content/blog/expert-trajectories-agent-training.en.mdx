@@ -1,0 +1,68 @@
+---
+title: "What Makes Collecting Expert Trajectories for Agent Training Difficult?"
+excerpt: "Human behavior is not automatically a good policy. Five challenges in expert trajectory collection, from aligning continuous actions with discrete observations to failure recovery and environment decay."
+date: "2026-08-30"
+tags: ["GUI Agent", "Data", "WebChain", "Computer Use", "WebAgentLab"]
+featured: false
+author: "Fan Sicheng"
+---
+
+## What are the concrete problems with human-annotated agent trajectories?
+
+When I began working on WebChain in the second half of 2024, I increasingly felt that collecting human or expert trajectories for agent training was an extremely difficult undertaking. Human demonstrations of long-horizon agent tasks still have several fundamental problems today.
+
+## 1. Human behavior is not the same as a good agent policy
+
+While completing a task, people perform many actions that look very strange to a model.
+
+They move the mouse back and forth, scroll up and down, pause for a few seconds, go back after clicking the wrong thing, or open a page only to glance at it and close it. There may be just one or two useful steps in that sequence, but the recording extension captures a large number of scroll, hover, click, and back actions. The resulting noise can be severe.
+
+## 2. Human GUI interaction is continuous, while agent datasets are usually discrete
+
+In the first half of 2025, we continued improving our data collection extension. It could save human interactions as video and then extract interface images at the timestamps corresponding to actions—somewhat like the approaches companies have been using this year to distill employees' work. But we encountered many problems, including inaccurate timestamp selection and difficulty hiding the cursor.
+
+When a person clicks at time t, the visual state that informed that decision may come from the page at t − 200 ms. Immediately after the click, the page may undergo a hover effect, loading, or a DOM mutation.
+
+If a screenshot is extracted from the recording by timestamp, an error of just tens of milliseconds can yield a completely different state. The page image and the click coordinates then no longer match.
+
+When should the cursor be hidden? If it is visible, the model may simply learn its location, because the click coordinates are usually close to where the cursor already is.
+
+Many GUI pages also apply hover effects to buttons: highlighted text, color or border changes, tooltips, or other visual feedback. These introduce further data leakage. The model no longer sees the original page state before the click; it sees an interface already “hinted at” by the cursor's position.
+
+This determines whether the observation seen by the model actually corresponds to the state that produced the action. Agent trajectories are highly sensitive to alignment, which introduces substantial noise into the data.
+
+## 3. Human demonstrations rarely show how to recover from failure
+
+What should happen when a login expires? How should an agent recover when the previous step fails? Such states make up a very small fraction of collected human demonstrations.
+
+Much of this data therefore teaches a model to **keep moving forward while on the right track**.
+
+A real agent also needs to learn **how to get back after leaving that track**.
+
+This is a longstanding structural problem with SFT trajectory data. High-value agent trajectories also include **failure → diagnosis → recovery**.
+
+## 4. Real website data is highly valuable—and the hardest to scale
+
+Real web data is valuable because it contains things that are difficult to reproduce in a sandbox:
+
+Dynamic content, real products, real searches, advertisements, cookies, account systems, CAPTCHAs, login states, recommendation systems, and pages that keep changing in the real world.
+
+These same factors directly constrain large-scale collection. Anti-bot measures, rate limits, account risks, private data, and payment flows all become relevant.
+
+A trajectory collected today may also be impossible to replay six months later. Agent data therefore has an additional problem: **environment decay**. The training example has not changed, but the world that produced it has.
+
+A high-quality agent dataset must maintain **data + environment + verifier + replay mechanism** together. The dataset should be a complete piece of infrastructure.
+
+This is especially difficult on real websites, which is why people turn to mock websites, replicated environments, synthetic environments, and synthesized tasks. That leads to WebFactory, our ICLR work after WebChain, on synthesizing environments and data—the subject I wanted to cover in my next Xiaohongshu post.
+
+## 5. Human data remains valuable, but the collection process is immature
+
+How to record, align, and clean trajectories; how to collect reasoning and failures; how to construct rewards; and, ultimately, how to turn these trajectories into actual policy improvement—all of these remain immature.
+
+For human interaction trajectories in particular, I think we are still a considerable distance from being able to use them directly for large-scale model training in the same way we use text data.
+
+For now, the most usable expert data may not be complete trajectories. It may instead be the rubrics experts write and the know-how they have accumulated over years in a field. This includes procedural knowledge and tacit practical experience: the methods in an expert's head for “how to do it, how to judge it, and what to do when something goes wrong,” as well as the intuition, tradeoffs, boundary judgments, and lessons from mistakes that are difficult to capture fully in a manual.
+
+---
+
+Translated from the original six image pages. The date follows the edit date displayed on the original post. [Original Xiaohongshu post](https://www.xiaohongshu.com/explore/6a933248000000002903f3cf)

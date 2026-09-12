@@ -17,6 +17,9 @@ const nextConfig = {
   },
   output: isGitHubPages ? 'export' : 'standalone',
   trailingSlash: isGitHubPages,
+  env: {
+    NEXT_PUBLIC_STATIC_EXPORT: String(isGitHubPages),
+  },
 }
 
 module.exports = withMDX(nextConfig)

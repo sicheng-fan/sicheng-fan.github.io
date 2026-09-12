@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { apiUrl } from '@/lib/api';
+import { apiUrl, hasAnalyticsBackend } from '@/lib/api';
 
 interface AnalyticsData {
   totalVisits: number;
@@ -16,6 +16,7 @@ export function AnalyticsTracker() {
   const pathname = usePathname();
 
   useEffect(() => {
+    if (!hasAnalyticsBackend) return;
     // 记录页面访问
     const recordVisit = async () => {
       try {
@@ -44,6 +45,10 @@ export function AnalyticsDisplay() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!hasAnalyticsBackend) {
+      setLoading(false);
+      return;
+    }
     const fetchStats = async () => {
       try {
         const response = await fetch(apiUrl('/api/analytics'));
@@ -93,6 +98,7 @@ export function VisitorCounter() {
   const [count, setCount] = useState<number | null>(null);
 
   useEffect(() => {
+    if (!hasAnalyticsBackend) return;
     const fetchCount = async () => {
       try {
         const response = await fetch(apiUrl('/api/analytics'));

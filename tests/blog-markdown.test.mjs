@@ -4,6 +4,8 @@ import fs from 'node:fs'
 import matter from 'gray-matter'
 import { renderMarkdown } from '../src/lib/render-markdown.ts'
 import { getPostBySlugBilingual, getAllPosts } from '../src/lib/mdx.ts'
+import { GET as getSearchIndex } from '../src/app/api/search/route.ts'
+import { formatPostDate, blogPostPath, canonicalTag } from '../src/lib/blog-display.ts'
 
 test('legacy post titles with inline markup appear only in the page header', () => {
   for (const name of ['webchain-cvpr-first-author', 'webfactory-iclr-first-author']) {
@@ -66,4 +68,63 @@ test('language availability reflects real files, never a copy of the fallback', 
   assert.equal(missing.exists, false)
   assert.equal(missing.zh, null)
   assert.equal(missing.en, null)
+})
+
+test('every published article has a distinct full English translation', () => {
+  for (const post of getAllPosts('zh')) {
+    const { zh, en } = getPostBySlugBilingual(post.slug)
+    assert.ok(zh && en, `Missing translation: ${post.slug}`)
+    assert.notEqual(zh.content, en.content)
+    assert.notEqual(zh.meta.title, en.meta.title)
+    assert.equal(zh.meta.date, en.meta.date)
+    assert.deepEqual(zh.meta.tags.map(canonicalTag), en.meta.tags.map(canonicalTag))
+    assert.doesNotMatch(zh.content, /^\d+[、]|^\d+\.[^\s\d]/m, post.slug)
+    assert.equal((zh.content.match(/\*\*/g) || []).length % 2, 0, `Unclosed bold: ${post.slug}`)
+  }
+})
+
+test('search results route to actual posts and select their translation', async () => {
+  const { results } = await (await getSearchIndex()).json()
+  const slugs = new Set(getAllPosts('zh').map(post => post.slug))
+  const posts = results.filter(result => result.type === 'post')
+  assert.equal(posts.length, slugs.size * 2)
+  assert.equal(new Set(posts.map(post => post.url)).size, posts.length)
+  for (const post of posts) {
+    const url = new URL(post.url, 'https://sicheng-fan.github.io')
+    assert.ok(slugs.has(url.pathname.split('/')[2]), post.url)
+    assert.equal(url.searchParams.get('lang'), post.lang)
+    assert.doesNotMatch(url.pathname, /\.en/)
+  }
+})
+
+test('all five imported notes preserve their source and date in both languages', () => {
+  const notes = [
+    ['coding-agent-to-computer-use', '6a99c3410000000011032722', '2026-09-04'],
+    ['long-horizon-agent-task-synthesis', '6a934737000000000700772a', '2026-08-30'],
+    ['expert-trajectories-agent-training', '6a933248000000002903f3cf', '2026-08-30'],
+    ['webchain-human-web-trajectory-dataset', '6a9325940000000025011b7f', '2026-08-30'],
+    ['gui-agent-hybrid-future', '6a874f3a0000000014026162', '2026-08-21'],
+  ]
+  for (const [slug, id, date] of notes) {
+    const { zh, en } = getPostBySlugBilingual(slug)
+    for (const post of [zh, en]) {
+      assert.ok(post)
+      assert.equal(post.meta.date, date)
+      assert.ok(post.content.includes(`https://www.xiaohongshu.com/explore/${id}`))
+      assert.doesNotMatch(post.content, /xsec_token|xsec_source/)
+    }
+  }
+})
+
+test('date-only metadata and language-specific share URLs remain stable', () => {
+  const originalZone = process.env.TZ
+  process.env.TZ = 'America/Los_Angeles'
+  try {
+    assert.equal(formatPostDate('2026-02-18', 'en'), 'February 18, 2026')
+    assert.equal(formatPostDate('2026-02-18', 'zh'), '2026年2月18日')
+    assert.equal(blogPostPath('webchain-cvpr-first-author', 'zh'), '/blog/webchain-cvpr-first-author/?lang=zh')
+  } finally {
+    if (originalZone) process.env.TZ = originalZone
+    else delete process.env.TZ
+  }
 })

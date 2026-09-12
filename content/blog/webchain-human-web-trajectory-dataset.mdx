@@ -1,0 +1,26 @@
+---
+title: "32 万步 Web agent 真人交互轨迹数据集开源"
+excerpt: "从零搭建真人数据采集流程，整理出 31,725 条真人轨迹、31.8 万个交互 step，覆盖 428 个真实网站。"
+date: "2026-08-30"
+tags: ["WebChain", "GUI Agent", "数据", "开源", "CVPR 2026", "WebAgentLab"]
+featured: false
+author: "Fan Sicheng"
+---
+
+这是 WebChain，是我们在 2024 年年底发起的一项工作，花了很多的时间和精力。当时我们发现公开可用的真实网页交互数据还是太少了。已有真人数据规模有限，而自动合成数据又很难覆盖真实网站、登录、验证码等真实场景。很多 GUI Agent 的训练数据也没有公开，很难真正复现和研究 data scaling。
+
+## 从 0 到 1 搭建真人数据采集流程
+
+所以我们从 0 到 1 搭了一整套真人数据采集 pipeline：从任务生成、真人执行，到轨迹记录筛选和后处理。采集过程中会同步保存网页截图（GUI）、HTML / DOM、AX Tree、Bounding Box、时间戳等信息，让视觉、网页结构和真实操作能够对应起来，也就是论文里强调的 **Triple Alignment**。
+
+## 31.8 万个交互 step，覆盖 428 个真实网站
+
+前前后后做了几个月，最后整理出了 **31,725 条真人轨迹、31.8 万个交互 step，覆盖 428 个真实网站**。包含电商、旅行预订、酒店、房产等真实 Web 场景。
+
+论文中我们也进一步研究了这些数据对 **GUI Grounding 和 Long-horizon Planning** 的作用，并提出了 **Dual Mid-Training** 的训练方法，提升 GUI agent 的能力。
+
+原帖封面文字：WebChain，真人标注 Web Agent 数据集，30 万+ 条数据，免费开源，HTML / 截图 / DOM。
+
+---
+
+整理自原帖正文及封面。[小红书原帖](https://www.xiaohongshu.com/explore/6a9325940000000025011b7f)

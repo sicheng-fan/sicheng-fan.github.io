@@ -1,10 +1,12 @@
 'use client'
 
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo } from 'react'
 import Link from 'next/link'
 import { Search, Tag, Calendar } from 'lucide-react'
 import { useLanguage } from '@/lib/i18n'
 import type { PostMeta } from '@/lib/mdx'
+import { useBlogTag } from '@/lib/use-blog-tag'
+import { canonicalTag, localizedTag, formatPostDate, formatReadingTime, blogPostPath } from '@/lib/blog-display'
 
 interface AcademicBlogClientProps {
   zhPosts: PostMeta[]
@@ -14,22 +16,19 @@ interface AcademicBlogClientProps {
 
 export function AcademicBlogClient({ zhPosts, enPosts, allTags }: AcademicBlogClientProps) {
   const [searchQuery, setSearchQuery] = useState('')
-  const [selectedTag, setSelectedTag] = useState<string | null>(null)
-
-  useEffect(() => {
-    setSelectedTag(new URLSearchParams(window.location.search).get('tag'))
-  }, [])
+  const [selectedTag, setSelectedTag] = useBlogTag()
   const { language } = useLanguage()
 
   const allPosts = language === 'zh' ? zhPosts : enPosts
+  const visibleTags = Array.from(new Set(allPosts.flatMap(post => post.tags))).sort()
 
   const filteredPosts = useMemo(() => {
     return allPosts.filter((post) => {
       const matchesSearch =
-        post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        post.tags.some((t) => t.toLowerCase().includes(searchQuery.toLowerCase()))
-      const matchesTag = !selectedTag || post.tags.includes(selectedTag)
+        post.title.toLowerCase().includes(searchQuery.trim().toLowerCase()) ||
+        post.excerpt.toLowerCase().includes(searchQuery.trim().toLowerCase()) ||
+        post.tags.some((t) => t.toLowerCase().includes(searchQuery.trim().toLowerCase()))
+      const matchesTag = !selectedTag || post.tags.some(tag => canonicalTag(tag) === canonicalTag(selectedTag))
       return matchesSearch && matchesTag
     })
   }, [allPosts, searchQuery, selectedTag])
@@ -63,6 +62,7 @@ export function AcademicBlogClient({ zhPosts, enPosts, allTags }: AcademicBlogCl
               <input
                 type="text"
                 placeholder={texts.search}
+                aria-label={texts.search}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full pl-9 pr-3 py-2 text-sm border border-slate-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -86,12 +86,13 @@ export function AcademicBlogClient({ zhPosts, enPosts, allTags }: AcademicBlogCl
                 >
                   {texts.all}
                 </button>
-                {allTags.map((tag) => (
+                {visibleTags.map((tag) => (
                   <button
                     key={tag}
-                    onClick={() => setSelectedTag(selectedTag === tag ? null : tag)}
+                    onClick={() => setSelectedTag(selectedTag && canonicalTag(tag) === canonicalTag(selectedTag) ? null : tag)}
+                    aria-pressed={Boolean(selectedTag && canonicalTag(tag) === canonicalTag(selectedTag))}
                     className={`px-2.5 py-1 text-xs rounded transition-colors ${
-                      selectedTag === tag
+                      selectedTag && canonicalTag(tag) === canonicalTag(selectedTag)
                         ? 'bg-blue-600 text-white'
                         : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                     }`}
@@ -104,8 +105,13 @@ export function AcademicBlogClient({ zhPosts, enPosts, allTags }: AcademicBlogCl
           </aside>
 
           {/* Post list */}
-          <main className="lg:col-span-3">
+          <section aria-label={language === 'zh' ? '文章列表' : 'Posts'} className="lg:col-span-3 min-w-0">
             <div className="text-sm text-slate-500 mb-5">{texts.results}</div>
+            {selectedTag && (
+              <button onClick={() => setSelectedTag(null)} className="mb-5 text-sm text-blue-600 hover:underline" aria-label={language === 'zh' ? '清除标签筛选' : 'Clear tag filter'}>
+                {localizedTag(selectedTag, language)} ×
+              </button>
+            )}
 
             {filteredPosts.length === 0 ? (
               <div className="text-center py-16 text-slate-400">
@@ -116,17 +122,14 @@ export function AcademicBlogClient({ zhPosts, enPosts, allTags }: AcademicBlogCl
               <div className="divide-y divide-slate-100">
                 {filteredPosts.map((post) => (
                   <article key={post.slug} className="py-6 first:pt-0">
-                    <Link href={`/blog/${post.slug}`} className="group">
-                      <div className="flex items-center gap-3 text-xs text-slate-400 mb-2">
+                    <Link href={blogPostPath(post.slug, language)} className="group">
+                      <div className="flex flex-wrap items-center gap-3 text-xs text-slate-500 mb-2">
                         <span className="flex items-center gap-1">
                           <Calendar className="w-3 h-3" />
-                          {new Date(post.date).toLocaleDateString(
-                            language === 'zh' ? 'zh-CN' : 'en-US',
-                            { year: 'numeric', month: 'long', day: 'numeric' }
-                          )}
+                          {formatPostDate(post.date, language)}
                         </span>
                         <span>·</span>
-                        <span>{post.readingTime}</span>
+                        <span>{formatReadingTime(post.readingTime, language)}</span>
                       </div>
                       <h2 className="text-lg font-semibold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug">
                         {post.title}
@@ -148,7 +151,7 @@ export function AcademicBlogClient({ zhPosts, enPosts, allTags }: AcademicBlogCl
                 ))}
               </div>
             )}
-          </main>
+          </section>
         </div>
       </div>
     </div>

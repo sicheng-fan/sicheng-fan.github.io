@@ -1,0 +1,77 @@
+---
+title: "How Can We Synthesize Difficult, Long-Horizon Agent Tasks?"
+excerpt: "How can we keep generating tasks beyond a model's current capabilities while ensuring they remain executable, verifiable, and automatically scorable? Lessons from WebFactory and environment-informed task synthesis."
+date: "2026-08-30"
+tags: ["Task Synthesis", "Computer Use", "WebFactory", "WebAgentLab", "RSI"]
+featured: false
+author: "Fan Sicheng"
+---
+
+Some of these thoughts date back to working on WebFactory in 2025. Unfortunately, we made substantial compromises in the paper's presentation to secure acceptance at ICLR. We did not devote much space to environment and task synthesis. Instead, we emphasized how environment observability supports—and why it matters for—synthesizing environments, tasks, and their corresponding verifiers. This post fills in that missing discussion.
+
+WebFactory paper: arXiv:2603.05044.
+
+## Synthesizing long-horizon agentic tasks and training data
+
+As model capabilities improve, a broad trend is emerging: our ability to create tasks is falling behind models' ability to solve them. We are struggling to produce harder, more complex tasks.
+
+For example, how do we create more challenging cowork and computer-use tasks on Ubuntu, macOS, and Windows? These might involve gathering and integrating information across websites, making decisions under multiple constraints, coordinating several tools or applications in a workflow, or carrying out open-ended tasks whose later steps must adapt to intermediate results.
+
+Put simply: **How can we continually generate difficult tasks beyond a model's current capability boundary that are also executable, verifiable, and automatically scorable?**
+
+## Three problems with task synthesis by frontier LLMs
+
+When we ask frontier LLMs to help synthesize tasks, the main problems are:
+
+1. The generated tasks are not difficult enough to meet the requirements for SFT data and RL task collection.
+2. Models hallucinate. A generated task may not be executable in the environment at all; it may simply be incorrect or impossible to carry out.
+3. Task diversity is insufficient. Asking Opus 5 to generate 20 Windows tasks involving Word and Excel may produce acceptable results and reasonable diversity. Asking for 100 can cause diversity to collapse.
+
+I think a major reason behind these difficulties is that **the model lacks enough information about the environment**.
+
+When synthesizing tasks, the model is effectively relying on its prior knowledge and its existing familiarity with the software. As a result, it generates tasks involving familiar buttons and common features: creating a document, using Save As, changing line spacing or fonts in Word, and so on. It may struggle to generate tasks involving less familiar features such as the macro editor or Review → Hide Ink. Yet these are precisely a large part of what the model lacks and needs to improve. For relatively closed desktop applications, models know even less, and the diversity and complexity of generated tasks are worse.
+
+“At 20 tasks, the language model can still get by on its long-tail knowledge. At 100, it starts producing superficial variations and rearrangements, and behavioral diversity quickly collapses.”
+
+Without sufficient understanding of the environment, models can generate only familiar tasks and feel confident proposing only simple ones. Task diversity and complexity remain limited.
+
+## WebFactory: making the environment observable
+
+In WebFactory, we tried synthesizing websites, then using those websites to synthesize tasks and verifiers for SFT and RL. We found that when we generate the web environment ourselves, we essentially possess all of its information. In other words, the environment is fully observable to the model—the “observable” property emphasized in the paper. This leads to two effects:
+
+1. A substantial increase in the difficulty, complexity, and diversity of tasks the model can synthesize.
+2. Generated tasks that fail to meet requirements because of hallucinations largely disappear.
+
+Once the model has environmental information—such as which buttons a website contains, a restaurant's Sunday opening hours, or a store's return policy—it can, in principle, exhaustively explore the environment's functions and information and synthesize the most complex tasks that environment supports. Hallucinations become almost nonexistent.
+
+Having this information also improves the effectiveness of synthesized verifiers to some extent.
+
+For synthetic environments, such as web or mobile environments, we can therefore give the model more environmental information as supplementary knowledge to improve its synthesis of difficult, long-horizon agentic tasks.
+
+For environments that are not synthetic, we can use an exploration agent to explore before task synthesis, gathering as much environmental knowledge as possible. This creates a knowledge-driven task synthesis pipeline.
+
+## The difficulty paradox and the role of environmental knowledge
+
+The statement “we are struggling to create harder, more complex tasks” contains a fundamental tension. I call it the “difficulty paradox.” We want tasks hard enough to reach or even exceed the capability boundary of current frontier models. At the same time, we want the model to correctly synthesize a corresponding verifier, which actually requires the task to fall within the model's capabilities.
+
+Giving the model a better understanding of the environment effectively raises its capability ceiling in that environment to some extent, helping it synthesize more complex and diverse tasks. During execution, a model that does not have this information has a lower effective ceiling. It must explore the environment itself and find the information and methods needed to solve the task.
+
+Of course, this has limitations. Filling in environmental information can improve executability and surface-level diversity, but it does not automatically create high cognitive difficulty. Harder tasks also require work on planning depth, information acquisition costs, constraint complexity, and dynamic adaptation. Doing this well requires a carefully designed and comprehensive pipeline.
+
+For example, the “knowledge” gathered by exploring an environment before synthesizing tasks need not be limited to facts about the environment. It can also include higher-level information that helps the model generate tasks requiring deeper planning and greater complexity.
+
+In the long run, constructing agent data cannot mean simply asking an LLM to “invent harder questions from nothing.” We first need to turn an environment into a world model that a model can read, search, combine, and verify. We can then use that world model to keep probing the current policy's capability boundary.
+
+If we can do this well, the strength of future models may depend on how many environments we have that are explorable, composable, and verifiable, and that can continually produce diverse frontier tasks.
+
+## A brief aside on RSI
+
+As models become more capable, the central bottleneck in agent post-training will shift from “how to make a model complete tasks” to “how to continually discover and construct new tasks that it has not mastered, but that are executable, verifiable, and worth learning from.” From this perspective, task generation is becoming more than a data production problem: it is becoming key infrastructure for recursive self-improvement, or RSI.
+
+A sustainable self-improvement loop requires the current policy to understand and model the environment, identify parts of the capability space it has not yet covered, and generate new tasks based on failure patterns and capability boundaries. Programmatic verifiers, internal environment state, or other executable feedback can then assess outcomes, and those signals can feed back into the next training round.
+
+The model is no longer merely learning passively from a fixed data distribution. It begins participating in the decision about **what to learn next**.
+
+---
+
+Translated from the original caption and six image pages. [Original Xiaohongshu post](https://www.xiaohongshu.com/explore/6a934737000000000700772a)

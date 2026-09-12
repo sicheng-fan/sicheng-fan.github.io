@@ -140,7 +140,7 @@ export function getAllPosts(lang: Language = 'zh'): PostMeta[] {
     })
 
   // 转换为数组并按日期降序排序
-  return Array.from(postMap.values()).sort((a, b) => (a.date > b.date ? -1 : 1))
+  return Array.from(postMap.values()).sort((a, b) => b.date.localeCompare(a.date) || a.slug.localeCompare(b.slug))
 }
 
 // 获取两种语言的所有文章（用于服务端预取）

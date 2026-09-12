@@ -7,6 +7,7 @@ interface SectionHeaderProps {
   subtitle?: string
   align?: 'left' | 'center'
   glitch?: boolean
+  headingLevel?: 1 | 2
 }
 
 export function SectionHeader({
@@ -14,7 +15,9 @@ export function SectionHeader({
   subtitle,
   align = 'left',
   glitch = false,
+  headingLevel = 2,
 }: SectionHeaderProps) {
+  const Heading = headingLevel === 1 ? 'h1' : 'h2'
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -32,9 +35,9 @@ export function SectionHeader({
         </div>
       )}
 
-      <h2 className="font-display text-3xl md:text-4xl font-bold text-cyber-white mb-4">
+      <Heading className="font-display text-3xl md:text-4xl font-bold text-cyber-white mb-4">
         {title}
-      </h2>
+      </Heading>
 
       {subtitle && (
         <p className={`text-cyber-gray text-lg max-w-2xl ${align === 'center' ? 'mx-auto' : ''}`}>

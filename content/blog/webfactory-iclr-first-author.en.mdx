@@ -1,0 +1,60 @@
+---
+title: "WebFactory (ICLR 2026, First Author): An Automated Approach to Teaching Language Models to Operate Websites"
+excerpt: "WebFactory explores a central question: if language models already understand web content, why do they still struggle to complete tasks reliably in real GUI environments?"
+date: "2026-01-05"
+tags: ["WebFactory", "GUI Agent", "Reinforcement Learning", "RL", "ICLR"]
+featured: true
+author: "Fan Sicheng"
+---
+
+My first-author paper **WebFactory** was recently accepted at ICLR 2026. The work centers on a specific question: language models have become very good at understanding internet content, so why do they still struggle to complete tasks reliably in a browser?
+
+Today's large models can answer complex questions, write code, explain page structure, and plan the steps needed for a task. Yet once placed in a browser and asked to act through clicks, typing, and scrolling, their performance often drops sharply. A model may know how a website should be used and explain what every component does, but it can easily lose its way during a sequence of GUI interactions.
+
+This reveals a deeper issue. Language models develop their capabilities in text space. By compressing vast amounts of internet text, they build semantic knowledge of the world. They understand concepts such as search boxes, shopping carts, and submit buttons, along with the broad steps of a task. GUI interaction takes place in another space: visual interfaces, element positions, concrete actions, and continuously changing environmental states. Turning semantic knowledge into an action policy is far from automatic.
+
+WebFactory starts by reversing the usual question. Instead of continuing to rely on manually constructed web-task data, can we build an automated system in which models generate environments, tasks, and training data themselves, improving their capabilities through the process?
+
+Structurally, WebFactory is an **automated training pipeline**. Its stages form a continuous loop.
+
+The first stage is environment generation. Real websites are complex and change frequently. Training GUI agents directly on the live web makes experimental conditions difficult to control and introduces many engineering problems. WebFactory instead generates a collection of website environments programmatically. These are not simple toy pages, but interactive systems synthesized around realistic web structures: lists, detail pages, search, forms, navigation, and other common UI components. They are controllable environments with a strong resemblance to real websites.
+
+The system then generates tasks based on each page's structure. An e-commerce environment might produce a task such as finding a product and viewing its information; a forum might require finding a post and replying to it. These tasks are not written in advance. A language model generates them using the website's structure.
+
+Next, a GUI agent attempts the tasks. It interacts with pages through a browser interface, clicking elements, filling in fields, and navigating from page to page. The states, actions, and page changes are recorded throughout the process, producing complete interaction trajectories.
+
+Those trajectories are then used to train a policy model. The system decomposes rewards according to task completion and behavior quality, and updates the model through reinforcement learning. As the model improves, the system generates new tasks and trajectories, repeating the cycle.
+
+Drawn as a diagram, the process resembles a small data factory. Environment generation, task generation, trajectory collection, and policy training run in a loop, continually producing new training data.
+
+That is why we named the project **WebFactory**.
+
+The pipeline addresses a longstanding bottleneck in GUI agent research: **insufficient data scale**.
+
+In NLP and computer vision, data is almost naturally available. The internet already supplies enormous volumes of text and images. GUI interaction data is different. Real human browser trajectories are rarely recorded, and existing open-source datasets typically contain only a few thousand trajectories, or fewer. That is far from sufficient for training a reliable GUI agent.
+
+WebFactory's response is simple: if real data is difficult to obtain, let the system generate its own training environments and tasks, continually producing new interaction data.
+
+There is, however, another central concept behind this work: **compression**.
+
+From an information-theoretic perspective, a language model is itself a form of compression. Training compresses vast amounts of internet text into the model's parameters. Much of the knowledge about websites, tools, and software usage already exists in its internal representations.
+
+That knowledge remains descriptive, though. It exists in language space rather than action space.
+
+When a GUI agent clicks a button in a browser, it performs another kind of compression. High-level meanings, such as submitting an order or opening a detail page, become concrete actions: the location of a DOM element, a mouse click, or a typing operation.
+
+WebFactory's training process encourages this transformation. Through interaction-based training, the internet knowledge implicit in a language model gradually becomes an executable GUI policy.
+
+From this perspective, WebFactory studies something more fundamental than training a GUI agent: **how a language model's knowledge can be converted into the ability to act**.
+
+Our experiments revealed an interesting pattern. Different base models learn GUI tasks with very different levels of efficiency, and model size alone does not explain the variation. Some models perform well on text reasoning but struggle to learn stable behavior in GUI environments. Others convert semantic knowledge into action policies more readily.
+
+This suggests that language models may differ in how readily their representations support action. Some internal representations may be easier to translate into behavior, while others are better suited to static reasoning.
+
+WebFactory offers a systematic way to study this difference. Training GUI agents within the same automated pipeline makes it easier to observe how efficiently different models learn GUI behavior and how well they generalize to new environments.
+
+In the longer term, this work does not attempt to solve every problem facing GUI agents. It is a step toward new research infrastructure. If environment generation, task generation, and data collection can all be automated, GUI agent training can expand continually instead of depending on a fixed dataset.
+
+Language models have already compressed knowledge from the internet. WebFactory tries to compress that knowledge further into actions that can change an environment's state.
+
+There is still a long distance between understanding a web page and operating it.

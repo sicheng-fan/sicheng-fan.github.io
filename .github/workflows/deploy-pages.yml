@@ -39,7 +39,6 @@ jobs:
       - name: Build static website
         env:
           GITHUB_PAGES: 'true'
-          NEXT_PUBLIC_API_BASE_URL: https://fansicheng.online
         run: npm run build:pages
 
       - name: Configure Pages

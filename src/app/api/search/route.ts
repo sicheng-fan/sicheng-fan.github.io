@@ -1,7 +1,6 @@
-import fs from 'fs'
-import path from 'path'
-import matter from 'gray-matter'
 import { corsJson } from '@/lib/cors'
+import { getAllPostsBilingual } from '@/lib/mdx'
+import { blogPostPath } from '@/lib/blog-display'
 
 // 项目数据（与 projects/page.tsx 保持同步）
 const allProjects = [
@@ -15,43 +14,6 @@ const allProjects = [
   },
 ]
 
-interface PostMeta {
-  slug: string
-  title: string
-  excerpt: string
-  date: string
-  tags: string[]
-}
-
-// 获取所有博客文章（用于搜索）
-function getPostsForSearch(): PostMeta[] {
-  const postsDirectory = path.join(process.cwd(), 'content/blog')
-  
-  if (!fs.existsSync(postsDirectory)) {
-    return []
-  }
-
-  const fileNames = fs.readdirSync(postsDirectory)
-  const allPosts = fileNames
-    .filter((name) => name.endsWith('.mdx') || name.endsWith('.md'))
-    .map((fileName) => {
-      const slug = fileName.replace(/\.mdx?$/, '')
-      const fullPath = path.join(postsDirectory, fileName)
-      const fileContents = fs.readFileSync(fullPath, 'utf8')
-      const { data } = matter(fileContents)
-
-      return {
-        slug,
-        title: data.title || 'Untitled',
-        excerpt: data.excerpt || '',
-        date: data.date || new Date().toISOString().split('T')[0],
-        tags: data.tags || [],
-      }
-    })
-
-  return allPosts.sort((a, b) => (a.date > b.date ? -1 : 1))
-}
-
 export interface SearchResult {
   type: 'post' | 'project'
   title: string
@@ -59,6 +21,7 @@ export interface SearchResult {
   url: string
   tags: string[]
   date?: string
+  lang?: 'zh' | 'en'
 }
 
 export async function GET() {
@@ -66,17 +29,20 @@ export async function GET() {
 
   // 搜索博客文章
   try {
-    const posts = getPostsForSearch()
-    posts.forEach((post) => {
-      results.push({
-        type: 'post',
-        title: post.title,
-        description: post.excerpt.slice(0, 100) + (post.excerpt.length > 100 ? '...' : ''),
-        url: `/blog/${post.slug}`,
-        tags: post.tags,
-        date: post.date,
+    const bilingual = getAllPostsBilingual()
+    for (const lang of ['zh', 'en'] as const) {
+      bilingual[lang].forEach((post) => {
+        results.push({
+          type: 'post',
+          title: post.title,
+          description: post.excerpt.slice(0, 100) + (post.excerpt.length > 100 ? '...' : ''),
+          url: blogPostPath(post.slug, lang),
+          tags: post.tags,
+          date: post.date,
+          lang,
+        })
       })
-    })
+    }
   } catch (error) {
     console.error('Error searching posts:', error)
   }

@@ -1,0 +1,58 @@
+---
+title: "Where Is the Future of GUI Agents?"
+excerpt: "GUI capability remains necessary for computer-use agents, but a complete agent should dynamically choose among APIs, CLIs, structured state, and graphical interaction."
+date: "2026-08-21"
+tags: ["GUI Agent", "Computer Use", "Hybrid Agent", "WebAgentLab"]
+featured: false
+author: "Fan Sicheng"
+---
+
+## Is GUI capability still necessary for computer-use agents?
+
+It has been more than two years since I started working on web and GUI agents in early 2024. Through the WebAgentLab community, I have also met researchers and practitioners working on computer-use agents at many different companies.
+
+Since early 2025, coding agents have improved dramatically. People have found that CLIs can cover the vast majority of scenarios and solve most tasks. GUI interaction looks slow and unnecessary by comparison. Over the past six months, more and more people have asked whether GUI capability is still needed, or whether it occupies an awkward position. Another argument has emerged: GUIs are designed to be friendly to humans, not necessarily to agents, and the future infrastructure for interacting with people may not have to be graphical.
+
+The original idea of a GUI agent was academic and idealistic. GUIs are the most common way for humans to interact with electronic devices. If we could build a very capable GUI agent, it could theoretically generalize across scenarios. Whatever the software or device, the agent could understand and operate the interface, whether on mobile, the web, or an app.
+
+But the problem now is that CLIs are fast and accurate, whereas GUI operation requires taking screenshots, sending them back for analysis, and so on. It is slow and not accurate enough. So where does its necessity lie?
+
+A GUI agent is indeed universal, but that does not mean it is efficient.
+
+## A complete agent should be hybrid
+
+My view is that GUI capability is necessary, but pure GUI interaction will not define the final form of a computer-use agent. We should not always frame the issue as CLI versus GUI. A complete computer-use agent should be a hybrid agent—or, more precisely, **a coding base model plus GUI capability**. On that foundation, the model should learn dynamic routing: when to use the GUI and when to switch to a CLI or API.
+
+I think GUI capability has two roles:
+
+1. Operating software or pages that have no API and cannot be reached through a CLI.
+2. Providing visual feedback in many tasks. More precisely, what is indispensable here is visual understanding and visual verification, rather than the GUI itself.
+
+For the first role, we need to ensure that a foundation model's GUI capability does not regress. When GUI interaction is required, it should accurately perform clicks, scrolling, dragging, hovering, and other actions. The capability must be available when needed.
+
+For the second role, GUI capability should exist as an LLM plugin or tool that is invoked when necessary. This is the form described above: a coding base model plus GUI capability. It currently looks like the most practical approach.
+
+## Lighter and faster GUI understanding
+
+I also have a few tentative ideas. GUI pages have properties that distinguish them from other images. They often contain large blank areas, while key information and buttons occupy only a small fraction of the screen. Those buttons usually have corresponding icons or text labels. Most information is concentrated in roughly 20–40% of the interface.
+
+A GUI is a highly structured visual environment with temporal continuity and sparse changes.
+
+From a practical perspective, interpreting complete screenshots is rather heavy. Could we make recognition and understanding faster? That could greatly accelerate GUI agents, and reducing the burden might also improve accuracy. Could we first identify changed or task-relevant regions, then apply high-quality visual understanding to those regions?
+
+Also, if structured state can be read directly, we should use it before looking at screenshots. This is particularly clear for web agents. Two or three years ago, Shuyan's WebArena, Mind2Web by Xiang Deng, Yu Gu, Boyuan and colleagues, and Shunyu Yao's WebShop largely used HTML, the DOM, or accessibility trees. When the website is accessible through these representations, they remain the most effective way to operate on the web.
+
+## Dynamically choosing an interaction channel
+
+A well-designed agent should dynamically choose the interaction channel with the lowest cost and highest reliability.
+
+1. If an API can do the job, call the API.
+2. If a CLI can do the job, use the CLI.
+3. If structured state can be read directly, use it before screenshots.
+4. When structured interfaces are inaccessible, use GUI capability.
+
+It is almost 3 a.m., so I will leave it here for now.
+
+---
+
+Translated from the original four image pages. The date follows the edit date displayed on the original post. [Original Xiaohongshu post](https://www.xiaohongshu.com/explore/6a874f3a0000000014026162)

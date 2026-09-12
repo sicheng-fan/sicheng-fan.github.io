@@ -11,7 +11,7 @@
     "lint": "next lint",
     "export": "next build",
     "deploy:server": "bash scripts/deploy-server.sh",
-    "test:blog": "node --conditions=react-server --import tsx --test tests/blog-markdown.test.mjs"
+    "test:blog": "node --conditions=react-server --import tsx --test tests/blog-markdown.test.mjs && node --import tsx --test tests/blog-ui.test.mjs"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.0.0",
@@ -50,6 +50,7 @@
     "autoprefixer": "^10.4.16",
     "eslint": "^8.56.0",
     "eslint-config-next": "^14.0.4",
+    "jsdom": "^26.1.0",
     "postcss": "^8.4.33",
     "tailwindcss": "^3.4.0",
     "tsx": "^4.23.13",

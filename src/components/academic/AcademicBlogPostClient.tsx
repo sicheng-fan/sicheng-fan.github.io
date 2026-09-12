@@ -5,6 +5,8 @@ import Link from 'next/link'
 import { ArrowLeft, Calendar, Clock, Tag, Globe } from 'lucide-react'
 import { useLanguage } from '@/lib/i18n'
 import type { BlogPostData } from '@/lib/mdx'
+import { formatPostDate, formatReadingTime } from '@/lib/blog-display'
+import { BlogDocumentMetadata } from '@/components/BlogDocumentMetadata'
 interface AcademicBlogPostClientProps {
   slug: string
   zhPost: BlogPostData | null
@@ -38,6 +40,7 @@ export function AcademicBlogPostClient({ slug, zhPost, enPost }: AcademicBlogPos
 
   return (
     <div className="min-h-screen bg-white">
+      <BlogDocumentMetadata title={post.meta.title} excerpt={post.meta.excerpt} />
       <article className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
         {/* Back link */}
         <Link href="/blog" className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-900 mb-8 transition-colors">
@@ -56,7 +59,7 @@ export function AcademicBlogPostClient({ slug, zhPost, enPost }: AcademicBlogPos
             ))}
           </div>
 
-          <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 leading-tight mb-4">
+          <h1 lang={post.lang === 'zh' ? 'zh-CN' : 'en'} className="text-3xl sm:text-4xl font-bold text-slate-900 leading-tight mb-4 break-words">
             {post.meta.title}
           </h1>
 
@@ -67,14 +70,11 @@ export function AcademicBlogPostClient({ slug, zhPost, enPost }: AcademicBlogPos
           <div className="flex flex-wrap items-center gap-4 text-sm text-slate-500">
             <span className="flex items-center gap-1.5">
               <Calendar className="w-4 h-4" />
-              {new Date(post.meta.date).toLocaleDateString(
-                language === 'zh' ? 'zh-CN' : 'en-US',
-                { year: 'numeric', month: 'long', day: 'numeric' }
-              )}
+              {formatPostDate(post.meta.date, language)}
             </span>
             <span className="flex items-center gap-1.5">
               <Clock className="w-4 h-4" />
-              {post.meta.readingTime}
+              {formatReadingTime(post.meta.readingTime, language)}
             </span>
             {post.meta.author && (
               <span>{post.meta.author}</span>
@@ -90,6 +90,17 @@ export function AcademicBlogPostClient({ slug, zhPost, enPost }: AcademicBlogPos
             )}
           </div>
         </header>
+
+        {post.toc.length > 0 && (
+          <details className="mb-8 rounded-lg border border-slate-200 p-4">
+            <summary className="cursor-pointer text-sm font-medium text-slate-700">{language === 'zh' ? '目录' : 'Table of contents'}</summary>
+            <nav aria-label={language === 'zh' ? '文章目录' : 'Article contents'} className="mt-3 space-y-2">
+              {post.toc.map(item => (
+                <a key={item.id} href={`#${item.id}`} className={`block text-sm text-blue-600 hover:underline ${item.level === 3 ? 'pl-4' : ''}`}>{item.text}</a>
+              ))}
+            </nav>
+          </details>
+        )}
 
         {isUsingFallback && (
           <p role="status" className="mb-6 rounded-lg bg-amber-50 p-4 text-sm text-amber-800">

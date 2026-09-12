@@ -7,7 +7,6 @@ import { Menu, X, Folder, User, Clock, Home, Rss, Search, FileText, ExternalLink
 import { motion, AnimatePresence } from 'framer-motion'
 import { useLanguage } from '@/lib/i18n'
 import { useTheme } from '@/lib/theme'
-import { apiUrl } from '@/lib/api'
 
 interface SearchResult {
   type: 'post' | 'project'
@@ -16,6 +15,7 @@ interface SearchResult {
   url: string
   tags: string[]
   date?: string
+  lang?: 'zh' | 'en'
 }
 
 export function Navigation() {
@@ -29,7 +29,6 @@ export function Navigation() {
   const pathname = usePathname()
   const router = useRouter()
   const searchInputRef = useRef<HTMLInputElement>(null)
-  const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const { language, toggleLanguage, t } = useLanguage()
   const { setTheme } = useTheme()
 
@@ -41,35 +40,46 @@ export function Navigation() {
     { href: '/about', label: t.nav.about, icon: User, shortcut: 'A' },
   ], [t.nav.home, t.nav.blog, t.nav.projects, t.nav.timeline, t.nav.about])
 
-  const performSearch = useCallback(async (query: string) => {
+  useEffect(() => {
+    const query = searchQuery.trim()
     if (query.length < 2) {
       setSearchResults([])
+      setIsSearching(false)
       return
     }
+    const controller = new AbortController()
     setIsSearching(true)
-    try {
-      const response = await fetch(apiUrl('/api/search'))
-      const data = await response.json()
-      const normalizedQuery = query.toLowerCase()
-      const results = (data.results || []).filter((result: SearchResult) =>
-        result.title.toLowerCase().includes(normalizedQuery) ||
-        result.description.toLowerCase().includes(normalizedQuery) ||
-        result.tags.some((tag) => tag.toLowerCase().includes(normalizedQuery))
-      )
-      setSearchResults(results)
-      setSelectedIndex(0)
-    } catch {
-      setSearchResults([])
-    } finally {
-      setIsSearching(false)
-    }
-  }, [])
+    const timer = setTimeout(async () => {
+      try {
+        // The search index is exported with this deployment, including translations.
+        const response = await fetch('/api/search', { signal: controller.signal })
+        if (!response.ok) throw new Error('Search index unavailable')
+        const data = await response.json()
+        const normalizedQuery = query.toLowerCase()
+        const results = (data.results || []).filter((result: SearchResult) =>
+          (!result.lang || result.lang === language) && (
+            result.title.toLowerCase().includes(normalizedQuery) ||
+            result.description.toLowerCase().includes(normalizedQuery) ||
+            result.tags.some((tag) => tag.toLowerCase().includes(normalizedQuery))
+          )
+        )
+        if (!controller.signal.aborted) {
+          setSearchResults(results)
+          setSelectedIndex(0)
+        }
+      } catch {
+        if (!controller.signal.aborted) setSearchResults([])
+      } finally {
+        if (!controller.signal.aborted) setIsSearching(false)
+      }
+    }, 300)
+    return () => { clearTimeout(timer); controller.abort() }
+  }, [searchQuery, language])
 
   const handleSearchChange = useCallback((value: string) => {
     setSearchQuery(value)
-    if (searchTimeoutRef.current) clearTimeout(searchTimeoutRef.current)
-    searchTimeoutRef.current = setTimeout(() => performSearch(value), 300)
-  }, [performSearch])
+    setSelectedIndex(0)
+  }, [])
 
   const navigateToResult = useCallback((result: SearchResult) => {
     setShowSearch(false)
@@ -101,7 +111,7 @@ export function Navigation() {
         if (e.key === 'Escape') { e.preventDefault(); closeSearch(); return }
         if (e.key === 'ArrowDown') { e.preventDefault(); setSelectedIndex(p => p < searchResults.length - 1 ? p + 1 : 0); return }
         if (e.key === 'ArrowUp') { e.preventDefault(); setSelectedIndex(p => p > 0 ? p - 1 : searchResults.length - 1); return }
-        if (e.key === 'Enter' && searchResults.length > 0) { e.preventDefault(); navigateToResult(searchResults[selectedIndex]); return }
+        if (e.key === 'Enter' && searchResults[selectedIndex]) { e.preventDefault(); navigateToResult(searchResults[selectedIndex]); return }
       }
       if (e.ctrlKey || e.metaKey) {
         if (e.key === 'k') { e.preventDefault(); setShowSearch(true) }
@@ -160,8 +170,9 @@ export function Navigation() {
               {/* Academic mode toggle */}
               <button
                 onClick={() => setTheme('academic')}
-                className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-cyber-gray hover:text-cyber-white hover:bg-cyber-white/5 transition-all font-mono text-xs"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-cyber-gray hover:text-cyber-white hover:bg-cyber-white/5 transition-all font-mono text-xs"
                 title="Switch to Academic Theme"
+                aria-label={language === 'zh' ? '切换到学术主题' : 'Switch to Academic Theme'}
               >
                 <span className="text-sm">📄</span>
                 <span className="hidden md:inline">ACADEMIC</span>
@@ -180,10 +191,11 @@ export function Navigation() {
               {/* Search */}
               <button
                 onClick={() => setShowSearch(true)}
-                className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg text-cyber-gray hover:text-cyber-white hover:bg-cyber-white/5 transition-all font-mono text-sm"
+                aria-label={language === 'zh' ? '搜索' : 'Search'}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-cyber-gray hover:text-cyber-white hover:bg-cyber-white/5 transition-all font-mono text-sm"
               >
                 <Search className="w-4 h-4" />
-                <span className="text-[10px] px-1.5 py-0.5 bg-cyber-dark rounded border border-cyber-gray/20">⌘K</span>
+                <span className="hidden sm:inline text-[10px] px-1.5 py-0.5 bg-cyber-dark rounded border border-cyber-gray/20">⌘K</span>
               </button>
 
               {/* Mobile menu */}
@@ -191,6 +203,7 @@ export function Navigation() {
                 onClick={() => setIsOpen(!isOpen)}
                 className="lg:hidden p-2 text-cyber-gray hover:text-cyber-cyan transition-colors"
                 aria-label="Toggle menu"
+                aria-expanded={isOpen}
               >
                 {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
@@ -274,7 +287,8 @@ export function Navigation() {
                       value={searchQuery}
                       onChange={(e) => handleSearchChange(e.target.value)}
                       placeholder={t.nav.searchPlaceholder}
-                      className="flex-1 bg-transparent border-none outline-none text-cyber-white font-mono placeholder:text-cyber-gray"
+                      aria-label={t.nav.searchPlaceholder}
+                      className="flex-1 min-w-0 bg-transparent border-none outline-none text-cyber-white font-mono placeholder:text-cyber-gray"
                       autoFocus
                     />
                     <button

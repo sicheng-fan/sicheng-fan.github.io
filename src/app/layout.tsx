@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Fan Sicheng | Researcher',
     description: 'Personal academic website of Sicheng Fan — computer-use agent and hybrid agent researcher in the Alibaba Qwen foundation model team.',
-    url: 'https://fansicheng.online',
+    url: 'https://sicheng-fan.github.io',
     siteName: 'Fan Sicheng',
     locale: 'en_US',
     type: 'website',
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   icons: {
-    icon: '/favicon.ico',
+    icon: { url: '/icon.svg', type: 'image/svg+xml' },
   },
 }
 

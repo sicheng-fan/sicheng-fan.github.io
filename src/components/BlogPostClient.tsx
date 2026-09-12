@@ -7,6 +7,8 @@ import { useLanguage } from '@/lib/i18n'
 import { useTheme } from '@/lib/theme'
 import { AcademicBlogPostClient } from '@/components/academic/AcademicBlogPostClient'
 import type { BlogPostData } from '@/lib/mdx'
+import { blogPostPath, formatPostDate, formatReadingTime } from '@/lib/blog-display'
+import { BlogDocumentMetadata } from '@/components/BlogDocumentMetadata'
 interface BlogPostClientProps {
   slug: string
   zhPost: BlogPostData | null
@@ -42,6 +44,7 @@ export function BlogPostClient({ slug, zhPost, enPost }: BlogPostClientProps) {
   }
 
   const toc = post.toc
+  const shareUrl = `https://sicheng-fan.github.io${blogPostPath(slug, post.lang)}`
 
   // 翻译文本
   const texts = {
@@ -58,6 +61,7 @@ export function BlogPostClient({ slug, zhPost, enPost }: BlogPostClientProps) {
 
   return (
     <div className="min-h-screen py-12 px-4">
+      <BlogDocumentMetadata title={post.meta.title} excerpt={post.meta.excerpt} />
       <div className="max-w-6xl mx-auto">
         {/* Back button */}
         <div>
@@ -93,7 +97,7 @@ export function BlogPostClient({ slug, zhPost, enPost }: BlogPostClientProps) {
               </div>
 
               {/* Title */}
-              <h1 className="font-display text-3xl md:text-4xl font-bold text-cyber-white mb-6">
+              <h1 lang={post.lang === 'zh' ? 'zh-CN' : 'en'} className="font-display text-3xl md:text-4xl font-bold text-cyber-white mb-6 break-words">
                 {post.meta.title}
               </h1>
 
@@ -105,21 +109,30 @@ export function BlogPostClient({ slug, zhPost, enPost }: BlogPostClientProps) {
                 </span>
                 <span className="flex items-center gap-2">
                   <Calendar className="w-4 h-4" />
-                  {post.meta.date}
+                  {formatPostDate(post.meta.date, language)}
                 </span>
                 <span className="flex items-center gap-2">
                   <Clock className="w-4 h-4" />
-                  {post.meta.readingTime}
+                  {formatReadingTime(post.meta.readingTime, language)}
                 </span>
                 {/* 语言版本指示器 */}
                 {hasBothLanguages && (
-                  <span className="flex items-center gap-1 text-cyber-cyan">
+                  <button onClick={() => setLanguage(language === 'zh' ? 'en' : 'zh')} className="flex items-center gap-1 text-cyber-cyan">
                     <Globe className="w-4 h-4" />
-                    <span className="text-xs">ZH | EN</span>
-                  </span>
+                    <span className="text-xs">{language === 'zh' ? 'Read in English' : '阅读中文版'}</span>
+                  </button>
                 )}
               </div>
             </header>
+
+            {toc.length > 0 && (
+              <details className="lg:hidden mb-8 border border-cyber-gray/30 rounded-lg p-4">
+                <summary className="cursor-pointer text-cyber-cyan">{texts.tableOfContents}</summary>
+                <nav aria-label={texts.tableOfContents} className="mt-3 space-y-2">
+                  {toc.map(item => <a key={item.id} href={`#${item.id}`} className={`block text-sm text-cyber-gray hover:text-cyber-white ${item.level === 3 ? 'pl-4' : ''}`}>{item.text}</a>)}
+                </nav>
+              </details>
+            )}
 
             {/* Content */}
             <div 
@@ -134,7 +147,8 @@ export function BlogPostClient({ slug, zhPost, enPost }: BlogPostClientProps) {
                 <span className="font-mono text-sm text-cyber-gray">{texts.shareThisPost}</span>
                 <div className="flex items-center gap-3">
                   <a
-                    href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.meta.title)}&url=${encodeURIComponent(`https://sicheng-fan.github.io/blog/${slug}/`)}`}
+                    href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.meta.title)}&url=${encodeURIComponent(shareUrl)}`}
+                    aria-label={language === 'zh' ? '分享到 X' : 'Share on X'}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-2 bg-cyber-dark border border-cyber-gray/30 rounded hover:border-cyber-cyan hover:text-cyber-cyan transition-all"
@@ -142,7 +156,8 @@ export function BlogPostClient({ slug, zhPost, enPost }: BlogPostClientProps) {
                     <Twitter className="w-4 h-4" />
                   </a>
                   <a
-                    href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://sicheng-fan.github.io/blog/${slug}/`)}`}
+                    href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`}
+                    aria-label={language === 'zh' ? '分享到 LinkedIn' : 'Share on LinkedIn'}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-2 bg-cyber-dark border border-cyber-gray/30 rounded hover:border-cyber-cyan hover:text-cyber-cyan transition-all"

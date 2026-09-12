@@ -22,8 +22,8 @@ author: "Fan Sicheng"
 * **Agent**：$\pi(a_t | s_t) \rightarrow s_{t+1}$ —— 选择一个动作，导致环境状态发生不可逆的坍缩。
 
 当一个 GUI Agent 点击“提交订单”按钮，或者在数据库管理后台删除了以行记录时，Environment的状态被永久改变了。这种**与环境的强耦合**意味着 Agent 必须具备 GenAI 所不需要的两种核心能力：
-1.因果推理（Causal Reasoning）：理解 $Action \rightarrow State$ 的状态转移方程，而不仅仅是文本的语义关联。
-2.状态价值评估（Value Estimation）：在稀疏奖励的环境中，判断当前状态 $s_t$ 距离目标状态 $g$ 还有多远。
+1. 因果推理（Causal Reasoning）：理解 $Action \rightarrow State$ 的状态转移方程，而不仅仅是文本的语义关联。
+2. 状态价值评估（Value Estimation）：在稀疏奖励的环境中，判断当前状态 $s_t$ 距离目标状态 $g$ 还有多远。
 
 在这个维度上，**GUI Agent 是具身智能（Embodied AI）在数字世界的投影**。屏幕就是它的物理世界，DOM 树和像素就是它的感知输入，鼠标键盘事件就是它的机械臂。
 
@@ -48,8 +48,8 @@ author: "Fan Sicheng"
 未来的 GUI Agent 技术演进，必然会经历从 **SFT** 向 **RL** 的深度转型。我们需要训练模型不是去预测“下一个词是什么”，而是预测**“如果我执行这个动作，屏幕会变成什么样”（World Modeling）**。
 
 这要求我们将 Training Pipeline 彻底重构：
-1、**数据层面**：从静态的Image-Text Pairs，转向Interaction Trajectories, e.g., $s_0, a_0, r_0, s_1...$。
-2、**算法层面**：引入Critic Model来评估当前 UI 状态的优劣，甚至需要引入树搜索（如 MCTS）来在执行高风险操作（如转账、删除）前进行多步推演。
+1. **数据层面**：从静态的Image-Text Pairs，转向Interaction Trajectories, e.g., $s_0, a_0, r_0, s_1...$。
+2. **算法层面**：引入Critic Model来评估当前 UI 状态的优劣，甚至需要引入树搜索（如 MCTS）来在执行高风险操作（如转账、删除）前进行多步推演。
 
 ## 4. 结论：执行的重量
 

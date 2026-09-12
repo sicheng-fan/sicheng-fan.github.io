@@ -1,6 +1,7 @@
 'use client'
 
-import React, { createContext, useContext, useState, useCallback } from 'react'
+import React, { createContext, useContext, useState, useCallback, useEffect, Suspense } from 'react'
+import { useSearchParams } from 'next/navigation'
 
 export type Language = 'zh' | 'en'
 
@@ -537,14 +538,35 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
 
+function LanguageFromUrl({ apply }: { apply: (lang: Language) => void }) {
+  const params = useSearchParams()
+  const requested = params.get('lang')
+  useEffect(() => {
+    let saved: string | null = null
+    try { saved = localStorage.getItem('site-language') } catch { /* Storage may be disabled. */ }
+    const language = requested === 'zh' || requested === 'en' ? requested : saved
+    if (language === 'zh' || language === 'en') apply(language)
+  }, [requested, apply])
+  return null
+}
+
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguageState] = useState<Language>('en')
 
-  const setLanguage = useCallback((lang: Language) => {
+  const applyLanguage = useCallback((lang: Language) => {
     setLanguageState(lang)
-    // 更新 html lang 属性
     document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en'
+    try { localStorage.setItem('site-language', lang) } catch { /* The UI still works without storage. */ }
   }, [])
+
+  const setLanguage = useCallback((lang: Language) => {
+    applyLanguage(lang)
+    const url = new URL(window.location.href)
+    url.searchParams.set('lang', lang)
+    // A heading hash belongs to the previous translation and may no longer exist.
+    url.hash = ''
+    window.history.replaceState(window.history.state, '', url)
+  }, [applyLanguage])
 
   const toggleLanguage = useCallback(() => {
     setLanguage(language === 'zh' ? 'en' : 'zh')
@@ -554,6 +576,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage, toggleLanguage, t }}>
+      <Suspense fallback={null}><LanguageFromUrl apply={applyLanguage} /></Suspense>
       {children}
     </LanguageContext.Provider>
   )

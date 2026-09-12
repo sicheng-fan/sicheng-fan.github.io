@@ -56,6 +56,7 @@ export function AcademicNav() {
               onClick={toggleLanguage}
               className="flex items-center gap-1 px-2 py-1 text-xs text-slate-500 hover:text-slate-900 rounded hover:bg-slate-100 transition-colors"
               title={language === 'zh' ? 'Switch to English' : '切换到中文'}
+              aria-label={language === 'zh' ? 'Switch to English' : '切换到中文'}
             >
               <Globe className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">{language === 'zh' ? 'EN' : '中文'}</span>
@@ -72,6 +73,8 @@ export function AcademicNav() {
 
             <button
               onClick={() => setIsOpen(!isOpen)}
+              aria-label={isOpen ? (language === 'zh' ? '关闭导航' : 'Close navigation') : (language === 'zh' ? '打开导航' : 'Open navigation')}
+              aria-expanded={isOpen}
               className="md:hidden p-1.5 text-slate-600 hover:text-slate-900 rounded hover:bg-slate-100"
             >
               {isOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
