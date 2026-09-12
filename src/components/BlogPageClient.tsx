@@ -2,7 +2,7 @@
 
 import { useTheme } from '@/lib/theme'
 import { AcademicBlogClient } from '@/components/academic/AcademicBlogClient'
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Search, Filter, Calendar, Tag, ChevronDown } from 'lucide-react'
 import { BlogCard } from '@/components/BlogCard'
@@ -20,6 +20,10 @@ export function BlogPageClient({ zhPosts, enPosts, allTags }: BlogPageClientProp
   const { theme } = useTheme()
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedTag, setSelectedTag] = useState<string | null>(null)
+
+  useEffect(() => {
+    setSelectedTag(new URLSearchParams(window.location.search).get('tag'))
+  }, [])
   const [sortBy, setSortBy] = useState<'date' | 'readingTime'>('date')
   const [showFilters, setShowFilters] = useState(false)
   const { language, t } = useLanguage()

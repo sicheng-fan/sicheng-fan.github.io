@@ -6,126 +6,16 @@ import { ArrowLeft, Calendar, Clock, User, Twitter, Linkedin, Globe, AlertCircle
 import { useLanguage } from '@/lib/i18n'
 import { useTheme } from '@/lib/theme'
 import { AcademicBlogPostClient } from '@/components/academic/AcademicBlogPostClient'
-import katex from 'katex'
-import 'katex/dist/katex.min.css'
-
-interface PostData {
-  slug: string
-  lang: string
-  hasZh: boolean
-  hasEn: boolean
-  meta: {
-    title: string
-    excerpt: string
-    date: string
-    readingTime: string
-    tags: string[]
-    featured?: boolean
-    coverImage?: string
-    author?: string
-  }
-  content: string
-}
-
+import type { BlogPostData } from '@/lib/mdx'
 interface BlogPostClientProps {
   slug: string
-  zhPost: PostData | null
-  enPost: PostData | null
-}
-
-// 渲染 LaTeX 数学公式
-function renderMath(text: string): string {
-  // 先处理块级公式 $$...$$
-  text = text.replace(/\$\$([\s\S]*?)\$\$/g, (match, formula) => {
-    try {
-      return katex.renderToString(formula.trim(), {
-        displayMode: true,
-        throwOnError: false,
-      })
-    } catch (e) {
-      console.error('KaTeX block error:', e)
-      return match
-    }
-  })
-  
-  // 再处理行内公式 $...$（需要避免匹配到 $$）
-  text = text.replace(/\$([^\$\n]+?)\$/g, (match, formula) => {
-    try {
-      return katex.renderToString(formula.trim(), {
-        displayMode: false,
-        throwOnError: false,
-      })
-    } catch (e) {
-      console.error('KaTeX inline error:', e)
-      return match
-    }
-  })
-  
-  return text
-}
-
-// 简单的 Markdown 转 HTML
-function markdownToHtml(markdown: string): string {
-  let result = renderMath(markdown)
-  
-  return result
-    // 标题
-    .replace(/^### (.+)$/gm, '<h3 id="$1">$1</h3>')
-    .replace(/^## (.+)$/gm, '<h2 id="$1">$1</h2>')
-    .replace(/^# (.+)$/gm, '<h1>$1</h1>')
-    // 代码块
-    .replace(/```(\w+)?\n([\s\S]*?)```/g, '<pre data-language="$1"><code>$2</code></pre>')
-    // 行内代码
-    .replace(/`([^`]+)`/g, '<code>$1</code>')
-    // 粗体
-    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
-    // 斜体
-    .replace(/\*([^*]+)\*/g, '<em>$1</em>')
-    // 无序列表
-    .replace(/^- (.+)$/gm, '<li>$1</li>')
-    // 有序列表
-    .replace(/^\d+\. (.+)$/gm, '<li>$1</li>')
-    // 表格处理
-    .replace(/\|(.+)\|/g, (match, content) => {
-      const cells = content.split('|').map((cell: string) => cell.trim())
-      if (cells.every((cell: string) => cell.match(/^-+$/))) {
-        return ''
-      }
-      const cellHtml = cells.map((cell: string) => `<td>${cell}</td>`).join('')
-      return `<tr>${cellHtml}</tr>`
-    })
-    // 段落
-    .replace(/\n\n/g, '</p><p>')
-    // 换行
-    .replace(/\n/g, '<br/>')
-    // 包装段落
-    .replace(/^([^<].+)$/gm, '<p>$1</p>')
-    // 清理多余的 p 标签
-    .replace(/<p><\/p>/g, '')
-    .replace(/<p>(<h[1-3])/g, '$1')
-    .replace(/(<\/h[1-3]>)<\/p>/g, '$1')
-    .replace(/<p>(<pre)/g, '$1')
-    .replace(/(<\/pre>)<\/p>/g, '$1')
-    .replace(/<p>(<li>)/g, '$1')
-    .replace(/(<\/li>)<\/p>/g, '$1')
-    .replace(/<p>(<tr>)/g, '$1')
-    .replace(/(<\/tr>)<\/p>/g, '$1')
-}
-
-// 生成目录
-function generateToc(content: string) {
-  const headings = content.match(/^#{2,3}\s.+$/gm) || []
-  return headings.map((heading) => {
-    const level = heading.match(/^#+/)?.[0].length || 2
-    const text = heading.replace(/^#+\s/, '')
-    const id = text
-    return { id, text, level }
-  })
+  zhPost: BlogPostData | null
+  enPost: BlogPostData | null
 }
 
 export function BlogPostClient({ slug, zhPost, enPost }: BlogPostClientProps) {
   const { theme } = useTheme()
-  const { language } = useLanguage()
+  const { language, setLanguage } = useLanguage()
 
   // All hooks must be called unconditionally
   const post = useMemo(() => {
@@ -151,8 +41,7 @@ export function BlogPostClient({ slug, zhPost, enPost }: BlogPostClientProps) {
     return null
   }
 
-  const toc = generateToc(post.content)
-  const htmlContent = markdownToHtml(post.content)
+  const toc = post.toc
 
   // 翻译文本
   const texts = {
@@ -234,8 +123,9 @@ export function BlogPostClient({ slug, zhPost, enPost }: BlogPostClientProps) {
 
             {/* Content */}
             <div 
-              className="mdx-content"
-              dangerouslySetInnerHTML={{ __html: htmlContent }}
+              lang={post.lang === 'zh' ? 'zh-CN' : 'en'}
+              className="blog-content blog-content-cyber"
+              dangerouslySetInnerHTML={{ __html: post.html }}
             />
 
             {/* Share */}
@@ -244,7 +134,7 @@ export function BlogPostClient({ slug, zhPost, enPost }: BlogPostClientProps) {
                 <span className="font-mono text-sm text-cyber-gray">{texts.shareThisPost}</span>
                 <div className="flex items-center gap-3">
                   <a
-                    href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.meta.title)}&url=${encodeURIComponent(`https://fansicheng.online/blog/${slug}`)}`}
+                    href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.meta.title)}&url=${encodeURIComponent(`https://sicheng-fan.github.io/blog/${slug}/`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-2 bg-cyber-dark border border-cyber-gray/30 rounded hover:border-cyber-cyan hover:text-cyber-cyan transition-all"
@@ -252,7 +142,7 @@ export function BlogPostClient({ slug, zhPost, enPost }: BlogPostClientProps) {
                     <Twitter className="w-4 h-4" />
                   </a>
                   <a
-                    href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://fansicheng.online/blog/${slug}`)}`}
+                    href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://sicheng-fan.github.io/blog/${slug}/`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-2 bg-cyber-dark border border-cyber-gray/30 rounded hover:border-cyber-cyan hover:text-cyber-cyan transition-all"
@@ -321,7 +211,7 @@ export function BlogPostClient({ slug, zhPost, enPost }: BlogPostClientProps) {
                   {post.meta.tags.map((tag: string) => (
                     <Link
                       key={tag}
-                      href={`/blog?tag=${tag}`}
+                      href={`/blog?tag=${encodeURIComponent(tag)}`}
                       className="cyber-tag hover:bg-cyber-cyan/20"
                     >
                       {tag}
@@ -338,20 +228,20 @@ export function BlogPostClient({ slug, zhPost, enPost }: BlogPostClientProps) {
                     {language === 'zh' ? '语言版本' : 'Language'}
                   </h3>
                   <div className="flex gap-2">
-                    <span className={`px-3 py-1 text-xs font-mono rounded ${
+                    <button onClick={() => setLanguage('zh')} aria-pressed={post.lang === 'zh'} className={`px-3 py-1 text-xs font-mono rounded ${
                       post.lang === 'zh' 
                         ? 'bg-cyber-cyan/20 text-cyber-cyan border border-cyber-cyan' 
                         : 'bg-cyber-dark text-cyber-gray border border-cyber-gray/30'
                     }`}>
                       中文
-                    </span>
-                    <span className={`px-3 py-1 text-xs font-mono rounded ${
+                    </button>
+                    <button onClick={() => setLanguage('en')} aria-pressed={post.lang === 'en'} className={`px-3 py-1 text-xs font-mono rounded ${
                       post.lang === 'en' 
                         ? 'bg-cyber-cyan/20 text-cyber-cyan border border-cyber-cyan' 
                         : 'bg-cyber-dark text-cyber-gray border border-cyber-gray/30'
                     }`}>
                       English
-                    </span>
+                    </button>
                   </div>
                 </div>
               )}

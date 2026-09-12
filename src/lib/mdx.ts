@@ -1,8 +1,8 @@
 import 'server-only'
-import 'server-only'
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
+import { renderMarkdown, type TocEntry } from './render-markdown'
 
 const postsDirectory = path.join(process.cwd(), 'content/blog')
 const projectsDirectory = path.join(process.cwd(), 'content/projects')
@@ -152,7 +152,7 @@ export function getAllPostsBilingual(): { zh: PostMeta[]; en: PostMeta[] } {
 }
 
 // 获取单篇文章（按语言）
-export function getPostBySlug(slug: string, lang: Language = 'zh') {
+export function getPostBySlug(slug: string, lang: Language = 'zh'): BlogPostData | null {
   // 尝试获取指定语言版本
   let filePath = getPostFilePath(slug, lang)
   let actualLang = lang
@@ -187,13 +187,14 @@ export function getPostBySlug(slug: string, lang: Language = 'zh') {
       author: data.author || 'Fan Sicheng',
     },
     content,
+    ...renderMarkdown(content, data.title || 'Untitled'),
   }
 }
 
 // 获取单篇文章的双语版本（用于服务端预取）
 export function getPostBySlugBilingual(slug: string) {
-  const zhPost = getPostBySlug(slug, 'zh')
-  const enPost = getPostBySlug(slug, 'en')
+  const zhPost = hasLanguageVersion(slug, 'zh') ? getPostBySlug(slug, 'zh') : null
+  const enPost = hasLanguageVersion(slug, 'en') ? getPostBySlug(slug, 'en') : null
   
   return {
     zh: zhPost,
@@ -281,4 +282,15 @@ export function getProjectBySlug(slug: string) {
     },
     content,
   }
+}
+
+export interface BlogPostData {
+  slug: string
+  lang: Language
+  hasZh: boolean
+  hasEn: boolean
+  meta: Omit<PostMeta, 'slug'>
+  content: string
+  html: string
+  toc: TocEntry[]
 }

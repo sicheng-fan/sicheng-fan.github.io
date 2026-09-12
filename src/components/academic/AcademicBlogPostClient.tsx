@@ -4,91 +4,11 @@ import { useMemo } from 'react'
 import Link from 'next/link'
 import { ArrowLeft, Calendar, Clock, Tag, Globe } from 'lucide-react'
 import { useLanguage } from '@/lib/i18n'
-import katex from 'katex'
-import 'katex/dist/katex.min.css'
-
-interface PostData {
-  slug: string
-  lang: string
-  hasZh: boolean
-  hasEn: boolean
-  meta: {
-    title: string
-    excerpt: string
-    date: string
-    readingTime: string
-    tags: string[]
-    featured?: boolean
-    coverImage?: string
-    author?: string
-  }
-  content: string
-}
-
+import type { BlogPostData } from '@/lib/mdx'
 interface AcademicBlogPostClientProps {
   slug: string
-  zhPost: PostData | null
-  enPost: PostData | null
-}
-
-function renderContent(content: string): string {
-  let html = content
-
-  // Render block math
-  html = html.replace(/\$\$([\s\S]+?)\$\$/g, (_, math) => {
-    try {
-      return `<div class="katex-block my-4">${katex.renderToString(math.trim(), { displayMode: true, throwOnError: false })}</div>`
-    } catch {
-      return `<div class="bg-red-50 text-red-600 p-2 rounded text-sm">Math error: ${math}</div>`
-    }
-  })
-
-  // Render inline math
-  html = html.replace(/\$([^$\n]+)\$/g, (_, math) => {
-    try {
-      return katex.renderToString(math.trim(), { displayMode: false, throwOnError: false })
-    } catch {
-      return `<span class="text-red-600">${math}</span>`
-    }
-  })
-
-  // Code blocks
-  html = html.replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) => {
-    return `<pre class="bg-slate-900 text-slate-100 rounded-lg p-4 overflow-x-auto my-4 text-sm"><code class="language-${lang}">${code.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code></pre>`
-  })
-
-  // Inline code
-  html = html.replace(/`([^`]+)`/g, '<code class="bg-slate-100 text-slate-800 px-1.5 py-0.5 rounded text-sm font-mono">$1</code>')
-
-  // Headings
-  html = html.replace(/^### (.+)$/gm, '<h3 class="text-xl font-semibold text-slate-900 mt-8 mb-3">$1</h3>')
-  html = html.replace(/^## (.+)$/gm, '<h2 class="text-2xl font-semibold text-slate-900 mt-10 mb-4">$1</h2>')
-  html = html.replace(/^# (.+)$/gm, '<h1 class="text-3xl font-bold text-slate-900 mt-10 mb-4">$1</h1>')
-
-  // Bold & italic
-  html = html.replace(/\*\*\*([^*]+)\*\*\*/g, '<strong><em>$1</em></strong>')
-  html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
-  html = html.replace(/\*([^*]+)\*/g, '<em>$1</em>')
-
-  // Links
-  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">$1</a>')
-
-  // Blockquotes
-  html = html.replace(/^> (.+)$/gm, '<blockquote class="border-l-4 border-blue-200 pl-4 py-1 text-slate-600 italic my-4">$1</blockquote>')
-
-  // Lists
-  html = html.replace(/^\* (.+)$/gm, '<li class="ml-4 list-disc text-slate-700">$1</li>')
-  html = html.replace(/^- (.+)$/gm, '<li class="ml-4 list-disc text-slate-700">$1</li>')
-  html = html.replace(/^\d+\. (.+)$/gm, '<li class="ml-4 list-decimal text-slate-700">$1</li>')
-
-  // Paragraphs
-  html = html.split('\n\n').map(para => {
-    if (para.trim().startsWith('<')) return para
-    if (!para.trim()) return ''
-    return `<p class="text-slate-700 leading-relaxed my-4">${para.replace(/\n/g, ' ')}</p>`
-  }).join('\n')
-
-  return html
+  zhPost: BlogPostData | null
+  enPost: BlogPostData | null
 }
 
 export function AcademicBlogPostClient({ slug, zhPost, enPost }: AcademicBlogPostClientProps) {
@@ -99,11 +19,6 @@ export function AcademicBlogPostClient({ slug, zhPost, enPost }: AcademicBlogPos
     if (language === 'en' && enPost) return enPost
     return zhPost || enPost
   }, [language, zhPost, enPost])
-
-  const renderedContent = useMemo(() => {
-    if (!post?.content) return ''
-    return renderContent(post.content)
-  }, [post?.content])
 
   if (!post) {
     return (
@@ -118,11 +33,12 @@ export function AcademicBlogPostClient({ slug, zhPost, enPost }: AcademicBlogPos
     )
   }
 
+  const isUsingFallback = post.lang !== language
   const hasOtherLang = (language === 'zh' && enPost) || (language === 'en' && zhPost)
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+      <article className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
         {/* Back link */}
         <Link href="/blog" className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-900 mb-8 transition-colors">
           <ArrowLeft className="w-4 h-4" />
@@ -175,10 +91,17 @@ export function AcademicBlogPostClient({ slug, zhPost, enPost }: AcademicBlogPos
           </div>
         </header>
 
+        {isUsingFallback && (
+          <p role="status" className="mb-6 rounded-lg bg-amber-50 p-4 text-sm text-amber-800">
+            {language === 'zh' ? '该文章暂无中文版本，显示英文原文。' : 'An English translation is not available yet. Showing the Chinese original.'}
+          </p>
+        )}
+
         {/* Content */}
         <div
-          className="prose-academic max-w-none text-slate-800 leading-relaxed"
-          dangerouslySetInnerHTML={{ __html: renderedContent }}
+          lang={post.lang === 'zh' ? 'zh-CN' : 'en'}
+          className="blog-content blog-content-academic"
+          dangerouslySetInnerHTML={{ __html: post.html }}
         />
 
         {/* Footer */}
@@ -188,7 +111,7 @@ export function AcademicBlogPostClient({ slug, zhPost, enPost }: AcademicBlogPos
             {language === 'zh' ? '返回博客列表' : 'Back to all posts'}
           </Link>
         </div>
-      </div>
+      </article>
     </div>
   )
 }

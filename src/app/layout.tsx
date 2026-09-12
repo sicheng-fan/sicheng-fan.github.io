@@ -3,6 +3,7 @@ import { LanguageProvider } from '@/lib/i18n'
 import { ThemeProvider } from '@/lib/theme'
 import { LayoutClient } from '@/components/LayoutClient'
 import './globals.css'
+import 'katex/dist/katex.min.css'
 
 export const metadata: Metadata = {
   title: 'Fan Sicheng | Researcher',

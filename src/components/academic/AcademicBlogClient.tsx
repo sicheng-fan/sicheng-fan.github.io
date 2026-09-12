@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import Link from 'next/link'
 import { Search, Tag, Calendar } from 'lucide-react'
 import { useLanguage } from '@/lib/i18n'
@@ -15,6 +15,10 @@ interface AcademicBlogClientProps {
 export function AcademicBlogClient({ zhPosts, enPosts, allTags }: AcademicBlogClientProps) {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedTag, setSelectedTag] = useState<string | null>(null)
+
+  useEffect(() => {
+    setSelectedTag(new URLSearchParams(window.location.search).get('tag'))
+  }, [])
   const { language } = useLanguage()
 
   const allPosts = language === 'zh' ? zhPosts : enPosts
