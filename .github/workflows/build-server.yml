@@ -1,0 +1,78 @@
+name: Build Linux server artifact
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_commit:
+        description: Full commit SHA to build
+        required: true
+        default: caa34c1f57c60c9c5eeef0473d5b74d8414242fc
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 25
+    env:
+      GITHUB_PAGES: 'false'
+      NEXT_TELEMETRY_DISABLED: '1'
+      NODE_OPTIONS: --max-old-space-size=2048
+      SOURCE_COMMIT: ${{ inputs.source_commit }}
+    steps:
+      - name: Validate source commit
+        run: '[[ "$SOURCE_COMMIT" =~ ^[0-9a-f]{40}$ ]]'
+
+      - name: Check out build tools
+        uses: actions/checkout@v4
+        with:
+          path: builder
+          persist-credentials: false
+
+      - name: Check out application source
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.source_commit }}
+          path: source
+          persist-credentials: false
+
+      - name: Set up matching server Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18.20.8
+          cache: npm
+          cache-dependency-path: source/package-lock.json
+
+      - name: Install locked dependencies
+        working-directory: source
+        run: npm ci
+
+      - name: Run existing checks
+        working-directory: source
+        run: |
+          npm run lint
+          npm run test:blog
+
+      - name: Build server with type checking
+        working-directory: source
+        run: env -u NEXT_PUBLIC_API_BASE_URL npm run build
+
+      - name: Package and check standalone files
+        run: >-
+          python3 builder/scripts/package-server.py
+          --project source --commit "$SOURCE_COMMIT"
+          --output "$RUNNER_TEMP/server-artifact"
+
+      - name: Start the extracted package outside the checkout
+        run: >-
+          node builder/scripts/smoke-server.mjs
+          source "$RUNNER_TEMP/server-artifact/server-linux-x64.tar.gz"
+
+      - name: Upload verified server artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: server-linux-x64-${{ inputs.source_commit }}
+          path: ${{ runner.temp }}/server-artifact/
+          if-no-files-found: error
+          retention-days: 7
