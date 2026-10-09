@@ -21,6 +21,15 @@ export default function TimelinePage() {
 // 时间线数据
 const timelineData = [
   {
+      title: t.timeline.events.recreationWorldReport.title,
+      description: t.timeline.events.recreationWorldReport.description,
+    date: language === 'zh' ? '2026年9月' : 'Sep 2026',
+    type: 'achievement' as const,
+    organization: language === 'zh' ? '阿里巴巴 Qwen' : 'Alibaba Qwen',
+    link: 'https://arxiv.org/abs/2609.22000',
+    tags: ['RecreationWorld', 'Hybrid Agent', 'Environments'],
+  },
+  {
       title: t.timeline.events.qwen38Release.title,
       description: t.timeline.events.qwen38Release.description,
     date: language === 'zh' ? '2026年8月' : 'Aug 2026',

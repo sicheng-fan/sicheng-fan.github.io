@@ -83,6 +83,17 @@ function PublicationCard({ pub, language }: { pub: typeof publications[0]; langu
                 <ExternalLink className="w-2.5 h-2.5 text-slate-400" />
               </a>
             )}
+            {pub.website && (
+              <a
+                href={pub.website}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 px-3 py-1 text-xs rounded border border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors"
+              >
+                <ExternalLink className="w-3 h-3" />
+                {language === 'zh' ? '项目主页' : 'Project'}
+              </a>
+            )}
             <button
               onClick={() => setShowAbstract(!showAbstract)}
               className="inline-flex items-center gap-1 px-3 py-1 text-xs rounded border border-slate-200 text-slate-700 hover:bg-slate-50 transition-colors"
@@ -136,6 +147,7 @@ export function AcademicHomeClient() {
 
   const news = {
     zh: [
+      { date: '2026年9月', content: '发布 RecreationWorld：面向混合计算机操作智能体的可扩展、可验证环境' },
       { date: '2026年8月', content: '发布 Qwen-CUA 技术报告与 Qwen 3.8' },
       { date: '2026年7月', content: '发布 EvoCUA-1.5 技术报告' },
       { date: '2026年6月', content: '在阿里巴巴 Qwen 基础大模型组担任算法研究员' },
@@ -149,6 +161,7 @@ export function AcademicHomeClient() {
       { date: '2020年9月', content: '入读复旦大学本科' },
     ],
     en: [
+      { date: 'Sep 2026', content: 'Released RecreationWorld: scalable and verifiable environments for hybrid computer-use agents' },
       { date: 'Aug 2026', content: 'Released the Qwen-CUA technical report and Qwen 3.8' },
       { date: 'Jul 2026', content: 'Released the EvoCUA-1.5 technical report' },
       { date: 'Jun 2026', content: 'Became an Algorithm Researcher in the Qwen foundation model team at Alibaba' },

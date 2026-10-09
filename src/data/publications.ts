@@ -13,12 +13,69 @@ export interface Publication {
   tags: string[]
   github?: string
   website?: string
+  bibtexType?: 'inproceedings' | 'misc'
   featured: boolean
   venueColor: string
   venueBg: string
 }
 
 export const publications: Publication[] = [
+  {
+    id: 'recreationworld',
+    title: 'RecreationWorld: Scalable and Verifiable Environments for Hybrid Computer-Use Agents',
+    titleZh: 'RecreationWorld: Scalable and Verifiable Environments for Hybrid Computer-Use Agents',
+    authors: [
+      'Shuai Bai',
+      'Jiayong Deng',
+      'Sicheng Fan',
+      'Yikun Fu',
+      'Chang Gao',
+      'Xuhao Hu',
+      'Mianqiu Huang',
+      'Yizhen Jiang',
+      'Yuheng Jing',
+      'Dehui Kong',
+      'Keliang Li',
+      'Ning Li',
+      'Wanli Li',
+      'Dayiheng Liu',
+      'Dunjie Lu',
+      'Changwei Luo',
+      'Que Shen',
+      'Zheyuan Wang',
+      'Zijian Wang',
+      'Jie Wu',
+      'Gao Wu',
+      'Zhihui Xie',
+      'Rui Xie',
+      'Haiyang Xu',
+      'An Yang',
+      'Jiakang Yuan',
+      'Yanming Zhang',
+      'Jiajun Zhang',
+      'Xi Zhang',
+      'Zhenru Zhang',
+      'Zhuo Zhen',
+      'Mingkang Zhu',
+      'Bowen Zhou',
+    ],
+    venue: 'arXiv preprint',
+    venueShort: 'arXiv 2026',
+    year: 2026,
+    arxivId: '2609.22000',
+    arxivUrl: 'https://arxiv.org/abs/2609.22000',
+    abstract:
+      'RecreationWorld provides scalable, verifiable environments for hybrid computer-use agents that combine GUI exploration, software implementation, and visual verification. It spans Ubuntu, macOS, Windows, Android, and Web, using running reference applications to generate executable training feedback. RecreationBench evaluates agents on 250 held-out tasks through reference-grounded programmatic and visual tests.',
+    abstractZh:
+      'RecreationWorld 为混合计算机操作智能体提供可扩展、可验证的环境，支持智能体自主结合 GUI 探索、软件实现与视觉验证。框架覆盖 Ubuntu、macOS、Windows、Android 和 Web 五个平台，以可运行的参考应用生成基于执行结果的训练反馈，并通过 RecreationBench 的 250 项独立评测任务，利用基于参考应用的程序化测试与视觉测试评估智能体。',
+    tags: ['Hybrid Agent', 'Computer-Use Agent', 'Environments', 'Benchmark'],
+    github: 'https://github.com/QwenLM/RecreationWorld',
+    website: 'https://recreation-bench.cc/',
+    bibtexType: 'misc',
+    featured: true,
+    venueColor: '#059669',
+    venueBg: '#ecfdf5',
+  },
   {
     id: 'qwen-cua',
     title: 'Qwen-CUA: Native Computer Use for (almost) Everything',
@@ -153,6 +210,17 @@ export function generateBibtex(pub: Publication): string {
       return `${parts[parts.length - 1]}, ${parts.slice(0, -1).join(' ')}`
     })
     .join(' and ')
+
+  if (pub.bibtexType === 'misc') {
+    return `@misc{${pub.id}${pub.year},
+  title         = {${pub.title}},
+  author        = {${authorStr}},
+  year          = {${pub.year}},
+  eprint        = {${pub.arxivId}},
+  archivePrefix = {arXiv},
+  url           = {${pub.arxivUrl}},
+}`
+  }
 
   return `@inproceedings{${pub.id}${pub.year},
   title     = {${pub.title}},

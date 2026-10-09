@@ -83,6 +83,13 @@ function PubCard({ pub, language }: { pub: typeof publications[0]; language: 'zh
                 <ExternalLink className="w-2.5 h-2.5 text-slate-400" />
               </a>
             )}
+            {pub.website && (
+              <a href={pub.website} target="_blank" rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 px-3 py-1 text-xs rounded border border-slate-200 text-slate-700 hover:bg-slate-50 transition-colors">
+                <ExternalLink className="w-3 h-3" />
+                {language === 'zh' ? '项目主页' : 'Project'}
+              </a>
+            )}
             <button onClick={() => setShowAbstract(!showAbstract)}
               className="inline-flex items-center gap-1 px-3 py-1 text-xs rounded border border-slate-200 text-slate-700 hover:bg-slate-50 transition-colors">
               {showAbstract ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}

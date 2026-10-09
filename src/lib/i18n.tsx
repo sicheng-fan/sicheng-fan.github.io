@@ -150,6 +150,10 @@ const translations = {
         description: '这个时间线将持续更新。每一天都是新的开始，每一行代码都是新的故事。',
       },
       events: {
+        recreationWorldReport: {
+          title: 'RecreationWorld 技术报告发布',
+          description: '提出面向混合计算机操作智能体的可扩展、可验证环境，支持 GUI 与程序化工具协同操作。',
+        },
         qwen38Release: {
           title: 'Qwen 3.8 发布',
           description: '参与 Qwen 3.8 的研发与发布。',
@@ -408,6 +412,10 @@ I actively contribute to open source and aim to advance computer-use and hybrid 
         description: 'This timeline will keep updating. Every day is a new beginning, every line of code is a new story.',
       },
       events: {
+        recreationWorldReport: {
+          title: 'RecreationWorld Technical Report Released',
+          description: 'Introduced scalable and verifiable environments for hybrid computer-use agents, supporting coordinated use of GUIs and programmatic tools.',
+        },
         qwen38Release: {
           title: 'Qwen 3.8 Released',
           description: 'Contributed to the development and release of Qwen 3.8.',

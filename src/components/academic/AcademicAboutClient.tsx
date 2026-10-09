@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { Github, Twitter, Linkedin, Mail, MapPin, GraduationCap, Briefcase } from 'lucide-react'
 import { useLanguage } from '@/lib/i18n'
+import { publications } from '@/data/publications'
 
 interface AcademicAboutClientProps {
   blogCount: number
@@ -291,7 +292,7 @@ export function AcademicAboutClient({ blogCount }: AcademicAboutClientProps) {
               </h2>
               <div className="grid grid-cols-2 gap-3">
                 {[
-                  { label: language === 'zh' ? '论文' : 'Papers', value: '4' },
+                  { label: language === 'zh' ? '论文' : 'Papers', value: String(publications.length) },
                   { label: language === 'zh' ? '顶会' : 'Top Venues', value: '2' },
                   { label: language === 'zh' ? '博客' : 'Blog Posts', value: String(blogCount) },
                   { label: language === 'zh' ? '编程年限' : 'Yrs Coding', value: '5+' },

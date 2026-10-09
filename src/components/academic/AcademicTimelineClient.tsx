@@ -28,6 +28,18 @@ const typeConfig: Record<EventType, { icon: typeof Briefcase; color: string; bg:
 
 const timelineEvents: TimelineEvent[] = [
   {
+    title: { zh: 'RecreationWorld 技术报告发布', en: 'RecreationWorld Technical Report Released' },
+    description: {
+      zh: '提出面向混合计算机操作智能体的可扩展、可验证环境，支持 GUI 与程序化工具协同操作。',
+      en: 'Introduced scalable and verifiable environments for hybrid computer-use agents, supporting coordinated use of GUIs and programmatic tools.',
+    },
+    date: { zh: '2026年9月', en: 'Sep 2026' },
+    type: 'achievement',
+    organization: { zh: '阿里巴巴 Qwen', en: 'Alibaba Qwen' },
+    tags: ['RecreationWorld', 'Hybrid Agent', 'Environments'],
+    link: 'https://arxiv.org/abs/2609.22000',
+  },
+  {
     title: { zh: 'Qwen 3.8 发布', en: 'Qwen 3.8 Released' },
     description: { zh: '参与 Qwen 3.8 的研发与发布。', en: 'Contributed to the development and release of Qwen 3.8.' },
     date: { zh: '2026年8月', en: 'Aug 2026' },
