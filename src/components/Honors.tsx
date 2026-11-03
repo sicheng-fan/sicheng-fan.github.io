@@ -16,14 +16,14 @@ export function Honors({ language, variant = 'academic' }: HonorsProps) {
     <section aria-labelledby={headingId} className="min-w-0">
       <h2
         id={headingId}
-        className={`mb-3 text-sm font-medium ${
-          isAcademic ? 'text-slate-600' : 'text-cyber-gray'
-        }`}
+        className={isAcademic
+          ? 'text-lg font-semibold text-slate-900 mb-4 pb-2 border-b border-slate-200'
+          : 'mb-3 text-sm font-medium text-cyber-gray'}
       >
         {language === 'zh' ? '荣誉与奖励' : 'Honors & Awards'}
       </h2>
 
-      <ul className={`space-y-2 text-[13px] leading-relaxed ${isAcademic ? 'text-slate-500' : 'text-cyber-gray'}`}>
+      <ul className={`space-y-2 text-sm leading-relaxed ${isAcademic ? 'text-slate-700' : 'text-cyber-gray'}`}>
         {honors.map((honor) => (
           <li
             key={honor.id}
