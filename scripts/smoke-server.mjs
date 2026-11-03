@@ -67,11 +67,23 @@ try {
     for (const href of ['https://arxiv.org/abs/2609.22000', 'https://github.com/QwenLM/RecreationWorld', 'https://recreation-bench.cc/']) {
       assert(document.querySelector(`a[href="${href}"]`), href)
     }
+    const publicationSection = [...document.querySelectorAll('section')].find((section) =>
+      section.querySelector('h2')?.textContent.trim() === 'Publications')
+    const titles = [...publicationSection.querySelectorAll('h3')].map((node) => node.textContent.trim())
+    assert(titles[0].startsWith('RecreationWorld:'), 'Existing first publication is preserved')
+    assert.equal(titles.at(-1), 'Hybrid Computer Use: A Unified Programmatic, Semantic, and Visual Interface for General Agents')
+    assert(publicationSection.textContent.includes('Microsoft Research'), 'Microsoft attribution')
+    for (const href of ['https://arxiv.org/abs/2610.41432', 'https://github.com/microsoft/Hybrid-Computer-Use', 'https://microsoft.github.io/Hybrid-Computer-Use/']) {
+      assert(publicationSection.querySelector(`a[href="${href}"]`), href)
+    }
     if (route === '/') home = document
+  }
+  for (const honor of ['National Scholarship', 'Outstanding Graduate of Shanghai', 'Wangdao Scholar', 'Outstanding Student']) {
+    assert(home.body.textContent.includes(honor), honor)
   }
   const about = new JSDOM(await (await request('/about')).text()).window.document
   const papers = [...about.querySelectorAll('div')].find((node) => node.children.length === 0 && node.textContent.trim() === 'Papers')
-  assert.equal(papers?.previousElementSibling?.textContent.trim(), '5')
+  assert.equal(papers?.previousElementSibling?.textContent.trim(), '6')
   assert((await (await request('/timeline')).text()).includes('RecreationWorld Technical Report Released'))
   const blog = new JSDOM(await (await request('/blog/gui-agent-introduction?lang=en')).text()).window.document
   assert.equal(blog.querySelector('h1')?.textContent.trim(), 'From Generative to Executive: GUI Agent')

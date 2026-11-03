@@ -2,6 +2,7 @@
 
 import { useTheme } from '@/lib/theme'
 import { AcademicHomeClient } from '@/components/academic/AcademicHomeClient'
+import { Honors } from '@/components/Honors'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import {
@@ -74,7 +75,7 @@ export function HomePageClient({ zhPosts, enPosts }: HomePageClientProps) {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center justify-center px-4 overflow-hidden">
+      <section className="relative min-h-[90vh] flex items-center justify-center px-4 pt-12 pb-28 overflow-hidden">
         <div className="max-w-6xl mx-auto w-full">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left: Text */}
@@ -118,6 +119,10 @@ export function HomePageClient({ zhPosts, enPosts }: HomePageClientProps) {
               <p className="text-cyber-gray text-lg leading-relaxed mb-8 max-w-lg">
                 {t.home.description}
               </p>
+
+              <div className="mb-8">
+                <Honors language={language} variant="cyber" />
+              </div>
 
               {/* CTAs */}
               <div className="flex flex-wrap gap-4">

@@ -6,6 +6,7 @@ import { Github, Twitter, Linkedin, Mail, ExternalLink, Copy, Check, ChevronDown
 import { useLanguage } from '@/lib/i18n'
 import { publications, generateBibtex } from '@/data/publications'
 import { education, experience } from '@/data/profile'
+import { Honors } from '@/components/Honors'
 
 function PublicationCard({ pub, language }: { pub: typeof publications[0]; language: 'zh' | 'en' }) {
   const [showAbstract, setShowAbstract] = useState(false)
@@ -25,7 +26,7 @@ function PublicationCard({ pub, language }: { pub: typeof publications[0]; langu
 
   return (
     <div className="border border-slate-200 rounded-lg p-5 hover:border-slate-300 hover:shadow-sm transition-all bg-white">
-      <div className="flex items-start gap-4">
+      <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-4">
         <div className="flex-shrink-0 mt-0.5">
           <span
             className="inline-flex items-center px-2.5 py-1 rounded text-xs font-semibold"
@@ -34,8 +35,13 @@ function PublicationCard({ pub, language }: { pub: typeof publications[0]; langu
             {pub.venueShort}
           </span>
         </div>
-        <div className="flex-1 min-w-0">
+        <div className="w-full flex-1 min-w-0">
           <h3 className="text-base font-semibold text-slate-900 leading-snug mb-2">{title}</h3>
+          {pub.organization && (
+            <p className="mb-2 text-xs font-semibold text-sky-700">
+              {pub.organization[language]}
+            </p>
+          )}
           <p className="text-sm text-slate-600 mb-3">
             {pub.authors.map((author, i) => (
               <span key={author}>
@@ -186,7 +192,7 @@ export function AcademicHomeClient() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-12">
 
         {/* Hero / Profile */}
-        <section className="mb-16">
+        <section className="mb-8">
           <div className="flex flex-col sm:flex-row gap-8 items-start">
             {/* Avatar */}
             <div className="flex-shrink-0">
@@ -245,6 +251,10 @@ export function AcademicHomeClient() {
             </div>
           </div>
         </section>
+
+        <div className="mb-12">
+          <Honors language={language} variant="academic" />
+        </div>
 
         <div className="grid lg:grid-cols-3 gap-10">
           <div className="lg:col-span-2 space-y-12">

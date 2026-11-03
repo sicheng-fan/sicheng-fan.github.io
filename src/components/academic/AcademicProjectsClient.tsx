@@ -39,7 +39,7 @@ function PubCard({ pub, language }: { pub: typeof publications[0]; language: 'zh
 
   return (
     <div className="border border-slate-200 rounded-lg p-5 bg-white hover:shadow-sm transition-all">
-      <div className="flex items-start gap-4">
+      <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-4">
         <div className="flex-shrink-0 mt-0.5">
           <span
             className="inline-flex items-center px-2.5 py-1 rounded text-xs font-semibold"
@@ -48,8 +48,13 @@ function PubCard({ pub, language }: { pub: typeof publications[0]; language: 'zh
             {pub.venueShort}
           </span>
         </div>
-        <div className="flex-1 min-w-0">
+        <div className="w-full flex-1 min-w-0">
           <h3 className="text-base font-semibold text-slate-900 mb-2 leading-snug">{title}</h3>
+          {pub.organization && (
+            <p className="mb-2 text-xs font-semibold text-sky-700">
+              {pub.organization[language]}
+            </p>
+          )}
           <p className="text-sm text-slate-600 mb-2">
             {pub.authors.map((author, i) => (
               <span key={author}>

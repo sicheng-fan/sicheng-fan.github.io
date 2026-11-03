@@ -13,6 +13,7 @@ export interface Publication {
   tags: string[]
   github?: string
   website?: string
+  organization?: { zh: string; en: string }
   bibtexType?: 'inproceedings' | 'misc'
   featured: boolean
   venueColor: string
@@ -200,6 +201,30 @@ export const publications: Publication[] = [
     featured: true,
     venueColor: '#7c3aed',
     venueBg: '#f5f3ff',
+  },
+  // Keep this Microsoft Research collaboration last in the publication list.
+  {
+    id: 'hybrid-computer-use',
+    title: 'Hybrid Computer Use: A Unified Programmatic, Semantic, and Visual Interface for General Agents',
+    titleZh: 'Hybrid Computer Use: A Unified Programmatic, Semantic, and Visual Interface for General Agents',
+    authors: ['Haoqing Wang', 'Xiaoyi Zhang', 'Sicheng Fan', 'Zhexin Zhang', 'Xinjie Zhang', 'Jiahao Li', 'Bin Li', 'Yan Lu'],
+    venue: 'arXiv preprint',
+    venueShort: 'arXiv 2026',
+    year: 2026,
+    arxivId: '2610.41432',
+    arxivUrl: 'https://arxiv.org/abs/2610.41432',
+    abstract:
+      'Hybrid Computer Use (HCU) combines code and command-line tools, accessibility-based semantic interaction, and visual GUI control in a unified interface for general agents. Compact observations, batched actions, state checks, and interaction guidance help agents coordinate these channels, improving task success and efficiency across desktop benchmarks.',
+    abstractZh:
+      'Hybrid Computer Use（HCU）为通用智能体统一代码与命令行工具、基于无障碍接口的语义交互，以及可视化 GUI 控制。通过紧凑观察、批量动作、实时状态检查与交互指引，HCU 支持智能体自主协调三种通道，提升桌面任务的完成率与执行效率。',
+    tags: ['Hybrid Agent', 'Computer-Use Agent', 'Accessibility', 'MCP'],
+    github: 'https://github.com/microsoft/Hybrid-Computer-Use',
+    website: 'https://microsoft.github.io/Hybrid-Computer-Use/',
+    organization: { zh: '微软研究院 · Microsoft Research', en: 'Microsoft Research' },
+    bibtexType: 'misc',
+    featured: false,
+    venueColor: '#0369a1',
+    venueBg: '#f0f9ff',
   },
 ]
 
