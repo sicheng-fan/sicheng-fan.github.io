@@ -192,7 +192,7 @@ export function AcademicHomeClient() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-12">
 
         {/* Hero / Profile */}
-        <section className="mb-8">
+        <section className="mb-16">
           <div className="flex flex-col sm:flex-row gap-8 items-start">
             {/* Avatar */}
             <div className="flex-shrink-0">
@@ -252,10 +252,6 @@ export function AcademicHomeClient() {
           </div>
         </section>
 
-        <div className="mb-12">
-          <Honors language={language} variant="academic" />
-        </div>
-
         <div className="grid lg:grid-cols-3 gap-10">
           <div className="lg:col-span-2 space-y-12">
 
@@ -310,7 +306,7 @@ export function AcademicHomeClient() {
           </div>
 
           {/* Sidebar */}
-          <div className="space-y-8">
+          <aside className="space-y-8">
 
             {/* News */}
             <section>
@@ -328,6 +324,8 @@ export function AcademicHomeClient() {
                 ))}
               </div>
             </section>
+
+            <Honors language={language} variant="academic" />
 
             {/* Research Interests */}
             <section>
@@ -365,7 +363,7 @@ export function AcademicHomeClient() {
                 </div>
               </div>
             </section>
-          </div>
+          </aside>
         </div>
       </div>
     </div>

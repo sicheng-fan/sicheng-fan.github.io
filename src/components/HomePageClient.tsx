@@ -120,10 +120,6 @@ export function HomePageClient({ zhPosts, enPosts }: HomePageClientProps) {
                 {t.home.description}
               </p>
 
-              <div className="mb-8">
-                <Honors language={language} variant="cyber" />
-              </div>
-
               {/* CTAs */}
               <div className="flex flex-wrap gap-4">
                 <Link href="/blog" className="cyber-button">
@@ -146,12 +142,17 @@ export function HomePageClient({ zhPosts, enPosts }: HomePageClientProps) {
               initial={{ opacity: 0, x: 40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="hidden lg:block"
+              className="space-y-8"
             >
-              <Terminal
-                lines={terminalLines}
-                title="guest@fansicheng.online"
-              />
+              <div className="hidden lg:block">
+                <Terminal
+                  lines={terminalLines}
+                  title="guest@fansicheng.online"
+                />
+              </div>
+              <aside>
+                <Honors language={language} variant="cyber" />
+              </aside>
             </motion.div>
           </div>
         </div>
