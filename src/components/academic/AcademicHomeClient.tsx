@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { Github, Twitter, Linkedin, Mail, ExternalLink, Copy, Check, ChevronDown, ChevronUp, BookOpen, Code2, GraduationCap, Briefcase } from 'lucide-react'
 import { useLanguage } from '@/lib/i18n'
 import { publications, generateBibtex } from '@/data/publications'
+import { PublicationAuthors } from './PublicationAuthors'
 import { education, experience } from '@/data/profile'
 import { Honors } from '@/components/Honors'
 
@@ -43,16 +44,7 @@ function PublicationCard({ pub, language }: { pub: typeof publications[0]; langu
             </p>
           )}
           <p className="text-sm text-slate-600 mb-3">
-            {pub.authors.map((author, i) => (
-              <span key={author}>
-                {author === 'Sicheng Fan' ? (
-                  <strong className="text-slate-800">{author}</strong>
-                ) : (
-                  author
-                )}
-                {i < pub.authors.length - 1 ? ', ' : ''}
-              </span>
-            ))}
+            <PublicationAuthors pub={pub} />
           </p>
           <p className="text-sm text-slate-500 mb-3 italic">{pub.venue}, {pub.year}</p>
 

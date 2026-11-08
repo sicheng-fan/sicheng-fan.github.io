@@ -3,6 +3,7 @@ export interface Publication {
   title: string
   titleZh: string
   authors: string[]
+  authorDisplayLimit?: number
   venue: string
   venueShort: string
   year: number
@@ -103,7 +104,33 @@ export const publications: Publication[] = [
       'Junli Wang',
       'Chencan Wu',
       'Rui Xie',
+      'Tianbao Xie',
+      'Zhihui Xie',
+      'Haiyang Xu',
+      'An Yang',
+      'Tao Yu',
+      'Wenzhen Yuan',
+      'Xi Zhang',
+      'Zhenru Zhang',
+      'Mingkang Zhu',
+      'Zhaoqing Zhu',
+      'Yizhong Cao',
+      'Kai Dang',
+      'Binyuan Hui',
+      'Kaixin Li',
+      'Junyang Lin',
+      'Haiquan Wang',
+      'Zekun Wang',
+      'Yiheng Xu',
+      'Fan Yan',
+      'Mengqi Yuan',
+      'Danyang Zhang',
+      'Jiajun Zhang',
+      'Zhipeng Zhang',
+      'Fan Zhou',
+      'Fan Zhou',
     ],
+    authorDisplayLimit: 21,
     venue: 'Technical Report',
     venueShort: 'Qwen-CUA 2026',
     year: 2026,

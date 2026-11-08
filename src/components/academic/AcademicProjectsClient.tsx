@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { Github, ExternalLink, Star, GitFork, BookOpen, ChevronDown, ChevronUp, Copy, Check, Code2 } from 'lucide-react'
 import { useLanguage } from '@/lib/i18n'
 import { publications, generateBibtex } from '@/data/publications'
+import { PublicationAuthors } from './PublicationAuthors'
 
 interface Project {
   title: string
@@ -56,14 +57,7 @@ function PubCard({ pub, language }: { pub: typeof publications[0]; language: 'zh
             </p>
           )}
           <p className="text-sm text-slate-600 mb-2">
-            {pub.authors.map((author, i) => (
-              <span key={author}>
-                {author === 'Sicheng Fan'
-                  ? <strong className="text-slate-800">{author}</strong>
-                  : author}
-                {i < pub.authors.length - 1 ? ', ' : ''}
-              </span>
-            ))}
+            <PublicationAuthors pub={pub} />
           </p>
           <p className="text-sm italic text-slate-500 mb-3">{pub.venue}, {pub.year}</p>
 
