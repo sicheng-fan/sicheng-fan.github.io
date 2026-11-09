@@ -61,8 +61,9 @@ export function OwnerVisitorPage() {
     try {
       const r = await fetch(endpoint, { ...options, method: 'DELETE' })
       if (!r.ok) throw new Error()
+      pending.current?.abort()
       setReport(null); setPhase('locked')
-    } catch { setMessage('退出未完成，请重试。') }
+    } catch { setPhase('ready'); setMessage('退出未完成，请重试。') }
     finally { setWorking(false) }
   }
 
@@ -78,7 +79,7 @@ export function OwnerVisitorPage() {
     </header>
     {report ? <div aria-busy={phase === 'loading'}>
       {message && <p role="alert" className="mx-auto max-w-6xl px-6 pt-4 text-sm text-red-700">{message}</p>}
-      <VisitorDashboard report={report} filter={{site: report.site, days: report.days}} onFilterChange={f => { setPhase('loading'); setFilter({...f}) }} />
+      <VisitorDashboard report={report} filter={{site: report.site, days: report.days}} onFilterChange={f => { if (!working) { setPhase('loading'); setFilter({...f}) } }} />
     </div> : <div className="mx-auto max-w-md px-5 py-16 sm:py-24">
       <div className="rounded-xl border border-slate-200 bg-white p-7 shadow-sm">
         <h1 className="text-2xl font-semibold tracking-tight">访客地图</h1>

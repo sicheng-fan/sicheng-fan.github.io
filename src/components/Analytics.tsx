@@ -8,7 +8,7 @@ export function AnalyticsTracker() {
   const pathname = usePathname()
   const counted = useRef(false)
   useEffect(() => {
-    if (pathname !== '/') { counted.current = false; return }
+    if (pathname !== '/' && pathname !== '/index.html') { counted.current = false; return }
     if (counted.current || !hasAnalyticsBackend || navigator.doNotTrack === '1' ||
         (navigator as Navigator & { globalPrivacyControl?: boolean }).globalPrivacyControl) return
     counted.current = true
