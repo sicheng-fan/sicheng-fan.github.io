@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
-import { createHash } from 'node:crypto'
+import { createHash, randomBytes, scryptSync } from 'node:crypto'
 import { spawn, execFileSync } from 'node:child_process'
-import { mkdtemp, readFile, rm, access } from 'node:fs/promises'
+import { mkdtemp, readFile, writeFile, rm, access } from 'node:fs/promises'
 import { createRequire } from 'node:module'
 import net from 'node:net'
 import os from 'node:os'
@@ -37,17 +37,20 @@ try {
   const port = socket.address().port
   await new Promise((resolve) => socket.close(resolve))
   const data = path.join(temp, 'smoke-analytics')
+  const password = randomBytes(32).toString('base64url'), salt = randomBytes(16)
+  const config = path.join(temp, 'test-owner.json')
+  await writeFile(config, JSON.stringify({ salt: salt.toString('hex'), hash: scryptSync(password, salt, 64).toString('hex') }), {mode: 0o600})
   server = spawn(process.execPath, [path.join(standalone, 'server.js')], {
     cwd: standalone,
     env: { PATH: process.env.PATH, NODE_ENV: 'production', HOSTNAME: '127.0.0.1',
-      PORT: String(port), ANALYTICS_DATA_DIR: data, NEXT_TELEMETRY_DISABLED: '1' },
+      PORT: String(port), ANALYTICS_DATA_DIR: data, VISITOR_OWNER_CONFIG: config, NEXT_TELEMETRY_DISABLED: '1' },
     stdio: ['ignore', 'pipe', 'pipe'],
   })
   server.on('error', (error) => { startError = error; log += error.message })
   for (const stream of [server.stdout, server.stderr]) stream.on('data', (chunk) => { log = (log + chunk).slice(-12000) })
-  const request = async (route, options = {}) => {
+  const request = async (route, options = {}, expected = 200) => {
     const response = await fetch(`http://127.0.0.1:${port}${route}`, { ...options, signal: AbortSignal.timeout(5000) })
-    assert.equal(response.status, 200, route)
+    assert.equal(response.status, expected, route)
     return response
   }
   let ready = false
@@ -55,7 +58,7 @@ try {
   while (Date.now() < deadline) {
     if (startError) throw startError
     if (server.exitCode !== null) throw new Error('Standalone exited before startup')
-    try { await request('/api/analytics'); ready = true; break } catch { await delay(250) }
+    try { await request('/'); ready = true; break } catch { await delay(250) }
   }
   assert(ready, 'Standalone did not start')
 
@@ -97,17 +100,34 @@ try {
     assert(route, 'Static asset reference missing')
     assert((await (await request(route)).arrayBuffer()).byteLength > 0, route)
   }
-  const initial = await (await request('/api/analytics')).json()
-  assert.equal(initial.totalVisits, 0)
-  const recorded = await (await request('/api/analytics', { method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'X-Forwarded-For': '192.0.2.123' },
-    body: JSON.stringify({ page: '/artifact-smoke' }) })).json()
-  assert.equal(recorded.totalVisits, 1)
-  const saved = JSON.parse(await readFile(path.join(data, 'analytics.json'), 'utf8'))
-  assert.equal(saved.totalVisits, 1)
-  assert.equal(saved.uniqueVisitors, 1)
-  assert.equal((await (await request('/api/analytics')).json()).totalVisits, 1)
-  console.log('PASS: isolated standalone, publication pages, blog/search, static assets, and persisted analytics')
+  const owner = '/api/owner/visitors'
+  const main = 'https://fansicheng.online', pages = 'https://sicheng-fan.github.io'
+  const sameOrigin = { Host: 'fansicheng.online', Origin: main, 'Content-Type': 'application/json' }
+  const denied = await request(owner, {}, 401)
+  assert.match(denied.headers.get('cache-control'), /no-store/)
+  await request('/api/analytics?token=unused', {}, 404)
+  await request(owner, {method:'POST', headers:{...sameOrigin, Origin:pages}, body:JSON.stringify({password})}, 403)
+  await request(owner, {method:'POST', headers:sameOrigin, body:JSON.stringify({password:'incorrect'})}, 401)
+  const login = await request(owner, {method:'POST', headers:sameOrigin, body:JSON.stringify({password})})
+  const setCookie = login.headers.get('set-cookie')
+  for (const flag of [/HttpOnly/i, /Secure/i, /SameSite=Strict/i]) assert.match(setCookie, flag)
+  const cookie = setCookie.split(';')[0]
+  for (const origin of [main, pages]) {
+    const ack = await fetch(`http://127.0.0.1:${port}/api/analytics`, {method:'POST', headers:{...sameOrigin, Origin:origin, 'X-Real-IP':'8.8.8.8'}, body:JSON.stringify({page:'/'})})
+    assert(ack.ok, 'Homepage collection')
+    assert(!/totalVisits|visitors|countries|totalViews/.test(await ack.text()))
+  }
+  const report = await (await request(owner, {headers:{Cookie:cookie}})).json()
+  assert.equal(report.totalViews, 2)
+  assert.deepEqual(report.sites, {main:1,pages:1})
+  assert(report.countries.length > 0, 'Offline country database packaged')
+  const filtered = await (await request(owner + '?site=pages&days=7', {headers:{Cookie:cookie}})).json()
+  assert.equal(filtered.totalViews, 1)
+  assert(!JSON.stringify(report).includes('8.8.8.8'))
+  assert(!(await readFile(path.join(data, 'analytics-v2.json'), 'utf8')).includes('8.8.8.8'))
+  await request(owner, {method:'DELETE', headers:{...sameOrigin,Cookie:cookie}})
+  await request(owner, {headers:{Cookie:cookie}}, 401)
+  console.log('PASS: standalone, content, private merged homepage analytics, login and logout')
 } catch (error) {
   console.error(log)
   throw error

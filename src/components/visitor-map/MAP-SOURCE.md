@@ -1,0 +1,3 @@
+The country and region outlines and label positions in `world.json` are derived from [Natural Earth 1:50m Admin 0 – Countries, v5.1.2](https://github.com/nvkelso/natural-earth-vector/blob/v5.1.2/geojson/ne_50m_admin_0_countries.geojson). Natural Earth provides these geographic data in the [public domain](https://www.naturalearthdata.com/about/terms-of-use/).
+
+The local asset uses the Equal Earth projection, simplified SVG paths and country-level label anchors. Multiple parts with the same regional code share a shape. The marker for a region is a cartographic label position, not a visitor location. Small regions that the basemap does not represent remain in the report's geographic ranking.
