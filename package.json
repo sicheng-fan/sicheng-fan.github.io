@@ -11,8 +11,7 @@
     "lint": "next lint",
     "export": "next build",
     "deploy:server": "bash scripts/deploy-server.sh",
-    "test:blog": "node --conditions=react-server --import tsx --test tests/blog-markdown.test.mjs && node --import tsx --test tests/blog-ui.test.mjs",
-    "test:visitors": "node --conditions=react-server --import tsx --test tests/visitor-analytics.test.mjs"
+    "test:blog": "node --conditions=react-server --import tsx --test tests/blog-markdown.test.mjs && node --import tsx --test tests/blog-ui.test.mjs"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.0.0",

@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import { LanguageProvider } from '@/lib/i18n'
 import { ThemeProvider } from '@/lib/theme'
 import { LayoutClient } from '@/components/LayoutClient'
-import { AnalyticsTracker } from '@/components/Analytics'
 import './globals.css'
 import 'katex/dist/katex.min.css'
 
@@ -46,7 +45,6 @@ export default function RootLayout({
       <body suppressHydrationWarning>
         <LanguageProvider>
           <ThemeProvider>
-            <AnalyticsTracker />
             <LayoutClient>
               {children}
             </LayoutClient>

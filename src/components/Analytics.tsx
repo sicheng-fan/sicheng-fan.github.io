@@ -1,22 +1,126 @@
-'use client'
+'use client';
 
-import { useEffect, useRef } from 'react'
-import { usePathname } from 'next/navigation'
-import { apiUrl, hasAnalyticsBackend } from '@/lib/api'
+import { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
+import { apiUrl, hasAnalyticsBackend } from '@/lib/api';
 
+interface AnalyticsData {
+  totalVisits: number;
+  uniqueVisitors: number;
+  todayVisits: number;
+  todayUniqueVisitors: number;
+}
+
+// 访客统计记录组件 - 放在 layout 中自动记录访问
 export function AnalyticsTracker() {
-  const pathname = usePathname()
-  const counted = useRef(false)
+  const pathname = usePathname();
+
   useEffect(() => {
-    if (pathname !== '/' && pathname !== '/index.html') { counted.current = false; return }
-    if (counted.current || !hasAnalyticsBackend || navigator.doNotTrack === '1' ||
-        (navigator as Navigator & { globalPrivacyControl?: boolean }).globalPrivacyControl) return
-    counted.current = true
-    void fetch(apiUrl('/api/analytics'), {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      credentials: 'omit', referrerPolicy: 'strict-origin', cache: 'no-store', keepalive: true,
-      body: JSON.stringify({ page: '/' }),
-    }).catch(() => { /* Analytics must never interrupt a visit. */ })
-  }, [pathname])
-  return null
+    if (!hasAnalyticsBackend) return;
+    // 记录页面访问
+    const recordVisit = async () => {
+      try {
+        await fetch(apiUrl('/api/analytics'), {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ page: pathname }),
+        });
+      } catch (error) {
+        // 静默失败，不影响用户体验
+        console.error('Failed to record visit:', error);
+      }
+    };
+
+    recordVisit();
+  }, [pathname]);
+
+  return null;
+}
+
+// 访客统计展示组件 - 可以放在页脚或其他位置显示
+export function AnalyticsDisplay() {
+  const [stats, setStats] = useState<AnalyticsData | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!hasAnalyticsBackend) {
+      setLoading(false);
+      return;
+    }
+    const fetchStats = async () => {
+      try {
+        const response = await fetch(apiUrl('/api/analytics'));
+        if (response.ok) {
+          const data = await response.json();
+          setStats(data);
+        }
+      } catch (error) {
+        console.error('Failed to fetch analytics:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStats();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="text-xs text-gray-500 animate-pulse">
+        加载统计数据...
+      </div>
+    );
+  }
+
+  if (!stats) {
+    return null;
+  }
+
+  return (
+    <div className="flex items-center gap-4 text-xs text-gray-500">
+      <span title="总访问量">
+        👁️ {stats.totalVisits.toLocaleString()} 次访问
+      </span>
+      <span title="独立访客">
+        👤 {stats.uniqueVisitors.toLocaleString()} 位访客
+      </span>
+      <span title="今日访问">
+        📅 今日 {stats.todayVisits} 次
+      </span>
+    </div>
+  );
+}
+
+// 简洁版统计展示
+export function VisitorCounter() {
+  const [count, setCount] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (!hasAnalyticsBackend) return;
+    const fetchCount = async () => {
+      try {
+        const response = await fetch(apiUrl('/api/analytics'));
+        if (response.ok) {
+          const data = await response.json();
+          setCount(data.totalVisits);
+        }
+      } catch (error) {
+        console.error('Failed to fetch visitor count:', error);
+      }
+    };
+
+    fetchCount();
+  }, []);
+
+  if (count === null) {
+    return <span className="text-gray-500">--</span>;
+  }
+
+  return (
+    <span className="font-mono text-green-400">
+      {count.toLocaleString()}
+    </span>
+  );
 }

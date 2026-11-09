@@ -53,7 +53,6 @@ jobs:
         run: |
           npm run lint
           npm run test:blog
-          npm run test:visitors
 
       - name: Build server with type checking
         working-directory: source

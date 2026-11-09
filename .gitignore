@@ -51,5 +51,4 @@ next-env.d.ts
 Thumbs.db
 
 # Analytics data
-data/*
-!data/.gitkeep
+data/analytics.json

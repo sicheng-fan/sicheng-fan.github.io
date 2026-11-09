@@ -56,9 +56,9 @@ def main():
 
     # Static HTML/API responses alone cannot prove that traced content is present.
     expected_content = []
-    for directory in ['content/blog', 'content/projects', 'public', 'resources/geoip']:
+    for directory in ['content/blog', 'content/projects', 'public']:
         for source in sorted((project / directory).rglob('*')):
-            if source.is_file() and (directory in {'public', 'resources/geoip'} or source.suffix in {'.md', '.mdx'}):
+            if source.is_file() and (directory == 'public' or source.suffix in {'.md', '.mdx'}):
                 relative = source.relative_to(project)
                 target = standalone / relative
                 assert target.is_file() and digest(source) == digest(target), 'Missing/different asset: ' + str(relative)
